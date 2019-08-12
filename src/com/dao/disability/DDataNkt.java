@@ -1,11 +1,15 @@
 package com.dao.disability;
 
+
 import com.exp.EException;
+
 import com.form.FBeans;
 import com.form.FSeed;
 import com.form.disability.FDataNkt;
 import com.form.disability.FIndicatorKpi;
+
 import com.lib.AppConfigs;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,7 +20,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.digester.plugins.strategies.FinderFromClass;
 
 public class DDataNkt extends DSqlDisability {
     

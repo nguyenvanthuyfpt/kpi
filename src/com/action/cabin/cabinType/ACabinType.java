@@ -1,5 +1,6 @@
 package com.action.cabin.cabinType;
 
+
 import com.action.ACore;
 
 import com.bo.cabin.BCabin;

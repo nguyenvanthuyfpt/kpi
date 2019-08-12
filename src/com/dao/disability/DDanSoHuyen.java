@@ -17,6 +17,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class DDanSoHuyen  extends DSqlDisability{
   
     public FDanSoHuyen getByPeriod(Connection cnn,int period,int year,int idProvine) throws EException

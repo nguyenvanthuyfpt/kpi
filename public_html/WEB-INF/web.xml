@@ -6,6 +6,9 @@
     <listener>
         <listener-class>com.users.OnlineSessions</listener-class>
     </listener>
+     <listener>
+        <listener-class>com.util.Tasks</listener-class>
+    </listener>
     <servlet>
         <servlet-name>action</servlet-name>
         <servlet-class>com.action.AServlet</servlet-class>

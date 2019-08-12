@@ -1,22 +1,21 @@
 package com.dao.messages.create;
 
+
 import com.action.doc.assign.CopyFile;
 
 import com.dao.messages.DSqlMessages;
 
-import com.form.FSeed;
-import com.form.FBeans;
 import com.exp.EException;
 
+import com.form.FBeans;
+import com.form.FSeed;
 import com.form.messages.create.FCreate;
-
 
 import com.lib.AppConfigs;
 
 import java.io.File;
 
 import java.sql.Connection;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

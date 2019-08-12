@@ -1,18 +1,20 @@
 package com.bo.mail.mailFilter;
 
-import com.exp.EException;
-import com.lib.AppConfigs;
+
 import com.dao.connection.DBConnector;
 import com.dao.mail.mailFilter.DMailFilter;
-import com.form.FSeed;
+
+import com.exp.EException;
+
 import com.form.FBeans;
+import com.form.FSeed;
 import com.form.mail.mailFilter.FMailFilter;
+
+import com.lib.AppConfigs;
+
 import java.sql.Connection;
 
-import javax.mail.Folder;
-import javax.mail.Message;
 
-import org.apache.struts.action.ActionErrors;
 public class BMailFilter
 {
     public FBeans getAll(long meId) throws  EException

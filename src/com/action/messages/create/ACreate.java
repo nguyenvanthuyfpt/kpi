@@ -1,18 +1,15 @@
 package com.action.messages.create;
 
-import com.action.ACore;
 
 //import com.action.mail.AControl;
 
-import com.bo.admin.users.BUsers;
 
-
+import com.action.ACore;
 
 import com.bo.admin.mail.BRegister;
+import com.bo.admin.users.BUsers;
 import com.bo.messages.create.BCreate;
-
 import com.bo.messages.create.BCreateFiles;
-
 
 import com.dao.sms.DSendSms;
 
@@ -20,22 +17,16 @@ import com.exp.EException;
 
 import com.form.FBeans;
 import com.form.admin.departments.FDepartment;
+import com.form.admin.mail.FMailAccount;
 import com.form.admin.users.FUser;
 import com.form.mail.FMail;
-import com.form.admin.mail.FMailAccount;
 import com.form.messages.create.FCreate;
-
 
 import com.lib.AppConfigs;
 
-
 import java.io.IOException;
 
-
-
 import java.sql.SQLException;
-
-import javax.mail.Folder;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -46,6 +37,7 @@ import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+
 
 public class ACreate extends  ACore {
     public ActionForward executeAction(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws EException,IOException, ServletException,SQLException

@@ -31,6 +31,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class DDocsrecv extends DSqlForYou
 {
     public boolean isExistAdd(Connection conn, FSeed seed)throws EException{

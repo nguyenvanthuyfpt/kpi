@@ -1,19 +1,22 @@
 package com.bo.report.reportType;
 
+
+import com.dao.connection.DBConnector;
 import com.dao.report.reportType.DReportType;
 
 import com.exp.EException;
-import com.lib.AppConfigs;
-import com.dao.connection.DBConnector;
-import com.form.FSeed;
-import com.form.FBeans;
 
+import com.form.FBeans;
+import com.form.FSeed;
 import com.form.report.reportType.FReportType;
 
+import com.lib.AppConfigs;
+
 import java.sql.Connection;
-import java.sql.SQLException;
+
 import org.apache.struts.action.ActionError;
 import org.apache.struts.action.ActionErrors;
+
 
 public class BReportType
 {

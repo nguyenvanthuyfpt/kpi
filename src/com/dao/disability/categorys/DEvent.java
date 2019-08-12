@@ -8,7 +8,6 @@ import com.exp.EException;
 import com.form.FBeans;
 import com.form.FSeed;
 import com.form.disability.categorys.FEvent;
-import com.form.disability.categorys.FIndicator;
 
 import com.lib.AppConfigs;
 
@@ -17,14 +16,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import java.sql.Statement;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.digester.plugins.strategies.FinderFromClass;
 
 public class DEvent extends DSqlDisability {
     public boolean isExist(Connection conn, FSeed seed) throws EException {

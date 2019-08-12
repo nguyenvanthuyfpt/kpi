@@ -8,7 +8,6 @@ import com.exp.EException;
 import com.form.FBeans;
 import com.form.FSeed;
 import com.form.disability.categorys.FNguyennhan;
-import com.form.disability.categorys.FNguyennhan;
 
 import com.lib.AppConfigs;
 
@@ -19,6 +18,7 @@ import java.sql.SQLException;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class DNguyennhan extends DSqlDisability {
     public boolean isExist(Connection conn, FSeed seed) throws EException {

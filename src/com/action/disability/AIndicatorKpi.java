@@ -1,5 +1,6 @@
 package com.action.disability;
 
+
 import com.action.ACore;
 
 import com.bo.disability.BDataDtl;
@@ -9,10 +10,10 @@ import com.bo.disability.BDataPer;
 import com.bo.disability.BDataRank;
 import com.bo.disability.BDisProfile;
 import com.bo.disability.BDisReport;
-import com.bo.disability.BPerson;
 import com.bo.disability.BDisability;
 import com.bo.disability.BEventObjInd;
 import com.bo.disability.BObjectInd;
+import com.bo.disability.BPerson;
 import com.bo.disability.BPhanLoai;
 import com.bo.disability.BSupport;
 import com.bo.disability.categorys.BDangTat;
@@ -36,10 +37,10 @@ import com.form.disability.FDataPer;
 import com.form.disability.FDataRank;
 import com.form.disability.FDisProfile;
 import com.form.disability.FDisReport;
-import com.form.disability.FPerson;
 import com.form.disability.FDisability;
 import com.form.disability.FEventObjInd;
 import com.form.disability.FObjectInd;
+import com.form.disability.FPerson;
 import com.form.disability.FPhanLoai;
 import com.form.disability.FSupport;
 import com.form.disability.categorys.FEvent;
@@ -47,15 +48,19 @@ import com.form.disability.categorys.FIndicator;
 import com.form.disability.categorys.FObject;
 import com.form.disability.categorys.FRank;
 import com.form.disability.categorys.FTinh;
-
 import com.form.disability.report.FReportKpiData;
 import com.form.disability.search.FSearch;
+
 import com.inf.disability.IKeyDisability;
+
 import com.util.Constant;
 import com.util.Formater;
 import com.util.Utilities;
+
 import java.io.IOException;
+
 import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -72,7 +77,6 @@ import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 
 

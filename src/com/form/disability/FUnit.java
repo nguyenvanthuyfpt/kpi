@@ -1,9 +1,8 @@
 package com.form.disability;
 
+
 import com.form.FBeans;
 import com.form.FSeed;
-
-import org.apache.struts.upload.FormFile;
 
 public class FUnit extends FSeed {
     //catogory

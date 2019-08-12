@@ -20,6 +20,7 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class DDetails  extends DSql
 {
     public FDetail getRecordByID(Connection cnn, FSeed seed) throws EException

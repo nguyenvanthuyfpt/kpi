@@ -1,12 +1,13 @@
 package com.action.doc.docreport;
+
+
 import com.action.ACore;
 
 import com.bo.admin.departments.BDepartments;
 import com.bo.doc.docreport.BDocReport;
 
-
-
 import com.exp.EException;
+
 import com.form.FBeans;
 import com.form.admin.users.FUser;
 import com.form.doc.docreport.FDocReport;
@@ -16,10 +17,13 @@ import com.inf.doc.IKeyDoc;
 import com.lib.AppConfigs;
 
 import java.io.IOException;
+
 import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,6 +33,7 @@ import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+
 
 public class ADocReport extends  ACore {
     public ActionForward executeAction(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws EException,IOException, ServletException,SQLException

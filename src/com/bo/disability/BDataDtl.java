@@ -3,25 +3,22 @@ package com.bo.disability;
 
 import com.dao.connection.DBConnector;
 import com.dao.disability.DDataDtl;
-import com.dao.disability.categorys.DIndicator;
-import com.dao.disability.DIndicatorKpi;
 
 import com.exp.EException;
+
 import com.form.FBeans;
 import com.form.FSeed;
 import com.form.disability.FDataDtl;
-import com.form.disability.FIndicatorKpi;
+
 import com.lib.AppConfigs;
+
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
+
 
 public class BDataDtl {
     DDataDtl dao = new DDataDtl();    

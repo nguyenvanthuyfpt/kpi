@@ -4,8 +4,6 @@ package com.form.disability.report;
 import com.form.FBeans;
 import com.form.FSeed;
 
-import java.util.Date;
-
 
 public class FReportKpiData extends FSeed {
     

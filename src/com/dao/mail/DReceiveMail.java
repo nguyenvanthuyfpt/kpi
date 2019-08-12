@@ -48,6 +48,7 @@ import javax.mail.search.ReceivedDateTerm;
 import javax.mail.search.SearchTerm;
 import javax.mail.search.SubjectTerm;
 
+
 public class DReceiveMail extends DSqlMail{
     
     public void filterSpam(Folder folder,long meId) throws  EException 

@@ -1,6 +1,5 @@
 package com.form.disability;
 
-import com.form.FBeans;
 import com.form.FSeed;
 
 public class FDataPer extends FSeed {

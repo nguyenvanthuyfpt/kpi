@@ -1,8 +1,7 @@
 package com.action.mycontact;
 
+
 import com.action.ACore;
-
-
 
 import com.bo.admin.menu.BMenu;
 import com.bo.messages.create.BCreate;
@@ -15,20 +14,22 @@ import com.form.FBeans;
 import com.form.admin.departments.FDepartment;
 import com.form.messages.create.FCreate;
 import com.form.mycontact.FMycontact;
-
 import com.form.pgroups.FPgroup;
 
-
 import java.io.IOException;
+
 import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.struts.action.ActionError;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+
 
 public class AMycontact extends  ACore {
     public ActionForward executeAction(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws EException,IOException, ServletException,SQLException

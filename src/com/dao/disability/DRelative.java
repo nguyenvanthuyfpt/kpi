@@ -17,6 +17,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class DRelative  extends DSqlDisability{
     public FBeans getAllByIdNkt(Connection cnn,int idNkt) throws EException
     {

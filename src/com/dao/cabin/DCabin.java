@@ -23,6 +23,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class DCabin  extends DSqlCabin
 {
     public FBeans getAllByType(Connection cnn,FSeed seed) throws EException

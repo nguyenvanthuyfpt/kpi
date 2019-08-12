@@ -20,6 +20,7 @@ import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+
 public class BDanhgia {
 
     public FDanhgia getRecordByID(FSeed seed) throws EException, SQLException {

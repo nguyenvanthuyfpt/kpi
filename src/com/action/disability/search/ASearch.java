@@ -1,23 +1,20 @@
 package com.action.disability.search;
 
+
 import com.action.ACore;
 
-import com.bo.admin.users.BUsers;
-import com.bo.disability.BDisability;
 import com.bo.disability.categorys.BDangTat;
 import com.bo.disability.categorys.BEvent;
 import com.bo.disability.categorys.BTinh;
 import com.bo.disability.list.BList;
 import com.bo.disability.search.BSearch;
 
-import com.bo.tree.BTreeView;
 import com.dao.disability.report.DReportKpiData;
 
 import com.exp.EException;
+
 import com.form.FBeans;
 import com.form.FSeed;
-import com.form.admin.users.FUser;
-import com.form.disability.FDisability;
 import com.form.disability.FPhanLoai;
 import com.form.disability.FSupport;
 import com.form.disability.categorys.FEvent;
@@ -38,13 +35,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import javax.servlet.http.HttpSession;
 
 import org.apache.struts.action.ActionError;

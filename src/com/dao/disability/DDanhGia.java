@@ -1,12 +1,11 @@
 package com.dao.disability;
 
+
 import com.exp.EException;
 
 import com.form.FBeans;
 import com.form.FSeed;
 import com.form.disability.FDanhGia;
-
-import com.form.disability.FRank;
 
 import com.lib.AppConfigs;
 
@@ -17,6 +16,7 @@ import java.sql.SQLException;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class DDanhGia extends DSqlDisability {
 

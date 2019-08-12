@@ -1,10 +1,11 @@
 package com.form.tasks.report;
 
+
 import com.form.FSeed;
 
 import org.apache.struts.upload.FormFile;
 
-    public class FReport extends FSeed{
+public class FReport extends FSeed{
     private int checkHaveReport;
     private String checkEmps;
     private int[] checkEmp;

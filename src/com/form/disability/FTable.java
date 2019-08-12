@@ -1,8 +1,7 @@
 package com.form.disability;
 
-import com.form.FSeed;
 
-import org.apache.struts.upload.FormFile;
+import com.form.FSeed;
 
 public class FTable extends FSeed {
     private String tableName;

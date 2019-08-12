@@ -1,8 +1,7 @@
 package com.form.doc.docsSearch;
 
-import com.form.FSeed;
 
-import org.apache.struts.upload.FormFile;
+import com.form.FSeed;
 
 public class FFilesSearch extends FSeed
 {

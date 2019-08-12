@@ -2,23 +2,27 @@ package com.action.disability.report;
 
 
 import com.action.ACore;
+
 import com.bo.disability.categorys.BTinh;
 import com.bo.disability.report.BReportKpi;
 import com.bo.tree.BTreeView;
 
 import com.dao.disability.report.DReportKpi;
-import com.dao.disability.report.DReportKpiData;
 
 import com.exp.EException;
+
 import com.form.FBeans;
-import com.form.disability.FDisExport;
 import com.form.disability.categorys.FTinh;
 import com.form.disability.report.FReportKpi;
+
 import com.inf.disability.IKeyDisability;
+
 import com.util.Constant;
 
 import java.io.IOException;
+
 import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,10 +31,12 @@ import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+
 
 public class AReportKpi extends  ACore {
     public ActionForward executeAction(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws EException,IOException, ServletException, SQLException

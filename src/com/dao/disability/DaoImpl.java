@@ -1,5 +1,6 @@
 package com.dao.disability;
 
+
 import com.dao.connection.DBConnector;
 
 import com.exp.EException;
@@ -8,7 +9,6 @@ import java.sql.Connection;
 
 import org.apache.log4j.Logger;
 
-import org.jdbcdslog.ConnectionLoggingProxy;
 
 public class DaoImpl implements Dao {
     private Connection conn = null;

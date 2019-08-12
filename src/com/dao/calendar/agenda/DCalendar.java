@@ -22,6 +22,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class DCalendar extends DSqlMyagenda
 {
     public FAgenda[] getCalByDay(Connection cnn,int userId, Date dayStart,int Days,int type,long departmentId) throws EException{

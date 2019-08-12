@@ -1,31 +1,23 @@
 package com.action.disability.categorys;
 
+
 import com.action.ACore;
 
 import com.bo.disability.BObjectInd;
-import com.bo.disability.categorys.BDoiTuong;
 import com.bo.disability.categorys.BIndicator;
 import com.bo.disability.categorys.BObject;
-import com.bo.disability.categorys.BTinh;
 import com.bo.tree.BTreeView;
 
 import com.exp.EException;
 
 import com.form.FBeans;
 import com.form.disability.FObjectInd;
-import com.form.disability.categorys.FDoiTuong;
-
 import com.form.disability.categorys.FIndicator;
 import com.form.disability.categorys.FObject;
-
-import com.form.disability.categorys.FTinh;
 
 import java.io.IOException;
 
 import java.sql.SQLException;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

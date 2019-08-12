@@ -25,6 +25,7 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class DRequires  extends DSqlRequire
 {
     public int getTotalWaitRecv(Connection cnn,long userId) throws EException{

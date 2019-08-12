@@ -1,5 +1,6 @@
 package com.action.disability.categorys;
 
+
 import com.action.ACore;
 
 import com.bo.disability.categorys.BQuanhe;
@@ -7,8 +8,6 @@ import com.bo.disability.categorys.BQuanhe;
 import com.exp.EException;
 
 import com.form.disability.categorys.FQuanhe;
-
-import com.inf.IRoles;
 
 import java.io.IOException;
 
@@ -23,6 +22,7 @@ import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+
 
 public class AQuanhe extends ACore {
     public ActionForward executeAction(ActionMapping mapping, ActionForm form, HttpServletRequest request,

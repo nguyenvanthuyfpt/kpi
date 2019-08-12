@@ -1,9 +1,8 @@
 package com.form.importdata;
 
+
 import com.form.FBeans;
 import com.form.FSeed;
-
-import org.apache.struts.upload.FormFile;
 
 public class FImportData extends FSeed
 {

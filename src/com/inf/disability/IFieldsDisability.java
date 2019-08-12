@@ -1,8 +1,7 @@
 package com.inf.disability;
 
-import com.inf.IParams;
 
-import java.sql.Date;
+import com.inf.IParams;
 
 public interface IFieldsDisability extends IParams {
         

@@ -2,24 +2,18 @@ package com.dao.disability.search;
 
 
 import com.dao.disability.DSqlDisability;
-import com.dao.disability.DSupport;
-import com.dao.disability.categorys.DDangTat;
-import com.dao.disability.categorys.DDieuKien;
 import com.dao.disability.categorys.DTinh;
 
 import com.exp.EException;
 
 import com.form.FBeans;
 import com.form.FSeed;
-import com.form.disability.FSupport;
-import com.form.disability.categorys.FDieuKien;
 import com.form.disability.report.FReportKpiData;
 import com.form.disability.search.FSearch;
 
 import com.lib.AppConfigs;
 
 import com.util.Constant;
-
 import com.util.Utilities;
 
 import java.sql.CallableStatement;
@@ -32,7 +26,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;

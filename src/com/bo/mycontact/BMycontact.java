@@ -1,5 +1,6 @@
 package com.bo.mycontact;
 
+
 import com.dao.connection.DBConnector;
 import com.dao.mycontact.DMycontact;
 

@@ -1,27 +1,20 @@
 package com.dao.disability;
 
+
 import com.exp.EException;
 
-import com.form.FBeans;
 import com.form.FSeed;
-import com.form.disability.FDataNkt;
-import com.form.disability.FDataPer;
 import com.form.disability.FEventInd;
-import com.form.disability.FIndicatorKpi;
-
-import com.form.disability.categorys.FEvent;
 
 import com.lib.AppConfigs;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.digester.plugins.strategies.FinderFromClass;
 
 public class DEventInd extends DSqlDisability {
 

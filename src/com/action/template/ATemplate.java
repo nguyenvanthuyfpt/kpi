@@ -1,24 +1,19 @@
 package com.action.template;
 
-import com.action.ACore;
 
+import com.action.ACore;
 
 import com.bo.admin.departments.BDepartments;
 import com.bo.admin.templates.rules.BTemplatesRule;
 import com.bo.admin.users.BUsers;
-
 import com.bo.foryou.BForYou;
-
 import com.bo.template.BTemplate;
-
 import com.bo.template.templateType.BTemplateType;
 
 import com.exp.EException;
 
-
 import com.form.admin.templates.rules.FTemplatesRule;
 import com.form.admin.users.FUser;
-
 import com.form.template.FTemplate;
 
 import com.lib.AppConfigs;
@@ -29,14 +24,17 @@ import java.io.IOException;
 import java.net.URLEncoder;
 
 import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.struts.action.ActionError;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+
 
 public class ATemplate extends  ACore {
     public ActionForward executeAction(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws EException,IOException, ServletException,SQLException

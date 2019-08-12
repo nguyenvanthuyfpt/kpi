@@ -1,21 +1,19 @@
 package com.action.doc.from;
 
+
 import com.action.ACore;
 
-
 import com.bo.admin.doc.category.form.BForm;
-
-
 import com.bo.doc.from.BFrom;
 
 import com.exp.EException;
 
-
-import com.form.FBeans;
 import com.form.doc.from.FFrom;
 
 import java.io.IOException;
+
 import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,7 +24,8 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-    public class AFrom extends  ACore {
+
+public class AFrom extends  ACore {
     public ActionForward executeAction(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws EException,IOException, ServletException,SQLException
     {
         final String LOCATION = this + "->executeAction()";

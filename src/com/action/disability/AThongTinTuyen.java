@@ -1,5 +1,6 @@
 package com.action.disability;
 
+
 import com.action.ACore;
 
 import com.bo.disability.BThongTinTuyen;
@@ -15,7 +16,6 @@ import com.exp.EException;
 import com.form.FBeans;
 import com.form.FSeed;
 import com.form.disability.FThongTinTuyen;
-import com.form.disability.FUnit;
 import com.form.disability.categorys.FTinh;
 
 import java.io.IOException;

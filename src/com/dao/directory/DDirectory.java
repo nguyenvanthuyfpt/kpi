@@ -21,6 +21,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class DDirectory extends DSqlTasks{
    
     public FBeans getAllSearch(Connection cnn,FSeed seed) throws EException{

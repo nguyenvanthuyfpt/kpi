@@ -1,16 +1,14 @@
 package com.dao.disability;
 
+
 import com.exp.EException;
+
 import com.form.FBeans;
 import com.form.FSeed;
 import com.form.disability.FDataDtl;
-import com.form.disability.FDataHdr;
 import com.form.disability.FIndicatorKpi;
-import com.form.disability.search.FSearch;
 
 import com.lib.AppConfigs;
-
-import com.util.Constant;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -22,7 +20,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.digester.plugins.strategies.FinderFromClass;
 
 public class DDataDtl extends DSqlDisability {
     public boolean isExist(Connection conn, FSeed seed) throws EException {

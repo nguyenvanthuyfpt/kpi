@@ -3,11 +3,15 @@ package com.bo.disability.categorys;
 
 import com.dao.connection.DBConnector;
 import com.dao.disability.categorys.DRank;
+
 import com.exp.EException;
+
 import com.form.FBeans;
 import com.form.FSeed;
 import com.form.disability.categorys.FRank;
+
 import com.lib.AppConfigs;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 

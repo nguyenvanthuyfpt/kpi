@@ -1,12 +1,11 @@
 package com.dao.disability;
 
+
 import com.exp.EException;
 
 import com.form.FBeans;
 import com.form.FSeed;
 import com.form.disability.FObjectInd;
-
-import com.form.disability.categorys.FEvent;
 
 import com.lib.AppConfigs;
 

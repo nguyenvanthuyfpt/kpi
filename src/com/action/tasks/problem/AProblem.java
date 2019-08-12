@@ -1,11 +1,10 @@
 package com.action.tasks.problem;
 
+
 import com.action.ACore;
 
-import com.bo.messages.create.BCreate;
 import com.bo.tasks.categories.BCategories;
 import com.bo.tasks.problem.BProblem;
-
 import com.bo.tasks.report.BReport;
 
 import com.exp.EException;
@@ -15,6 +14,7 @@ import com.form.admin.departments.FDepartment;
 import com.form.tasks.categories.FCategories;
 import com.form.tasks.problem.FProblem;
 import com.form.tasks.report.FReport;
+
 import com.lib.AppConfigs;
 
 import java.io.File;
@@ -33,6 +33,7 @@ import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+
 
 public class AProblem extends  ACore{
     public ActionForward executeAction(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws EException,IOException, ServletException,SQLException

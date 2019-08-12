@@ -3,8 +3,6 @@ package com.form.disability;
 
 import com.form.FSeed;
 
-import java.util.List;
-
 import org.apache.struts.upload.FormFile;
 
 

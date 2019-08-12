@@ -19,6 +19,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class DReport  extends DSqlAdminDoc
 {
     public FBeans getMutiData(Connection cnn,FReportSystem bean,FBeans beanTs) throws EException

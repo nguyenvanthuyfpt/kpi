@@ -1,16 +1,14 @@
 package com.action.tasks.categories;
 
+
 import com.action.ACore;
 
 import com.bo.tasks.categories.BCategories;
-
 import com.bo.tasks.problem.BProblem;
 
 import com.exp.EException;
 
-
 import com.form.tasks.categories.FCategories;
-
 import com.form.tasks.problem.FProblem;
 
 import java.io.IOException;
@@ -26,6 +24,7 @@ import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+
 
 public class ACategories extends  ACore{
     public ActionForward executeAction(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws EException,IOException, ServletException,SQLException

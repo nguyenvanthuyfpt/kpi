@@ -1,31 +1,26 @@
 package com.dao.doc.docsrecv;
 
 
-
 import com.dao.foryou.DSqlForYou;
 
-import com.form.FSeed;
-import com.form.FBeans;
 import com.exp.EException;
 
-
+import com.form.FBeans;
+import com.form.FSeed;
 import com.form.doc.docsrecv.FDocsrecv;
-
 import com.form.doc.docsrecv.FFilesRecv;
 
 import com.lib.AppConfigs;
 
 import java.io.File;
 
-
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.List;
-
 
 
 public class DFilesRecv extends DSqlForYou

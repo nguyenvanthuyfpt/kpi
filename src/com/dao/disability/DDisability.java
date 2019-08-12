@@ -9,7 +9,6 @@ import com.exp.EException;
 
 import com.form.FBeans;
 import com.form.FSeed;
-import com.form.disability.FDataNkt;
 import com.form.disability.FDisability;
 import com.form.disability.FPhanLoai;
 import com.form.disability.categorys.FDantoc;

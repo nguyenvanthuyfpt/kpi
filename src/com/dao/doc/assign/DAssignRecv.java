@@ -1,21 +1,24 @@
 package com.dao.doc.assign;
 
+
+import com.dao.admin.doc.category.transfer.DTransfer;
 import com.dao.admin.doc.rules.DDocRules;
 import com.dao.admin.users.DUsers;
-import com.dao.admin.doc.category.transfer.DTransfer;
 import com.dao.foryou.DSqlForYou;
-import com.form.FSeed;
-import com.form.FBeans;
+
 import com.exp.EException;
+
+import com.form.FBeans;
+import com.form.FSeed;
 import com.form.admin.departments.FDepartment;
+import com.form.admin.doc.category.transfer.FTransfer;
 import com.form.admin.groups.FGroup;
 import com.form.admin.users.FUser;
 import com.form.doc.assign.FDocAssign;
-import com.form.admin.doc.category.transfer.FTransfer;
 import com.form.doc.docsrecv.FDocsrecv;
 
-
 import com.lib.AppConfigs;
+
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -25,6 +28,7 @@ import java.sql.Timestamp;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class DAssignRecv extends DSqlForYou
 {

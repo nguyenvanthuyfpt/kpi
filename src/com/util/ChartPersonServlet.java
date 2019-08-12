@@ -1,11 +1,11 @@
 package com.util;
 
+
 import com.dao.connection.DBConnector;
 
 import com.exp.EException;
 
 import java.awt.Color;
-
 import java.awt.GradientPaint;
 
 import java.io.IOException;
@@ -29,8 +29,8 @@ import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.CategoryDataset;
-import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.jdbc.JDBCPieDataset;
+
 
 public class ChartPersonServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;

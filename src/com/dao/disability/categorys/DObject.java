@@ -7,12 +7,10 @@ import com.exp.EException;
 
 import com.form.FBeans;
 import com.form.FSeed;
-import com.form.disability.FUnit;
-import com.form.disability.categorys.FEvent;
 import com.form.disability.categorys.FObject;
-import com.form.disability.categorys.FTinh;
 
 import com.lib.AppConfigs;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,6 +18,7 @@ import java.sql.SQLException;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class DObject extends DSqlDisability {
     public boolean isExist(Connection conn, FSeed seed) throws EException {

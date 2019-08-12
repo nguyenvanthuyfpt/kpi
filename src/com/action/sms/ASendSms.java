@@ -1,34 +1,35 @@
 package com.action.sms;
 
+
 import com.action.ACore;
+
 import com.bo.servey.BServey;
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionMapping;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionErrors;
-import java.io.IOException;
-import javax.servlet.ServletException;
+
 import com.exp.EException;
+
 import com.form.sms.FSendSms;
-import java.net.*;
-import java.io.*;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+
 import java.net.URL;
 import java.net.URLEncoder;
-import java.sql.SQLException;
-import java.util.Date;
-import java.util.Properties;
-import javax.mail.Message;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 
-import org.apache.struts.action.ActionError;
+import java.sql.SQLException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts.action.ActionErrors;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
 
 import sun.net.www.protocol.http.HttpURLConnection;
+
 
 public class ASendSms extends ACore 
 {

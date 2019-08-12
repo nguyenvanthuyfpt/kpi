@@ -1,7 +1,9 @@
 package com.form.doc.docsrecv;
 
+
 import com.form.FBeans;
 import com.form.FSeed;
+
 import org.apache.struts.upload.FormFile;
 
 public class FDocsrecv extends FSeed

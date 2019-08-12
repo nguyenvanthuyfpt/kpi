@@ -1,15 +1,14 @@
 package com.action.disability.categorys;
 
+
 import com.action.ACore;
 
-import com.bo.admin.users.BUsers;
 import com.bo.disability.categorys.BTinh;
 import com.bo.tree.BTreeView;
 
 import com.exp.EException;
 
 import com.form.FBeans;
-import com.form.admin.users.FUser;
 import com.form.disability.categorys.FTinh;
 
 import java.io.IOException;
@@ -25,6 +24,7 @@ import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+
 
 public class ATinh extends ACore {
     public ActionForward executeAction(ActionMapping mapping, ActionForm form, 

@@ -1,37 +1,24 @@
 package com.action.doc.assign;
 
+
 import com.action.ACore;
-
-
-import com.bo.doc.docssend.BDocssend;
-import com.bo.doc.assign.BAssignRecv;
-import com.bo.doc.assign.BAssignSend;
-
-import com.bo.doc.assign.BTrailerSend;
 
 import com.bo.admin.doc.category.classify.BClassify;
 import com.bo.admin.doc.category.dossiers.BDossiers;
-
-
-import com.bo.doc.docsrecv.BDocsrecv;
+import com.bo.doc.assign.BAssignRecv;
+import com.bo.doc.assign.BAssignSend;
+import com.bo.doc.assign.BTrailerSend;
+import com.bo.doc.docssend.BDocssend;
 import com.bo.doc.docssend.BFilesSend;
-
 import com.bo.main.BMain;
 
 import com.exp.EException;
 
-
 import com.form.FBeans;
 import com.form.admin.users.FUser;
-
 import com.form.doc.assign.FDocAssign;
-
 import com.form.doc.docssend.FDocssend;
-
-
 import com.form.doc.docssend.FFilesSend;
-
-
 
 import com.lib.AppConfigs;
 
@@ -41,10 +28,10 @@ import java.io.IOException;
 import java.net.URLEncoder;
 
 import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 
 import org.apache.struts.action.ActionError;
 import org.apache.struts.action.ActionErrors;

@@ -8,7 +8,6 @@ import com.exp.EException;
 import com.form.FBeans;
 import com.form.FSeed;
 import com.form.disability.categorys.FNguonhotro;
-import com.form.disability.categorys.FNguonhotro;
 
 import com.lib.AppConfigs;
 
@@ -18,8 +17,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+
 
 public class DNguonhotro extends DSqlDisability {
     public boolean isExist(Connection conn, FSeed seed) throws EException {

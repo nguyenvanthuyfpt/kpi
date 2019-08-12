@@ -1,19 +1,20 @@
 package com.action.disability.categorys;
 
+
 import com.action.ACore;
 
-import com.bo.disability.categorys.BIndicator;
 import com.bo.disability.categorys.BRank;
-
 import com.bo.tree.BTreeView;
+
 import com.exp.EException;
 
 import com.form.FBeans;
-import com.form.disability.categorys.FIndicator;
 import com.form.disability.categorys.FRank;
+
 import java.io.IOException;
 
 import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

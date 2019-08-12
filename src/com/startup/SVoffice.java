@@ -1,8 +1,7 @@
 package com.startup;
 
-import com.bo.admin.doc.category.status.BStatus;
+
 import com.bo.admin.menu.BMenu;
-import com.bo.admin.users.BUsers;
 import com.bo.disability.BDisability;
 import com.bo.disability.BIndicatorKpi;
 import com.bo.disability.BPerson;
@@ -21,17 +20,15 @@ import com.bo.disability.categorys.BTinh;
 import com.bo.tree.BTreeView;
 
 import com.exp.EException;
+
 import com.form.FBeans;
 import com.form.admin.login.FLoginSystem;
 import com.form.admin.menu.FMenu;
-import com.form.admin.users.FUser;
 import com.form.disability.FDisability;
 import com.form.disability.FPerson;
 import com.form.disability.categorys.FIndicator;
 import com.form.disability.categorys.FTinh;
-import com.form.disability.report.FReportKpiData;
 import com.form.disability.report.FReportKpi;
-import com.form.disability.report.FReportTotal;
 import com.form.disability.search.FSearch;
 
 import com.inf.disability.IKeyDisability;
@@ -41,16 +38,14 @@ import com.util.Utilities;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
-
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.logging.Log;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
+
 
 public class SVoffice{
     

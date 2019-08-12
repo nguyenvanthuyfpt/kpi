@@ -1,27 +1,38 @@
 package com.action.require.requires;
+
+
 import com.action.ACore;
 
 import com.bo.admin.departments.BDepartments;
 import com.bo.admin.require.category.BCatRequire;
 import com.bo.admin.require.rm_status.BRmStatus;
 import com.bo.require.requires.BRequires;
+
 import com.exp.EException;
+
 import com.form.FBeans;
 import com.form.admin.departments.FDepartment;
 import com.form.admin.require.trailer.FRequireTrailer;
 import com.form.require.requires.FRequire;
+
 import com.inf.doc.IKeyDoc;
+
 import com.lib.AppConfigs;
+
 import java.io.IOException;
+
 import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.struts.action.ActionError;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+
 
 public class ARequires extends  ACore {
     public ActionForward executeAction(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws EException,IOException, ServletException,SQLException

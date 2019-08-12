@@ -1,22 +1,31 @@
 package com.action.doc.docssend;
 
+
 import com.action.ACore;
-import com.bo.doc.docssend.BDocssend;
+
 import com.bo.doc.docsSearch.BDocsSearch;
 import com.bo.doc.docsrecv.BDocsrecv;
+import com.bo.doc.docssend.BDocssend;
+
 import com.exp.EException;
+
 import com.form.doc.docsSearch.FDocsSearch;
 import com.form.doc.docsrecv.FDocsrecv;
+
 import java.io.IOException;
+
 import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.struts.action.ActionError;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+
 
 public class ADocReference extends  ACore {
     public ActionForward executeAction(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws EException,IOException, ServletException,SQLException

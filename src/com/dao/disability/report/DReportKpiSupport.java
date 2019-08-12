@@ -1,8 +1,6 @@
 package com.dao.disability.report;
 
 
-import com.bo.disability.BThongTinTuyen;
-
 import com.dao.connection.DBConnector;
 import com.dao.disability.categorys.DTinh;
 
@@ -13,12 +11,9 @@ import com.form.FExportExcel;
 import com.form.FSeed;
 import com.form.disability.FThongTinTuyen;
 import com.form.disability.report.FReportAnalysis;
-
 import com.form.disability.report.FReportKpiSupport;
 
 import com.lib.AppConfigs;
-
-import com.util.Formater;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -35,7 +30,6 @@ import java.sql.SQLException;
 import java.text.DecimalFormat;
 
 import org.apache.poi.hssf.usermodel.HSSFFont;
-import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;

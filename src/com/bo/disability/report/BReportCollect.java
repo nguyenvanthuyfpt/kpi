@@ -2,9 +2,7 @@ package com.bo.disability.report;
 
 
 import com.dao.connection.DBConnector;
-import com.dao.disability.report.DReportAnalysisData;
 import com.dao.disability.report.DReportCollectData;
-import com.dao.disability.report.DReportInforNKT;
 
 import com.exp.EException;
 

@@ -1,16 +1,12 @@
 package com.dao.disability;
 
 
-import com.bo.disability.categorys.BTinh;
-
 import com.exp.EException;
 
 import com.form.FBeans;
 import com.form.FSeed;
 import com.form.disability.FUnit;
-
 import com.form.disability.categorys.FTinh;
-import com.form.disability.search.FSearch;
 
 import com.lib.AppConfigs;
 
@@ -21,6 +17,7 @@ import java.sql.SQLException;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class DUnit extends DSqlDisability {
 

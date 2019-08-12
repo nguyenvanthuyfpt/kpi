@@ -1,5 +1,6 @@
 package com.action.disability.categorys;
 
+
 import com.action.ACore;
 
 import com.bo.disability.categorys.BHotro;
@@ -9,8 +10,6 @@ import com.exp.EException;
 
 import com.form.FBeans;
 import com.form.disability.categorys.FHotro;
-
-import com.inf.IRoles;
 
 import java.io.IOException;
 
@@ -25,6 +24,7 @@ import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+
 
 public class AHotro extends ACore {
     public ActionForward executeAction(ActionMapping mapping, ActionForm form, 

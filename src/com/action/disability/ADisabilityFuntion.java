@@ -11,7 +11,8 @@ import com.bo.disability.BDataDtl;
 import com.bo.disability.BDataHdr;
 import com.bo.disability.BDataNkt;
 import com.bo.disability.BDisability;
-import com.bo.disability.BEventObjInd;
+import com.bo.disability.BIndicatorKpi;
+import com.bo.disability.BObjectInd;
 import com.bo.disability.BPerson;
 import com.bo.disability.BPopulation;
 import com.bo.disability.BThongTinTuyen;
@@ -22,11 +23,9 @@ import com.bo.disability.categorys.BDantoc;
 import com.bo.disability.categorys.BDieuKien;
 import com.bo.disability.categorys.BDoiTuong;
 import com.bo.disability.categorys.BDungcu;
+import com.bo.disability.categorys.BEvent;
 import com.bo.disability.categorys.BHotro;
 import com.bo.disability.categorys.BIndicator;
-import com.bo.disability.BIndicatorKpi;
-import com.bo.disability.BObjectInd;
-import com.bo.disability.categorys.BEvent;
 import com.bo.disability.categorys.BMucdo;
 import com.bo.disability.categorys.BNguonhotro;
 import com.bo.disability.categorys.BNguyennhan;
@@ -37,9 +36,9 @@ import com.bo.disability.categorys.BTinh;
 import com.bo.disability.list.BList;
 import com.bo.disability.search.BSearch;
 import com.bo.tree.BTreeView;
+
 import com.exp.EException;
 
-import com.form.ChartItem;
 import com.form.FBeans;
 import com.form.FSeed;
 import com.form.admin.users.FUser;
@@ -48,11 +47,11 @@ import com.form.disability.FDanSoTinh;
 import com.form.disability.FDataDtl;
 import com.form.disability.FDataHdr;
 import com.form.disability.FDataNkt;
-import com.form.disability.FPerson;
 import com.form.disability.FDisability;
 import com.form.disability.FExport;
 import com.form.disability.FImport;
 import com.form.disability.FObjectInd;
+import com.form.disability.FPerson;
 import com.form.disability.FPopulation;
 import com.form.disability.FThongTinTuyen;
 import com.form.disability.FUnit;
@@ -62,9 +61,9 @@ import com.form.disability.categorys.FDantoc;
 import com.form.disability.categorys.FDieuKien;
 import com.form.disability.categorys.FDoiTuong;
 import com.form.disability.categorys.FDungcu;
+import com.form.disability.categorys.FEvent;
 import com.form.disability.categorys.FHotro;
 import com.form.disability.categorys.FIndicator;
-import com.form.disability.categorys.FEvent;
 import com.form.disability.categorys.FMucdo;
 import com.form.disability.categorys.FNguonhotro;
 import com.form.disability.categorys.FNguyennhan;
@@ -75,59 +74,51 @@ import com.form.disability.categorys.FTinh;
 import com.form.disability.list.FList;
 import com.form.disability.report.FReportAnalysis;
 import com.form.disability.report.FReportCollect;
-import com.form.disability.report.FReportKpiData;
 import com.form.disability.report.FReportKpi;
-import com.form.disability.report.FReportQLC;
 import com.form.disability.report.FReportTotal;
 import com.form.disability.search.FSearch;
 
-import com.inf.disability.IKeyDisability;
-
-import com.util.ChartUtil;
 import com.util.Constant;
-
-import com.util.ChartDisServlet;
-
 import com.util.Utilities;
 
-import java.awt.Color;
-import java.awt.Font;
-
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-import java.io.OutputStream;
-
 import java.sql.SQLException;
-
-import java.text.DecimalFormat;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionError;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+
 public class ADisabilityFuntion extends ACore {
+    
+    final static Logger logger = Logger.getLogger(ADisabilityFuntion.class);
+    
     public ActionForward executeAction(ActionMapping mapping, ActionForm form, 
                                        HttpServletRequest request, 
                                        HttpServletResponse response) throws EException, 
                                                                             IOException, 
                                                                             ServletException, 
                                                                             SQLException {
+        
+      //logs a debug message
+        if(logger.isDebugEnabled()){
+            logger.debug("This is debug");
+        }
+        
         final String LOCATION = this + "->executeAction()";
         String target = _LOGOUT;
         ActionErrors errors = new ActionErrors();

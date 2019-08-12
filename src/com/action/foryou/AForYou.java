@@ -1,20 +1,21 @@
 package com.action.foryou;
 
-import com.action.ACore;
 
+import com.action.ACore;
 
 import com.bo.admin.doc.rules.BDocRules;
 import com.bo.foryou.BForYou;
 
 import com.exp.EException;
 
-
 import com.form.FBeans;
 import com.form.admin.doc.rules.FWorkflow;
 import com.form.foryou.FForYou;
 
 import java.io.IOException;
+
 import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,7 +26,8 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-    public class AForYou extends  ACore {
+
+public class AForYou extends  ACore {
     public ActionForward executeAction(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws EException,IOException, ServletException,SQLException
     {
         final String LOCATION = this + "->executeAction()";

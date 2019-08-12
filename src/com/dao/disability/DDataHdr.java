@@ -1,16 +1,15 @@
 package com.dao.disability;
 
+
 import com.exp.EException;
+
 import com.form.FBeans;
 import com.form.FSeed;
 import com.form.disability.FDataHdr;
 
 import com.lib.AppConfigs;
 
-import com.mysql.jdbc.Util;
-
 import com.util.Constant;
-
 import com.util.Utilities;
 
 import java.sql.Connection;
@@ -20,6 +19,7 @@ import java.sql.SQLException;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class DDataHdr extends DSqlDisability {
     public boolean isExists(Connection conn, FSeed seed) throws EException {

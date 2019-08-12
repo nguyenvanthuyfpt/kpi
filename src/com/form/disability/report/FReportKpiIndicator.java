@@ -6,8 +6,6 @@ import com.form.FSeed;
 
 import com.util.Formater;
 
-import java.util.Date;
-
 
 public class FReportKpiIndicator extends FSeed {
 

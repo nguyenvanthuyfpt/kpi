@@ -19,6 +19,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class DReport  extends DSqlReport
 {
     public FBeans getEmpsRecv(Connection cnn,int id) throws EException{

@@ -3,8 +3,6 @@ package com.dao.tree;
 
 import com.dao.DSqlAdmin;
 
-import com.dao.connection.DBConnector;
-
 import com.exp.EException;
 
 import com.form.FBeans;

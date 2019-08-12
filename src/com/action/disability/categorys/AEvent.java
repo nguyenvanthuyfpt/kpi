@@ -1,21 +1,16 @@
 package com.action.disability.categorys;
 
-import com.action.AChange;
+
 import com.action.ACore;
 
-import com.bo.disability.categorys.BDoiTuong;
 import com.bo.disability.categorys.BEvent;
-import com.bo.disability.categorys.BObject;
 import com.bo.disability.categorys.BTinh;
 import com.bo.tree.BTreeView;
 
 import com.exp.EException;
 
 import com.form.FBeans;
-import com.form.disability.categorys.FDoiTuong;
-
 import com.form.disability.categorys.FEvent;
-
 import com.form.disability.categorys.FTinh;
 
 import java.io.IOException;
@@ -28,7 +23,6 @@ import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import javax.servlet.http.HttpSession;
 
 import org.apache.struts.action.ActionError;

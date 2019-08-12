@@ -1,11 +1,12 @@
 package com.dao.disability;
 
+
 import com.exp.EException;
 
 import com.form.FBeans;
 import com.form.FSeed;
-import com.form.disability.FPerson;
 import com.form.disability.FIndicatorKpi;
+import com.form.disability.FPerson;
 
 import com.lib.AppConfigs;
 
@@ -21,7 +22,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.digester.plugins.strategies.FinderFromClass;
 
 public class DPerson extends DSqlDisability {
     public boolean isExist(Connection conn, FSeed seed) throws EException {

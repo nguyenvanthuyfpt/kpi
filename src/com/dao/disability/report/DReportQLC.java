@@ -1,17 +1,11 @@
 package com.dao.disability.report;
 
 
-import com.dao.connection.DBConnector;
-import com.dao.disability.categorys.DTinh;
-
 import com.exp.EException;
 
 import com.form.FBeans;
 import com.form.FExportExcel;
 import com.form.FSeed;
-import com.form.disability.report.FReportCollect;
-
-import com.form.disability.report.FReportGroup;
 import com.form.disability.report.FReportQLC;
 
 import com.lib.AppConfigs;
@@ -36,7 +30,6 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.util.CellRangeAddress;
 
 
 public class DReportQLC extends FExportExcel{

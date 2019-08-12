@@ -1,15 +1,13 @@
 package com.dao.doc.docssend;
 
 
-
 import com.dao.foryou.DSqlForYou;
 
-import com.form.FSeed;
-import com.form.FBeans;
 import com.exp.EException;
 
+import com.form.FBeans;
+import com.form.FSeed;
 import com.form.doc.docssend.FDocssend;
-
 import com.form.doc.docssend.FFilesSend;
 
 import com.lib.AppConfigs;
@@ -21,10 +19,10 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.struts.upload.FormFile;
 
 public class DFilesSend extends DSqlForYou
 {

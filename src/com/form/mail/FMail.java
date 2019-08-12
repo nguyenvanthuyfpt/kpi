@@ -1,12 +1,14 @@
 
 package com.form.mail;
 
+
 import com.form.FBeans;
 import com.form.FSeed;
 
 import javax.mail.Address;
 
 import org.apache.struts.upload.FormFile;
+
 
 public class FMail  extends FSeed
 {

@@ -1,16 +1,11 @@
 package com.action.disability.report;
 
+
 import com.action.ACore;
 
 import com.bo.disability.categorys.BTinh;
-import com.bo.disability.report.BReportAnalysis;
 import com.bo.disability.report.BReportCollect;
-import com.bo.disability.report.BReportTotal;
-import com.bo.tree.BTreeView;
 
-import com.dao.connection.DBConnector;
-import com.dao.disability.DThongTinTuyen;
-import com.dao.disability.report.DReportAnalysisData;
 import com.dao.disability.report.DReportCollectData;
 
 import com.exp.EException;
@@ -18,15 +13,12 @@ import com.exp.EException;
 import com.form.FBeans;
 import com.form.disability.FThongTinTuyen;
 import com.form.disability.categorys.FTinh;
-import com.form.disability.report.FReportAnalysis;
 import com.form.disability.report.FReportCollect;
-import com.form.disability.report.FReportTotal;
 
 import com.inf.disability.IKeyDisability;
 
 import java.io.IOException;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 
 import java.util.ArrayList;
@@ -36,11 +28,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.struts.action.ActionError;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+
 
 public class AReportCollect extends ACore{
     public ActionForward executeAction(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws EException,IOException, ServletException,SQLException

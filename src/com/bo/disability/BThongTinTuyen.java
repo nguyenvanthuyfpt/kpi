@@ -1,13 +1,15 @@
 package com.bo.disability;
 
+
 import com.dao.connection.DBConnector;
 import com.dao.disability.DThongTinTuyen;
-import com.dao.disability.DUnit;
+
 import com.exp.EException;
+
 import com.form.FBeans;
 import com.form.FSeed;
 import com.form.disability.FThongTinTuyen;
-import com.form.disability.FUnit;
+
 import com.lib.AppConfigs;
 
 import java.sql.Connection;

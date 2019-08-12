@@ -1,13 +1,11 @@
 package com.dao.disability;
 
-import com.exp.EException;
 
+import com.exp.EException;
 
 import com.form.FBeans;
 import com.form.FSeed;
 import com.form.disability.FDisProfile;
-
-import com.form.disability.FDisReport;
 
 import com.lib.AppConfigs;
 
@@ -18,6 +16,7 @@ import java.sql.SQLException;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class DDisProfile extends DSqlDisability {
     public boolean insert(Connection cnn, FSeed seed) throws EException {

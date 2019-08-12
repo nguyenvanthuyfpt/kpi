@@ -1,22 +1,26 @@
 package com.action.template.templateType;
 
-import com.action.ACore;
 
+import com.action.ACore;
 
 import com.bo.template.templateType.BTemplateType;
 
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionMapping;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionError;
-import org.apache.struts.action.ActionErrors;
-import java.io.IOException;
-import javax.servlet.ServletException;
 import com.exp.EException;
+
 import com.form.FBeans;
 import com.form.template.templateType.FTemplateType;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts.action.ActionError;
+import org.apache.struts.action.ActionErrors;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
 
 
 public class ATemplateType extends ACore 

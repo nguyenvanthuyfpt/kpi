@@ -1,16 +1,13 @@
 package com.dao.disability;
 
+
 import com.exp.EException;
+
 import com.form.FBeans;
 import com.form.FSeed;
-import com.form.disability.FDataHdr;
 import com.form.disability.FDataRank;
 
-import com.form.disability.categorys.FNguyennhan;
-
 import com.lib.AppConfigs;
-
-import com.util.Constant;
 
 import com.util.Utilities;
 
@@ -23,6 +20,7 @@ import java.text.ParseException;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class DDataRank extends DSqlDisability {
     

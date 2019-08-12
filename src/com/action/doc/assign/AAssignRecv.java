@@ -1,33 +1,43 @@
 package com.action.doc.assign;
 
+
 import com.action.ACore;
-import com.bo.admin.departments.BDepartments;
-import com.bo.doc.assign.BAssignRecv;
-import com.bo.doc.assign.BTrailerRecv;
+
 import com.bo.admin.doc.category.classify.BClassify;
 import com.bo.admin.doc.category.dossiers.BDossiers;
+import com.bo.doc.assign.BAssignRecv;
+import com.bo.doc.assign.BTrailerRecv;
 import com.bo.doc.docsrecv.BDocsrecv;
 import com.bo.main.BMain;
+
 import com.exp.EException;
+
 import com.form.FBeans;
 import com.form.admin.departments.FDepartment;
 import com.form.admin.groups.FGroup;
 import com.form.admin.users.FUser;
 import com.form.doc.assign.FDocAssign;
 import com.form.doc.docsrecv.FDocsrecv;
+
 import com.lib.AppConfigs;
+
 import java.io.File;
 import java.io.IOException;
+
 import java.net.URLEncoder;
+
 import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.struts.action.ActionError;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+
 
 public class AAssignRecv extends  ACore {
     public ActionForward executeAction(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws EException,IOException, ServletException,SQLException

@@ -1,10 +1,9 @@
 package com.action.disability;
 
+
 import com.action.ACore;
 
-import com.bo.disability.BThongTinTuyen;
 import com.bo.disability.BUnit;
-import com.bo.disability.categorys.BDieuKien;
 import com.bo.disability.categorys.BTinh;
 import com.bo.tree.BTreeView;
 

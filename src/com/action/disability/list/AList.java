@@ -1,24 +1,27 @@
 package com.action.disability.list;
 
+
 import com.action.ACore;
 
 import com.bo.admin.reportSystem.BReportSystem;
 import com.bo.disability.list.BList;
 
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionMapping;
+import com.exp.EException;
+
+import com.form.disability.list.FList;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.struts.action.ActionForward;
+
 import org.apache.struts.action.ActionError;
 import org.apache.struts.action.ActionErrors;
-import java.io.IOException;
-import javax.servlet.ServletException;
-import com.exp.EException;
-import com.form.disability.list.FList;
-import com.inf.IKey;
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
 
-import com.lib.AppConfigs;
 
 public class AList extends ACore 
 {

@@ -1,32 +1,37 @@
 package com.action.messages.view;
 
+
 import com.action.ACore;
 
 import com.bo.admin.departments.BDepartments;
-import com.bo.admin.users.BUsers;
 import com.bo.admin.mail.BRegister;
 import com.bo.messages.create.BCreate;
 import com.bo.messages.create.BCreateFiles;
+
 import com.exp.EException;
+
 import com.form.FBeans;
 import com.form.messages.create.FCreate;
 import com.form.tasks.problem.FProblem;
+
 import com.lib.AppConfigs;
+
 import java.io.File;
 import java.io.IOException;
 
 import java.net.URLEncoder;
 
 import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.struts.action.ActionError;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+
 
 public class AMessageList extends  ACore {
     public ActionForward executeAction(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws EException,IOException, ServletException,SQLException

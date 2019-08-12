@@ -1,8 +1,6 @@
 package com.form.disability.categorys;
 
-import com.bo.disability.categorys.BEvent;
 
-import com.form.FBeans;
 import com.form.FSeed;
 
 public class FEvent extends FSeed {
