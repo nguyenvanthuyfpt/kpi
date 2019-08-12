@@ -1,6 +1,8 @@
 package com.dao.disability.report;
 
 
+import com.bo.disability.report.BReportKpi;
+
 import com.exp.EException;
 
 import com.form.FBeans;
@@ -28,6 +30,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -39,6 +43,8 @@ import org.apache.poi.ss.usermodel.CellStyle;
 public class DReportKpi extends FExportExcel {
     public DReportKpi() {
     }
+    
+    final static Logger logger  = Logger.getLogger(DReportKpi.class);
 
     public String exportReportObject(FReportKpi beanTemp, FSeed seed,
                                      String excelFile) throws EException,
@@ -627,8 +633,9 @@ public class DReportKpi extends FExportExcel {
         FBeans beans = new FBeans();
         FReportKpi bean = new FReportKpi();
         try {
-            CallableStatement state =
-                cnn.prepareCall("{call report_object(?, ?, ?, ?, ?)}");
+            logger.debug("{call report_object("+periodType+","+ tinh_id + ",'"+ parameter + "',"+ year+ "," + extend +")}");
+            
+            CallableStatement state = cnn.prepareCall("{call report_object(?, ?, ?, ?, ?)}");
 
             state.setInt(1, periodType);
             state.setInt(2, tinh_id);
@@ -636,12 +643,8 @@ public class DReportKpi extends FExportExcel {
             state.setInt(4, year);
             state.setInt(5, extend);
             state.execute();
-
-            String sql = "";
-
-            sql =
-"select num_obj, num_ind, obj_id, obj_name, ind_id, ind_code, ind_name, 0, baseline, target, acc, actual_q1, actual_q2, actual_q3, actual_q4, percent, '' as comment from kpi_report_object where 1=1 order by stt";
-
+            
+            String sql = "select num_obj, num_ind, obj_id, obj_name, ind_id, ind_code, ind_name, 0, baseline, target, acc, actual_q1, actual_q2, actual_q3, actual_q4, percent, '' as comment from kpi_report_object where 1=1 order by stt";
 
             prpstm = prepareStatement(cnn, sql, null);
             rs = prpstm.executeQuery();

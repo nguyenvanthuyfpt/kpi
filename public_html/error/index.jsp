@@ -11,6 +11,10 @@
         <div align="center">
             <div class="inputlabel"><bean:message key="errors.caption" bundle="<%=interfaces%>"/></div>
             <div class="inputlabel"><bean:message key="errors.detail" bundle="<%=interfaces%>"/></div>
+            <%
+                String errorValue = (String)request.getAttribute("errorValue");
+            %>
+            <%=errorValue%>
             <html:errors  property="alert" bundle="<%=interfaces%>"/>
             
             <html:button property="back" styleClass="button" onclick="javascript:history.back(1);">

@@ -35,8 +35,7 @@ public class Tasks implements ServletContextListener {
             scheduler.start();
 
             // Trigger trigger = buildSimpleSchedulerTrigger();
-            Trigger trigger =
-                buildCronSchedulerTrigger(); // for cron job trigger
+            Trigger trigger =  buildCronSchedulerTrigger(); // for cron job trigger
             scheduleJob(trigger);
         } catch (SchedulerException e) {
 
@@ -59,18 +58,8 @@ public class Tasks implements ServletContextListener {
 
     }
 
-    private static Trigger buildSimpleSchedulerTrigger() {
-
-        int INTERVAL_SECONDS = 10;
-
-        Trigger trigger =
-            TriggerBuilder.newTrigger().withIdentity(TRIGGER_NAME,
-                                                     GROUP).withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(INTERVAL_SECONDS).repeatForever()).build();
-        return trigger;
-    }
-
     private static Trigger buildCronSchedulerTrigger() {
-        String CRON_EXPRESSION = "0 0/30 * 1/1 * ? *";
+        String CRON_EXPRESSION = "0 0/3 * 1/1 * ? *";
         Trigger trigger =
             TriggerBuilder.newTrigger().withIdentity(TRIGGER_NAME,
                                                      GROUP).withSchedule(CronScheduleBuilder.cronSchedule(CRON_EXPRESSION)).build();

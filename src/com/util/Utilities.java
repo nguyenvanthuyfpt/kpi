@@ -56,6 +56,12 @@ public class Utilities {
                                             (cal.get(Calendar.MONTH) + 1));
         return result;
     }
+    
+    public static String getCurrentMonth() {
+        Calendar cal = Calendar.getInstance();
+        String result = String.valueOf((cal.get(Calendar.MONTH) + 1));
+        return result;
+    }
 
     public static Boolean checkSpecialCharacter(String s) {
         Pattern p = Pattern.compile("[^A-Za-z0-9]");

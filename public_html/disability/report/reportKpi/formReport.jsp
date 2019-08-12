@@ -285,6 +285,14 @@
         
         <tr>
             <td colspan="2">
+              <div id="alert">
+                  <jsp:include page="/admin/alert.jsp"/>
+              </div>
+            </td>
+        <tr>
+        
+        <tr>
+            <td colspan="2">
                 <div style="padding:16px 0">
                     <span class="bt_left_Search">
                         <span class="bt_right_Search">

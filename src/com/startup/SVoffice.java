@@ -43,11 +43,14 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 
 
 public class SVoffice{
+    
+    final static Logger logger = Logger.getLogger(SVoffice.class);
     
     public boolean load(ActionForm form,ActionErrors errors) throws EException{
         boolean result = false;
@@ -488,7 +491,7 @@ public class SVoffice{
             request.setAttribute("subanchor", "04.01");;
             result = true;
         } catch (Exception ex)  {
-        
+            logger.info(ex.toString());
         }
         return result;
     }

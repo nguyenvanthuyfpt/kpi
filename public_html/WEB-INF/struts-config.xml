@@ -4,9 +4,8 @@
 	<global-forwards>
 	    <forward name="_HOME" path="/"/>
 	    <forward name="_LOGIN" path="/admin/login/"/>
-	    <forward name="_ERROR" path="/error/"/>
+	    <forward name="_ERROR" path="/error1/"/>
 	</global-forwards>
-
 	<controller maxFileSize="20M" contentType="text/html; charset=UTF-8" locale="true"/>
 		<message-resources parameter="com.res.Configs"/>
 		<message-resources parameter="com.res.Application_en_US" key="en_US"/>

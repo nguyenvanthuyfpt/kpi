@@ -13,9 +13,14 @@ import com.lib.AppConfigs;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class BReportKpi {
-    DReportKpi dao = new DReportKpi();
+import org.apache.log4j.Logger;
 
+public class BReportKpi {
+    
+    DReportKpi dao = new DReportKpi();
+    
+    final static Logger logger  = Logger.getLogger(BReportKpi.class);
+    
     public FBeans getDataReportObject(int period, int tinh_id, String parameter, int year, int extend) throws EException, SQLException {
         final String LOCATION = this + "->getDataReportObject()";
         FBeans beans = new FBeans();
@@ -27,6 +32,7 @@ public class BReportKpi {
             DBConnector.endTransaction(conn);
         } catch (EException ex) {
             DBConnector.rollBackTransaction(conn);
+            logger.error(ex.toString());
             if (AppConfigs.APP_DEBUG)
                 throw new EException(LOCATION, ex);
         } finally {

@@ -32,6 +32,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+import org.apache.struts.action.ActionError;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -39,6 +41,9 @@ import org.apache.struts.action.ActionMapping;
 
 
 public class AReportKpi extends  ACore {
+    
+    final static Logger logger = Logger.getLogger(AReportKpi.class);
+    
     public ActionForward executeAction(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws EException,IOException, ServletException, SQLException
     {
         final String LOCATION = this + "->executeAction()";
@@ -214,11 +219,17 @@ public class AReportKpi extends  ACore {
                   bean.deleteFile(report);                   
                   target=null;                 
             } catch (Exception ex) {
+                  logger.error(ex.toString());
+                  request.setAttribute("anchor", "04");
                   request.setAttribute("reportSystem",bean);
                   request.setAttribute("errorValue",ex.toString().replaceAll("com.exp.EException:",""));
-                  target=_ERROR;    
-            }        
+                  target="_REPORT_KPI";    
+                  errors.add("alert", new ActionError("alert.disability.error.detail", ex.toString().replaceAll("com.exp.EException:","")));
+            } 
         }
+        
+        request.setAttribute("anchor", "04");
+        request.setAttribute("subanchor", subFunction);
         
         if(!errors.isEmpty()) saveErrors(request,errors);
         return mapping.findForward(target);
