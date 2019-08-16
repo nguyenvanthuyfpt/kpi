@@ -64,4 +64,7 @@ public interface ITablesDisability {
     public final String TABLE_KPI_DIS_PROFILE       =   "kpi_dis_profile";
     public final String TABLE_KPI_DIS_REPORT        =   "kpi_dis_report";
     public final String TABLE_KPI_DIS_EXPORT        =   "kpi_report_temp";
+    
+    public final String TABLE_KPI_JOB_SCHEDULER     =    "kpi_job_scheduler";
+    public final String TABLE_KPI_JOB_LOG = "";
 }
