@@ -1,8 +1,10 @@
 package com.form.disability.jobs;
 
+import com.form.FSeed;
+
 import java.sql.Date;
 
-public class FJobScheduler {
+public class FJobScheduler extends FSeed {
     private int id;
     private Date createDate;
     private String jobCode;

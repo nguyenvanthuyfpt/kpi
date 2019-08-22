@@ -818,4 +818,36 @@ public interface IFieldsDisability extends IParams {
                                         KPI_DIS_REPORT_HUONGCANTHIEP,
                                         KPI_DIS_REPORT_HTRO_DKIEN
         };
+        
+        public final String TABLE_KPI_JOB_SCHEDULER_ID = "id";
+        public final String TABLE_KPI_JOB_SCHEDULER_CREATE_DATE = "create_date";
+        public final String TABLE_KPI_JOB_SCHEDULER_JOB_CODE = "job_code";
+        public final String TABLE_KPI_JOB_SCHEDULER_JOB_NAME = "job_name";
+        public final String TABLE_KPI_JOB_SCHEDULER_JOB_EXEC = "job_exec";
+        public final String TABLE_KPI_JOB_SCHEDULER_JOB_CRON = "job_cron";
+        public final String TABLE_KPI_JOB_SCHEDULER_JOB_STATUS = "job_status";
+        
+        public final String[] KPI_JOB_SCHEDULER_ALL_FIELDS = {
+                                          TABLE_KPI_JOB_SCHEDULER_ID,
+                                          TABLE_KPI_JOB_SCHEDULER_CREATE_DATE,
+                                          TABLE_KPI_JOB_SCHEDULER_JOB_CODE,
+                                          TABLE_KPI_JOB_SCHEDULER_JOB_NAME,
+                                          TABLE_KPI_JOB_SCHEDULER_JOB_EXEC,
+                                          TABLE_KPI_JOB_SCHEDULER_JOB_CRON,     
+                                          TABLE_KPI_JOB_SCHEDULER_JOB_STATUS
+        };
+        
+        public final String TABLE_KPI_JOB_LOG_ID = "id";
+        public final String TABLE_KPI_JOB_LOG_START_EXEC = "start_exec";
+        public final String TABLE_KPI_JOB_LOG_END_EXEC = "end_exec";
+        public final String TABLE_KPI_JOB_LOG_JOB_ID = "job_id";
+        public final String TABLE_KPI_JOB_LOG_MSG_EXEC = "msg_exec";
+        
+        public final String[] KPI_JOB_LOG_ALL_FIELDS = {
+                                          TABLE_KPI_JOB_LOG_ID,
+                                          TABLE_KPI_JOB_LOG_START_EXEC,
+                                          TABLE_KPI_JOB_LOG_END_EXEC,
+                                          TABLE_KPI_JOB_LOG_JOB_ID,
+                                          TABLE_KPI_JOB_LOG_MSG_EXEC
+        };
 }

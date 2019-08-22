@@ -1,5 +1,11 @@
 package com.util;
 
+import com.bo.disability.jobs.BJobScheduler;
+
+import com.form.FBeans;
+
+import com.form.disability.jobs.FJobScheduler;
+
 import com.scheduler.QuartzJob;
 
 import javax.servlet.ServletContext;
@@ -27,16 +33,19 @@ public class Tasks implements ServletContextListener {
     private static Scheduler scheduler;
     
     public void contextInitialized(ServletContextEvent servletContextEvent) {
-        System.out.println(" QuartzSchedulerApp main thread: " +
-                           Thread.currentThread().getName());
+        System.out.println(" QuartzSchedulerApp main thread: " + Thread.currentThread().getName());
 
         try {
             scheduler = new StdSchedulerFactory().getScheduler();
             scheduler.start();
-
-            // Trigger trigger = buildSimpleSchedulerTrigger();
-            Trigger trigger =  buildCronSchedulerTrigger(); // for cron job trigger
-            scheduleJob(trigger);
+            FJobScheduler job = new FJobScheduler();
+            FBeans beans = new BJobScheduler().getSchedulerJobs(job);
+            for (int i=0;i<beans.size();i++) {
+                job = (FJobScheduler)beans.get(i);
+                Trigger trigger =  buildCronSchedulerTrigger(job); // for cron job trigger
+                scheduleJob(trigger, job.getJobExec());
+            }
+            
         } catch (SchedulerException e) {
 
         } catch (Exception e) {
@@ -48,22 +57,29 @@ public class Tasks implements ServletContextListener {
 
     }
 
-    private static void scheduleJob(Trigger trigger) throws Exception {
-
-        JobDetail someJobDetail =
-            JobBuilder.newJob(QuartzJob.class).withIdentity(JOB_NAME,
-                                                            GROUP).build();
-
+    private static void scheduleJob(Trigger trigger, String execJob) throws Exception {
+        QuartzJob job = new QuartzJob();
+        job.setExecJob(execJob);
+        JobDetail someJobDetail = JobBuilder.newJob(job.getClass())
+            .withIdentity(JOB_NAME, GROUP).build();
+        
         scheduler.scheduleJob(someJobDetail, trigger);
-
     }
 
-    private static Trigger buildCronSchedulerTrigger() {
+    private static Trigger buildCronSchedulerTrigger(FJobScheduler job) {
+        /*
+        String CRON_EXPRESSION = job.getJobCron();
+        
+        Trigger trigger = TriggerBuilder.newTrigger()
+            .withIdentity(job.getJobName(), GROUP)
+            .withSchedule(CronScheduleBuilder.cronSchedule(CRON_EXPRESSION)).build();
+        */
+        
         String CRON_EXPRESSION = "0 0/3 * 1/1 * ? *";
-        Trigger trigger =
-            TriggerBuilder.newTrigger().withIdentity(TRIGGER_NAME,
-                                                     GROUP).withSchedule(CronScheduleBuilder.cronSchedule(CRON_EXPRESSION)).build();
-
+        Trigger trigger = TriggerBuilder.newTrigger()
+                .withIdentity(TRIGGER_NAME, GROUP)
+                .withSchedule(CronScheduleBuilder.cronSchedule(CRON_EXPRESSION)).build();
+        
         return trigger;
     }
 }

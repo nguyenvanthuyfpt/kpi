@@ -1,8 +1,26 @@
 package com.util;
 
+import com.dao.disability.report.DReportKpi;
+
+import com.exp.EException;
+
+import com.form.FBeans;
+import com.form.disability.report.FReportKpi;
+
+import com.lib.AppConfigs;
+
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import org.apache.log4j.Logger;
 
 public class DaoUtil {
+    
+    final static Logger logger  = Logger.getLogger(DaoUtil.class);
+    
     public static int get_rc(ResultSet rs) throws Exception{
         rs.last();
         int  size=rs.getRow();
@@ -22,5 +40,20 @@ public class DaoUtil {
                         ste_arr[i].toString());
         }
         return sb.toString();
+    }
+    
+    public static void execSchedulerJobs(Connection cnn, String job_exec) throws EException {
+        String LOCATION = "~~>execSchedulerJobs()";
+        CallableStatement state = null;        
+        try {
+            logger.debug("BEGIN::execSchedulerJobs");
+            state = cnn.prepareCall(job_exec);          
+            state.execute();    
+            logger.debug("END::execSchedulerJobs");
+        } catch (SQLException sqle) {
+            if (AppConfigs.APP_DEBUG) {
+                throw new EException(LOCATION, sqle);
+            }
+        }
     }
 }
