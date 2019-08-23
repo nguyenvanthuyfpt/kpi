@@ -31,9 +31,8 @@ public class MyTask {
     public void perform(String execJob) throws EException{
         try {
             logger.info("BEGIN:perform " + execJob);
-            Connection cnn = DBConnector.getConnection();
-            String job_exec = "{call report_object(1,0,'8',2019,0)}";
-            DaoUtil.execSchedulerJobs(cnn, job_exec);
+            Connection cnn = DBConnector.getConnection();            
+            DaoUtil.execSchedulerJobs(cnn, execJob);
             logger.info("END:perform");
         } catch (EException ex) {
             logger.error(ex.toString());

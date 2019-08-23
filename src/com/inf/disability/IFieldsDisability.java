@@ -844,7 +844,6 @@ public interface IFieldsDisability extends IParams {
         public final String TABLE_KPI_JOB_LOG_MSG_EXEC = "msg_exec";
         
         public final String[] KPI_JOB_LOG_ALL_FIELDS = {
-                                          TABLE_KPI_JOB_LOG_ID,
                                           TABLE_KPI_JOB_LOG_START_EXEC,
                                           TABLE_KPI_JOB_LOG_END_EXEC,
                                           TABLE_KPI_JOB_LOG_JOB_ID,

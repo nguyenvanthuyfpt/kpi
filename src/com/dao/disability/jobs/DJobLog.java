@@ -4,9 +4,12 @@ package com.dao.disability.jobs;
 import com.dao.disability.DSqlDisability;
 import com.exp.EException;
 import com.form.FSeed;
+import com.form.disability.categorys.FDangTat;
 import com.form.disability.jobs.FJobLog;
 import com.form.disability.jobs.FJobScheduler;
 import com.lib.AppConfigs;
+
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -40,22 +43,53 @@ public class DJobLog extends DSqlDisability {
         }
         return bean;
     }
-    
-    public boolean updateScheduler(Connection cnn, FSeed seed) throws EException {
-        final String LOCATION = this.toString() + UPDATE;
-        boolean result = false;
+        
+    public boolean insert(Connection cnn, FSeed seed) throws EException {
+        final String LOCATION = this.toString() + INSERT;
+        Boolean result = false;
         try {
-            FJobScheduler bean = (FJobScheduler)seed;
-            String SQL_UPDATE_KPI_RANK = "UPDATE kpi_job_scheduler SET job_status=? WHERE id=?";
-            List params = new ArrayList();
-            params.add(bean.getJobStatus());
-            params.add(bean.getId());
-            result = execute(cnn, SQL_UPDATE_KPI_RANK, params) > 0;
-        } catch (EException sqle) {
+            List params = setParams(seed);
+            result = execute(cnn, SQL_INSERT_KPI_JOB_LOG, params) > 0;
+        } catch (Exception sqle) {
             if (AppConfigs.APP_DEBUG)
                 throw new EException(LOCATION, sqle);
         }
-        return result;    
+        return result;
+    }
+    
+    public boolean update(Connection cnn, FSeed seed) throws EException {
+        final String LOCATION = this.toString() + INSERT;
+        Boolean result = false;
+        try {
+            List params = new ArrayList();
+            FJobLog bean = (FJobLog)seed;
+            String SQL_UPDATE_KPI_JOB_LOG = "UPDATE kpi_job_log SET end_exec=?, msg_exec=? WHERE id=?";
+            params.add(bean.getEndExec());
+            params.add(bean.getMsgExec());
+            params.add(bean.getId());
+            result = execute(cnn, SQL_UPDATE_KPI_JOB_LOG, params) > 0;
+        } catch (Exception sqle) {
+            if (AppConfigs.APP_DEBUG)
+                throw new EException(LOCATION, sqle);
+        }
+        return result;
+    }
+    
+    public List setParams(FSeed seed) throws EException {
+        final String LOCATION = "->setParams()";
+        FJobLog bean = (FJobLog)seed;
+        List params = new ArrayList();
+        try {
+            params.add(bean.getStartExec());
+            params.add(bean.getEndExec());
+            params.add(bean.getJobId());
+            params.add(bean.getMsgExec());
+        } catch (Exception exp) {
+            if (AppConfigs.APP_DEBUG)
+                throw new EException(LOCATION, exp);
+        } finally {
+        }
+        return params;
     }
 
     public FJobLog getInformation(ResultSet rs) throws EException {

@@ -1336,5 +1336,7 @@ public class DSqlDisability extends DSqlAdmin {
                                                     "rpt.dctg_baoquan::text as P5, rpt.hd_ncs::text as P6, rpt.huong_ct::text as P7, rpt.htro_dkien as P8\n" + 
                                                     "FROM dr_disabilitypeople dis, kpi_dis_report rpt, dr_v_phanloai pl \n" + 
                                                     "WHERE dis.id=rpt.nkt_id AND dis.id=pl.id_nkt AND rpt.create_date BETWEEN fn_firstdate_of_month(?) AND fn_lastdate_of_month(?)";
+    
+    public final String SQL_INSERT_KPI_JOB_LOG  =  INSERT_INTO + TABLE_KPI_JOB_LOG + FIELDS(KPI_JOB_LOG_ALL_FIELDS,true) + VALUES(KPI_JOB_LOG_ALL_FIELDS.length);
 }
   

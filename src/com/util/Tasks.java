@@ -59,8 +59,8 @@ public class Tasks implements ServletContextListener {
 
     private static void scheduleJob(Trigger trigger, String execJob) throws Exception {
         QuartzJob job = new QuartzJob();
-        job.setExecJob(execJob);
-        JobDetail someJobDetail = JobBuilder.newJob(job.getClass())
+        JobDetail someJobDetail = JobBuilder.newJob(QuartzJob.class)
+            .withDescription(execJob)
             .withIdentity(JOB_NAME, GROUP).build();
         
         scheduler.scheduleJob(someJobDetail, trigger);

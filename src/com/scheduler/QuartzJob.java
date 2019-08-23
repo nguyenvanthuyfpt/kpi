@@ -13,27 +13,16 @@ import org.quartz.JobExecutionException;
 
 public class QuartzJob implements Job {
     
-    final static Logger logger  = Logger.getLogger(QuartzJob.class);
-    
-    private String execJob;
+    private final static Logger logger  = Logger.getLogger(QuartzJob.class);
     
     public void execute(JobExecutionContext context) throws JobExecutionException {
         
         MyTask mytask = new MyTask();
-        String temp = context.getJobDetail().getDescription();
-        logger.info("execJob "+temp);
+        String execJob = context.getJobDetail().getDescription();
         try {
             mytask.perform(execJob);
         } catch (EException ex) {
             logger.error(ex.toString());
         }
-    }
-
-    public void setExecJob(String execJob) {
-        this.execJob = execJob;
-    }
-
-    public String getExecJob() {
-        return execJob;
     }
 }
