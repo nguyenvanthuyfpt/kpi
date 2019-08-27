@@ -43,9 +43,8 @@ public class Tasks implements ServletContextListener {
             for (int i=0;i<beans.size();i++) {
                 job = (FJobScheduler)beans.get(i);
                 Trigger trigger =  buildCronSchedulerTrigger(job); // for cron job trigger
-                scheduleJob(trigger, job.getJobExec());
-            }
-            
+                scheduleJob(trigger, job.getId()+"#"+job.getJobCode()+"#"+job.getJobExec());
+            }            
         } catch (SchedulerException e) {
 
         } catch (Exception e) {
@@ -67,15 +66,7 @@ public class Tasks implements ServletContextListener {
     }
 
     private static Trigger buildCronSchedulerTrigger(FJobScheduler job) {
-        /*
-        String CRON_EXPRESSION = job.getJobCron();
-        
-        Trigger trigger = TriggerBuilder.newTrigger()
-            .withIdentity(job.getJobName(), GROUP)
-            .withSchedule(CronScheduleBuilder.cronSchedule(CRON_EXPRESSION)).build();
-        */
-        
-        String CRON_EXPRESSION = "0 0/3 * 1/1 * ? *";
+        String CRON_EXPRESSION = job.getJobCron(); 
         Trigger trigger = TriggerBuilder.newTrigger()
                 .withIdentity(TRIGGER_NAME, GROUP)
                 .withSchedule(CronScheduleBuilder.cronSchedule(CRON_EXPRESSION)).build();

@@ -18,16 +18,16 @@ import java.sql.SQLException;
 import org.apache.log4j.Logger;
 
 public class DaoUtil {
-    
-    final static Logger logger  = Logger.getLogger(DaoUtil.class);
-    
-    public static int get_rc(ResultSet rs) throws Exception{
+
+    final static Logger logger = Logger.getLogger(DaoUtil.class);
+
+    public static int get_rc(ResultSet rs) throws Exception {
         rs.last();
-        int  size=rs.getRow();
+        int size = rs.getRow();
         rs.beforeFirst();
         return size;
     }
-    
+
     public static String print_error(Exception ex) {
         StringBuffer sb = new StringBuffer(ex.getMessage());
         sb.append("\r\nThông tin l?i chi ti?t :");
@@ -41,18 +41,26 @@ public class DaoUtil {
         }
         return sb.toString();
     }
-    
-    public static void execSchedulerJobs(Connection cnn, String job_exec) throws EException {
+
+    public static void execSchedulerJobs(Connection cnn,
+                                         String job_exec) throws EException {
         String LOCATION = "~~>execSchedulerJobs()";
-        CallableStatement state = null;        
+        CallableStatement state = null;
         try {
             logger.debug("BEGIN::execSchedulerJobs");
-            state = cnn.prepareCall(job_exec);          
-            state.execute();    
+            state = cnn.prepareCall(job_exec);
+            state.execute();
             logger.debug("END::execSchedulerJobs");
         } catch (SQLException sqle) {
             if (AppConfigs.APP_DEBUG) {
                 throw new EException(LOCATION, sqle);
+            }
+        } finally {
+            try {
+                state.close();
+                cnn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
     }

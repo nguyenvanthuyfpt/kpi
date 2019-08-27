@@ -4,6 +4,8 @@ import com.exp.EException;
 
 import com.util.DaoUtil;
 
+import java.sql.SQLException;
+
 import org.apache.log4j.Logger;
 
 import org.joda.time.LocalDateTime;
@@ -22,6 +24,8 @@ public class QuartzJob implements Job {
         try {
             mytask.perform(execJob);
         } catch (EException ex) {
+            logger.error(ex.toString());
+        } catch (SQLException ex) {
             logger.error(ex.toString());
         }
     }

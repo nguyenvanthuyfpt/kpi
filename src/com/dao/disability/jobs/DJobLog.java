@@ -44,12 +44,18 @@ public class DJobLog extends DSqlDisability {
         return bean;
     }
         
-    public boolean insert(Connection cnn, FSeed seed) throws EException {
+    public int insert(Connection cnn, FSeed seed) throws EException {
         final String LOCATION = this.toString() + INSERT;
-        Boolean result = false;
-        try {
+        int result = 0;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {           
             List params = setParams(seed);
-            result = execute(cnn, SQL_INSERT_KPI_JOB_LOG, params) > 0;
+            ps = prepareStatement(cnn, SQL_INSERT_KPI_JOB_LOG, params);
+            rs = ps.executeQuery();
+            if (rs!=null && rs.next()) {
+                result = rs.getInt(1);
+            }
         } catch (Exception sqle) {
             if (AppConfigs.APP_DEBUG)
                 throw new EException(LOCATION, sqle);
@@ -97,8 +103,8 @@ public class DJobLog extends DSqlDisability {
         FJobLog bean = new FJobLog();
         try {
             bean.setId(rs.getInt(TABLE_KPI_JOB_LOG_ID));
-            bean.setStartExec(rs.getDate(TABLE_KPI_JOB_LOG_START_EXEC));
-            bean.setEndExec(rs.getDate(TABLE_KPI_JOB_LOG_END_EXEC));
+            bean.setStartExec(rs.getTimestamp(TABLE_KPI_JOB_LOG_START_EXEC));
+            bean.setEndExec(rs.getTimestamp(TABLE_KPI_JOB_LOG_END_EXEC));
             bean.setJobId(rs.getInt(TABLE_KPI_JOB_LOG_JOB_ID));
             bean.setMsgExec(rs.getString(TABLE_KPI_JOB_LOG_MSG_EXEC));
         } catch (SQLException sqle) {

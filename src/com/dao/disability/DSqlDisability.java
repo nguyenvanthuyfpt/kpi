@@ -1318,12 +1318,23 @@ public class DSqlDisability extends DSqlAdmin {
     public final String SQL_UPDATE_KPI_DIS_REPORT = UPDATE + TABLE_KPI_DIS_REPORT + SET + SETS(KPI_DIS_REPORT_ALL_FIELDS) + WHERE + KPI_DIS_REPORT_ID + EQUAL + QUESTION;
     
     // DATA DIS EXPORT
+    /*
     public static String SQL_SELECT_KPI_DIS_EXPORT = "SELECT stt, tinh_name, maso, ten, year_of_birthday, sex, \n" + 
                                                     "       sonha, dienthoai, create_date, ten_ncs, sdt_ncs, gioitinh_ncs, trangthai, ngay_dong_hs, \n" + 
                                                     "       dang_tat, muc_do, ngay_phat_hien_ktat, da_cam, nc_id, nhu_cau, nhucau_noi_nhan, nhucau_can_thiep_cn, nhucau_ten_dung_cu, nhucau_cai_thien_ctvs,  \n" + 
                                                     "       ngay_nhu_cau, ht_id, hotro_da_nhan, hotro_noi_nhan, hotro_can_thiep_cn, hotro_ten_dung_cu, \n" + 
                                                     "       hotro_cai_thien_ctvs, ngay_ho_tro\n" + 
                                                     "  FROM kpi_report_temp ORDER BY stt ASC, maso ASC, order_by ASC\n";
+    */
+    
+    public static String SQL_SELECT_KPI_DIS_EXPORT = "SELECT a.* FROM (\n" + 
+                                                      "SELECT * FROM kpi_report_temp a WHERE \n" + 
+                                                      "EXISTS (SELECT * FROM kpi_report_temp b \n" + 
+                                                      "WHERE 1=1 \n" + 
+                                                      "AND TO_DATE(b.create_date,'DD/MM/YYYY') BETWEEN ? AND ? \n" + 
+                                                      "AND a.id=b.id) \n" + 
+                                                      "ORDER BY a.stt ASC, a.maso ASC, a.order_by ASC) a INNER JOIN dr_disabilitypeople b ON a.id=b.id \n" + 
+                                                      "WHERE 1=1 ";
     
     // DATA DIS COMMUNE
     public static String SQL_SELECT_KPI_DIS_COMMUNE_SUMMARY = "SELECT total_visit, total_visit_male, total_visit_female, total_a, total_b, \n" + 
@@ -1337,6 +1348,6 @@ public class DSqlDisability extends DSqlAdmin {
                                                     "FROM dr_disabilitypeople dis, kpi_dis_report rpt, dr_v_phanloai pl \n" + 
                                                     "WHERE dis.id=rpt.nkt_id AND dis.id=pl.id_nkt AND rpt.create_date BETWEEN fn_firstdate_of_month(?) AND fn_lastdate_of_month(?)";
     
-    public final String SQL_INSERT_KPI_JOB_LOG  =  INSERT_INTO + TABLE_KPI_JOB_LOG + FIELDS(KPI_JOB_LOG_ALL_FIELDS,true) + VALUES(KPI_JOB_LOG_ALL_FIELDS.length);
+    public final String SQL_INSERT_KPI_JOB_LOG  =  INSERT_INTO + TABLE_KPI_JOB_LOG + FIELDS(KPI_JOB_LOG_ALL_FIELDS,true) + VALUES(KPI_JOB_LOG_ALL_FIELDS.length) + " RETURNING id";
 }
   

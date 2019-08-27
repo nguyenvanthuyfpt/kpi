@@ -1,5 +1,7 @@
 package com.util;
 
+import java.sql.Timestamp;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,6 +22,8 @@ import org.apache.log4j.Logger;
 public class Utilities {
 
     private static Logger logger = Logger.getLogger(Utilities.class);
+    
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
 
     public static boolean contains(final int[] arr, final int item) {
         boolean retval = false;
@@ -98,7 +102,6 @@ public class Utilities {
         return str != null ? str.replaceAll("\\[|\\]", "") : "";
     }
 
-
     public static String getStringDateFormat(String format) {
         DateFormat dateFormat = new SimpleDateFormat(format);
         Calendar cal = Calendar.getInstance();
@@ -113,8 +116,7 @@ public class Utilities {
             SimpleDateFormat sdf = new SimpleDateFormat(format);
             return sdf.parse(date);
         } catch (Exception e) {
-            logger.error("Can not get Date: " + date + " with format: " +
-                         format, e);
+            logger.error("Can not get Date: " + date + " with format: " + format, e);
             return null;
         }
     }
@@ -276,5 +278,10 @@ public class Utilities {
         String parsedDate = formatter.format(initDate);
   
         return parsedDate;
+    }
+    
+    public static Timestamp getCurrentTimestamp() {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());    
+        return timestamp;
     }
 }

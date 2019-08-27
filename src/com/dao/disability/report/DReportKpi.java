@@ -1008,6 +1008,8 @@ public class DReportKpi extends FExportExcel {
                                    int locationId, String from, String to) throws EException,
                                                           SQLException {
         String LOCATION = toString() + "~~>getDataToExport()";
+        
+        /*
         CallableStatement state = null;
         state = cnn.prepareCall("{call kpi_gen_data(?, ?, ?, ?)}");
         state.setInt(1, lvl);
@@ -1015,12 +1017,29 @@ public class DReportKpi extends FExportExcel {
         state.setString(3, from);
         state.setString(4, to);
         state.execute();
+        */
+        
         PreparedStatement prpstm = null;
         ResultSet rs = null;
+        String sql = "";
         FBeans beans = new FBeans();
         FReportKpi bean = new FReportKpi();
         try {
-            prpstm = prepareStatement(cnn, SQL_SELECT_KPI_DIS_EXPORT, null);
+            ArrayList params = new ArrayList();
+            params.add(bean.stringToSqlDate(from));
+            params.add(bean.stringToSqlDate(to));
+            
+            if (lvl==1) {
+                sql = SQL_SELECT_KPI_DIS_EXPORT + " AND b.id_tinh="+locationId;
+            } else if (lvl==2) {
+                sql = SQL_SELECT_KPI_DIS_EXPORT + " AND b.id_district="+locationId;
+            } else if (lvl==3) {
+                sql = SQL_SELECT_KPI_DIS_EXPORT + " AND b.id_commune="+locationId;
+            } else {
+                sql = SQL_SELECT_KPI_DIS_EXPORT;
+            }
+            
+            prpstm = prepareStatement(cnn, sql, params);
             rs = prpstm.executeQuery();
             while ((rs != null) && (rs.next())) {
                 bean = new FReportKpi();

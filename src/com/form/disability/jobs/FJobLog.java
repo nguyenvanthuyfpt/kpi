@@ -3,11 +3,12 @@ package com.form.disability.jobs;
 import com.form.FSeed;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class FJobLog extends FSeed{
     private int id;
-    private Date startExec;
-    private Date endExec;
+    private Timestamp startExec;
+    private Timestamp endExec;
     private int jobId;
     private String msgExec;
 
@@ -18,23 +19,7 @@ public class FJobLog extends FSeed{
     public int getId() {
         return id;
     }
-
-    public void setStartExec(Date startExec) {
-        this.startExec = startExec;
-    }
-
-    public Date getStartExec() {
-        return startExec;
-    }
-
-    public void setEndExec(Date endExec) {
-        this.endExec = endExec;
-    }
-
-    public Date getEndExec() {
-        return endExec;
-    }
-
+    
     public void setJobId(int jobId) {
         this.jobId = jobId;
     }
@@ -49,5 +34,21 @@ public class FJobLog extends FSeed{
 
     public String getMsgExec() {
         return msgExec;
+    }
+
+    public void setStartExec(Timestamp startExec) {
+        this.startExec = startExec;
+    }
+
+    public Timestamp getStartExec() {
+        return startExec;
+    }
+
+    public void setEndExec(Timestamp endExec) {
+        this.endExec = endExec;
+    }
+
+    public Timestamp getEndExec() {
+        return endExec;
     }
 }
