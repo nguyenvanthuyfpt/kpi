@@ -337,25 +337,30 @@ public class ASearch extends  ACore {
             target=anchor;
         } else if (anchor.equals("_DETAIL")){
             target=anchor;
-        } else if(anchor.equals(_REPORT) || "_REPORT_TEMP".equals(anchor)){
+        } else if(anchor.equals(_REPORT) || "_REPORT_TEMP".equals(anchor) || "_REPORT_TEMP_XA".equals(anchor)){
             FReportKpiData fReportData = new FReportKpiData();
             String fileName = ""; 
-            boolean exportTemp = "_REPORT_TEMP".equals(anchor) ? true:false;            
+            boolean exportTemp = ("_REPORT_TEMP".equals(anchor)||"_REPORT_TEMP_XA".equals(anchor)) ? true:false;            
             String sql = (String)request.getSession().getAttribute("SQL_REPORT");            
             List params = (ArrayList)request.getSession().getAttribute("params");            
             Map<String, String> mapParam = (Map<String, String>)request.getSession().getAttribute("mapParam");
             
             if (exportTemp) {
-                fileName = (bean.getDataType()==1)?IKeyDisability.REPORT_FILE_KPI_LIST_DIS:IKeyDisability.REPORT_FILE_KPI_SP;
-                bean.setDataType((bean.getDataType()==1)?Constant.KPI_DATA_LIST_DIS:Constant.KPI_DATA_LIST_PERSON_HOURS);
-                
+                if (bean.getDataType()==1) {
+                    // listDisability.xls + listDisabilityCommune.xls
+                    fileName = "_REPORT_TEMP_XA".equals(anchor)?IKeyDisability.REPORT_FILE_KPI_DIS_COMMUNE:IKeyDisability.REPORT_FILE_KPI_LIST_DIS;
+                    bean.setDataType("_REPORT_TEMP_XA".equals(anchor)?Constant.KPI_DATA_DIS_COMMUNE:Constant.KPI_DATA_LIST_DIS);
+                } else {
+                    fileName = IKeyDisability.REPORT_FILE_KPI_SP;
+                    bean.setDataType(Constant.KPI_DATA_LIST_PERSON_HOURS);
+                }
                 beans = bo.getReportAll(bean, sql, params, mapParam);
             } else {
                 if (bean.getDataType()==Constant.KPI_DATA_VALUE) {
                     fileName = IKeyDisability.REPORT_FILE_KPI_VAL;
                     fReportData.setDataType(Constant.KPI_DATA_VALUE);
                 } else if (bean.getDataType()==Constant.KPI_DATA_DIS) {
-                    fileName = IKeyDisability.REPORT_FILE_KPI_DIS;
+                    fileName = IKeyDisability.REPORT_FILE_KPI_DIS;                   
                     fReportData.setDataType(Constant.KPI_DATA_DIS);
                 } else if (bean.getDataType()==Constant.KPI_DATA_PERSON) {
                     fileName = IKeyDisability.REPORT_FILE_KPI_PER;

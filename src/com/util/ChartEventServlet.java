@@ -60,6 +60,7 @@ public class ChartEventServlet extends HttpServlet {
                 response.setContentType("image/jpeg");
                 OutputStream out = response.getOutputStream();
                 ChartUtilities.writeChartAsJPEG(out, chart, width, height);
+                //ChartUtilities.saveChartAsPNG(arg0, arg1, arg2, arg3);
             }
         } catch (SQLException e) {
             System.err.println(e.getMessage());

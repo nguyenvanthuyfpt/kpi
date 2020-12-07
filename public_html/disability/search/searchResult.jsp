@@ -19,6 +19,10 @@
             <bean:message key="common.label.report.temp" bundle="<%=interfaces%>"/>
             |
         </a>
+        <a href="javascript:post('searchdispeople',anchor + ':_REPORT_TEMP_XA:dataType:1');remove('searchdispeople',anchor);">        
+            <bean:message key="common.label.report.commune" bundle="<%=interfaces%>"/>
+            |
+        </a>
         </logic:equal>        
         <logic:equal value="2" name="timkiem" property="dataType">
         <a href="javascript:post('searchdispeople',anchor + ':_REPORT_TEMP:dataType:2');remove('searchdispeople',anchor);">        

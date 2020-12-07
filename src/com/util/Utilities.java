@@ -22,8 +22,11 @@ import org.apache.log4j.Logger;
 public class Utilities {
 
     private static Logger logger = Logger.getLogger(Utilities.class);
-    
-    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
+
+    private static final SimpleDateFormat sdf =
+        new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
+    private static final SimpleDateFormat formatDateShort4 =
+        new SimpleDateFormat("HH:mm dd/MM/yyyy");
 
     public static boolean contains(final int[] arr, final int item) {
         boolean retval = false;
@@ -60,7 +63,7 @@ public class Utilities {
                                             (cal.get(Calendar.MONTH) + 1));
         return result;
     }
-    
+
     public static String getCurrentMonth() {
         Calendar cal = Calendar.getInstance();
         String result = String.valueOf((cal.get(Calendar.MONTH) + 1));
@@ -116,9 +119,18 @@ public class Utilities {
             SimpleDateFormat sdf = new SimpleDateFormat(format);
             return sdf.parse(date);
         } catch (Exception e) {
-            logger.error("Can not get Date: " + date + " with format: " + format, e);
+            logger.error("Can not get Date: " + date + " with format: " +
+                         format, e);
             return null;
         }
+    }
+
+    public static String parseDateToTringType4(Date date) {
+        try {
+            return formatDateShort4.format(date);
+        } catch (Exception es) {
+        }
+        return "";
     }
 
     /**
@@ -202,7 +214,7 @@ public class Utilities {
     }
 
     public static String createFrom(int yearReport) {
-        String retval = "01/10/" + (yearReport-1);
+        String retval = "01/10/" + (yearReport - 1);
         return retval;
     }
 
@@ -233,55 +245,56 @@ public class Utilities {
             retval = "03/" + yearReport;
         } else if (quarter == 3) {
             retval = "06/" + yearReport;
-        } else if (quarter == 4){
+        } else if (quarter == 4) {
             retval = "09/" + yearReport;
-        } 
+        }
         return retval;
     }
-    
+
     public static int getCurrentYear(Date currentDate) {
         int retval = 0;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        int currYear = currentDate.getYear()+1900;
+        int currYear = currentDate.getYear() + 1900;
         String dateBaseline = String.valueOf(currYear) + "-09-30";
         Date dateCompare;
         try {
             dateCompare = sdf.parse(dateBaseline);
             if (currentDate.after(dateCompare)) {
-                retval = currYear+1;     
+                retval = currYear + 1;
             } else {
                 retval = currYear;
             }
         } catch (ParseException e) {
-            
+
         }
         return retval;
     }
-    
-    public static int getCurrentQuarter(int month){
-        int period = 0;     
-        if (month==10 || month==11 || month==12)  
+
+    public static int getCurrentQuarter(int month) {
+        int period = 0;
+        if (month == 10 || month == 11 || month == 12)
             period = 1;
-        else if (month==1 || month==2 || month==3)
+        else if (month == 1 || month == 2 || month == 3)
             period = 2;
-        else if (month==4 || month==5 || month==6)
+        else if (month == 4 || month == 5 || month == 6)
             period = 3;
         else
             period = 4;
         return period;
     }
-    
-    public static String formatDate (String date, String initDateFormat, String endDateFormat) throws ParseException {
-  
+
+    public static String formatDate(String date, String initDateFormat,
+                                    String endDateFormat) throws ParseException {
+
         Date initDate = new SimpleDateFormat(initDateFormat).parse(date);
         SimpleDateFormat formatter = new SimpleDateFormat(endDateFormat);
         String parsedDate = formatter.format(initDate);
-  
+
         return parsedDate;
     }
-    
+
     public static Timestamp getCurrentTimestamp() {
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());    
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         return timestamp;
     }
 }

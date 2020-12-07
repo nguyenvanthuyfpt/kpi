@@ -20,6 +20,7 @@ public class FDisReport extends FSeed{
     private int canThiep = 0;
     private String huongCanThiep;
     private String htroDuKien;
+    private int objId = 0;
     
     public FDisReport() {
         super();
@@ -127,5 +128,13 @@ public class FDisReport extends FSeed{
 
     public int getCanThiep() {
         return canThiep;
+    }
+
+    public void setObjId(int objId) {
+        this.objId = objId;
+    }
+
+    public int getObjId() {
+        return objId;
     }
 }

@@ -4,6 +4,7 @@ package com.action.disability.report;
 import com.action.ACore;
 
 import com.bo.disability.categorys.BTinh;
+import com.bo.disability.jobs.BJobLog;
 import com.bo.disability.report.BReportKpi;
 import com.bo.tree.BTreeView;
 
@@ -13,11 +14,14 @@ import com.exp.EException;
 
 import com.form.FBeans;
 import com.form.disability.categorys.FTinh;
+import com.form.disability.jobs.FJobLog;
 import com.form.disability.report.FReportKpi;
 
 import com.inf.disability.IKeyDisability;
 
 import com.util.Constant;
+
+import com.util.Utilities;
 
 import java.io.IOException;
 
@@ -107,6 +111,33 @@ public class AReportKpi extends  ACore {
                 tinhName = tinh.getName();
             }
             
+            String func = "";
+            if ("04.01".equals(subFunction)) {
+                func = "_REPORT_INDICATOR";
+            } else if ("04.02".equals(subFunction)) {
+                func = "_REPORT_OBJECT";          
+            } else if ("03.01".equals(subFunction)) {
+                func = "_REPORT_EXPORT";
+            } else if ("03.02".equals(subFunction)) {
+                func = "_REPORT_EXPORT_2020";
+                bean.setPeriodType("-1");
+            }
+            
+            String msgJob = "B&#225;o c&#225;o/D&#7919; li&#7879;u NKT &#273;&#227; k&#7871;t xu&#7845;t th&#224;nh c&#244;ng v&#224;o l&#250;c [$last-update$], B&#7841;n c&#243; th&#7875; khai th&#225;c th&#244;ng tin.";
+            String msgInit = "B&#225;o c&#225;o/D&#7919; li&#7879;u NKT ch&#432;a &#273;&#432;&#7907;c k&#7871;t xu&#7845;t l&#7847;n &#273;&#7847;u, b&#7841;n ch&#432;a th&#7875; khai th&#225;c th&#244;ng tin!";
+            
+            FJobLog jobLog = new FJobLog();
+            jobLog.setJobCode(func);
+            jobLog.setLocationId("_REPORT_EXPORT".equals(func)?0:defaultLocation);
+            FBeans jobLogs = new BJobLog().getLogsByJobCode(jobLog);
+            String jobLastUpdate = "";
+            
+            if (jobLogs!=null && jobLogs.size()>0) {
+                jobLog = (FJobLog)jobLogs.get(0);
+                jobLastUpdate = Utilities.parseDateToTringType4(jobLog.getEndExec());
+            }
+            
+            bean.setJobMsg(!"".equals(jobLastUpdate)?bean.ncrToString(msgJob.replace("[$last-update$]", jobLastUpdate)):bean.ncrToString(msgInit));
             bean.setTinhName(tinhName);      
             request.setAttribute("BTreeTinhs", ("04.01|04.02|04.04".indexOf(subFunction)>-1)? beans:tinhs);
             request.setAttribute("subanchor", bean.getSubFunction());
@@ -142,11 +173,13 @@ public class AReportKpi extends  ACore {
                   reportDtl = "_REPORT_COMMUNE";
               } else if ("03.01".equals(bean.getSubFunction())) {
                   reportDtl = "_REPORT_EXPORT";
+              } else if ("03.02".equals(bean.getSubFunction())) {
+                  reportDtl = "_REPORT_EXPORT_2020";
+                  bean.setPeriodType("-1");
               }
               
               bean.setTinhName(tinh_name);
-              try {
-                  
+              try {                  
                   int lvl = 1;
                   FTinh tinh = (FTinh)map_location.get(String.valueOf(locationId));
                   if (tinh!=null) {
@@ -173,7 +206,6 @@ public class AReportKpi extends  ACore {
                       beanTemp.setStore(beans);
                       report = new DReportKpi().exportReportIndicator(beanTemp, bean, fileName);
                   } else if ("_REPORT_INSURANCE".equals(reportDtl)) {
-                      //beans = new BReportKpi().getDataReportInsurance(bean.getTinhId(), period);
                       fileName = IKeyDisability.REPORT_FILE_KPI_REPORT_HEALTH_INSURANCE;
                       FReportKpi beanTemp = new FReportKpi();
                       bean.setTinhId(locationId);
@@ -213,13 +245,30 @@ public class AReportKpi extends  ACore {
                       FReportKpi beanTemp = new FReportKpi();
                       beanTemp.setStore(beans);
                       report = new DReportKpi().reportDisExport(beanTemp, bean, fileName);
+                  } else if ("_REPORT_EXPORT_2020".equals(reportDtl)) {
+                      String createDateFrom = bean.getCreateDateFrom();
+                      String createDateTo = bean.getCreateDateTo();
+                      String dvuDateFrom = bean.getDvuDateFrom();
+                      String dvuDateTo = bean.getDvuDateTo();
+                      String tdgDateFrom = bean.getTdgDateFrom();
+                      String tdgDateTo = bean.getTdgDateTo();
+                      String dmcDateFrom = bean.getDmcDateFrom();
+                      String dmcDateTo = bean.getDmcDateTo();
+                      beans = new BReportKpi().getDataDisExport2020(lvl, locationId, createDateFrom, createDateTo, 
+                                                                    dvuDateFrom, dvuDateTo, tdgDateFrom, tdgDateTo, 
+                                                                    dmcDateFrom, dmcDateTo);
+                      
+                      fileName = IKeyDisability.REPORT_FILE_KPI_LIST_DIS_2020;
+                      FReportKpi beanTemp = new FReportKpi();
+                      beanTemp.setStore(beans);
+                      report = new DReportKpi().reportDisExport2020(beanTemp, bean, fileName);
                   }
                   
                   bean.download(report,fileName,null);
                   bean.deleteFile(report);                   
-                  target=null;                 
+                  target=null;
             } catch (Exception ex) {
-                  logger.error(ex.toString());
+                  logger.error("Exception" + ex.toString());
                   request.setAttribute("anchor", "04");
                   request.setAttribute("reportSystem",bean);
                   request.setAttribute("errorValue",ex.toString().replaceAll("com.exp.EException:",""));

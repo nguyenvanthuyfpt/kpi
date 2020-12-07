@@ -136,7 +136,7 @@
     
     <!-- DisabilityPeople  -->
     <logic:equal name="kpi" property="type" value="1">
-           <logic:equal name="kpi" property="nktId" value="0">
+          <logic:equal name="kpi" property="nktId" value="0">
           <td>
              <span class="bt_left_Search">
                   <span class="bt_right_Search">
@@ -174,7 +174,19 @@
                     </span>
               </span> 
           </td>
-          </logic:greaterThan>
+          
+          <td>
+              <span class="bt_left_Search">
+                   <span class="bt_right_Search">
+                      <span class="bt_center_Search">
+                          <html:button property="_EXPORT" styleClass="button" onclick="post('kpi',anchor + ':_EXPORT_REPORT');remove('kpi',anchor);">
+                              <bean:message key="btn.print.profile" bundle="<%=interfaces%>"/>
+                          </html:button>
+                      </span>
+                  </span>
+              </span>
+          </td>
+          </logic:greaterThan>  
           
           <td>
               <span class="bt_left_Search">
@@ -187,18 +199,6 @@
                 </span>
                </span> 
           </td>
-          
-          <!--<td>
-              <span class="bt_left_Search">
-                   <span class="bt_right_Search">
-                      <span class="bt_center_Search">
-                          <html:button property="_EXPORT" styleClass="button" onclick="javascript:excuteReport('_EXPORT_DATA');">
-                              <bean:message key="btn.export-data" bundle="<%=interfaces%>"/>
-                          </html:button>
-                      </span>
-                  </span>
-              </span>
-          </td>-->
     </logic:equal>
     
     <!-- Value -->

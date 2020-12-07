@@ -11,6 +11,7 @@ public class FJobScheduler extends FSeed {
     private String jobName;
     private String jobExec;
     private String jobCron;
+    private int locationId = 0;
     private int jobStatus;
 
     public FJobScheduler() {
@@ -71,5 +72,13 @@ public class FJobScheduler extends FSeed {
 
     public int getJobStatus() {
         return jobStatus;
+    }
+    
+    public void setLocationId(int locationId) {
+        this.locationId = locationId;
+    }
+
+    public int getLocationId() {
+        return locationId;
     }
 }

@@ -7,6 +7,9 @@ import com.form.FSeed;
 import com.util.Formater;
 import com.util.Utilities;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class FDataHdr extends FSeed {
     private int id;
     private int dtlId;
@@ -15,15 +18,35 @@ public class FDataHdr extends FSeed {
     private int eventId;
     private int parentID;
     private int userId;
+    private String notify;
+    
+    private String notifyInit;
+    private String notifyNext;
+    private String notifyNumInput;
     
     // Rank
     private int rankId;
     private String rankCreateDate = Formater.date2str(getCurrentDate());
+    private String rankInitDate;
+    private int rankNum = 0;
     private String rankName;
     private int parRankId;
     private String parRankName;
     private int rankResult = 0;
+    private int rankHasSP = 0;
+    private int rankHasRK = 0;
+    private int rankHasRQ = 0;
+    private int reRank = 0;
+    private String rankPercent;
+    private String rankHas = "0";
+    private String curRankHas = "0";
+    private int curResult = 0;
+    private String rankInput;
     private String breadcrumb;
+    private int rankNumIndicator = 0;
+    private Map<String, String> rankResult1;
+    private Map<String, String> rankResult2;
+    private Map<String, String> rankResult3;
     
     private int locationId = 0;
     private int subLocationId = 0;
@@ -137,6 +160,8 @@ public class FDataHdr extends FSeed {
     private int disNguyenNhanId;
     private int disMucDoId;
     private int disDiaDiem;
+    private int disDungCu;
+    private int disDoiTuong = -1;
     private String disDangTatIds;
     private int[] disPhanLoaiIds;
 
@@ -225,6 +250,7 @@ public class FDataHdr extends FSeed {
     private int rptHuongCanThiep;
     private String rptCanThiep;
     private String rptHtroDKien;
+    private int rptObj;
     
     public int pfId;
     public int pfStatus;
@@ -234,6 +260,8 @@ public class FDataHdr extends FSeed {
     public String pfUpdateOn;
     public int pfUpdateBy;
     public String pfAssessment;
+    
+    public String hdrCreateDate;
     
     private FBeans store = new FBeans();
 
@@ -1032,7 +1060,8 @@ public class FDataHdr extends FSeed {
         this.rptNcs = 0;
         this.rptHuongCanThiep = 0;
         this.rptCanThiep = "";
-        this.rptHtroDKien = "";        
+        this.rptHtroDKien = "";
+        this.rptObj = -1;
     }
       
       public void resetProfile() {
@@ -1851,5 +1880,191 @@ public class FDataHdr extends FSeed {
 
     public int getRptHuongCanThiep() {
         return rptHuongCanThiep;
+    }
+
+    public void setRptObj(int rptObj) {
+        this.rptObj = rptObj;
+    }
+
+    public int getRptObj() {
+        return rptObj;
+    }
+
+    public void setRankNumIndicator(int rankNumIndicator) {
+        this.rankNumIndicator = rankNumIndicator;
+    }
+
+    public int getRankNumIndicator() {
+        return rankNumIndicator;
+    }
+
+    public void setNotify(String notify) {
+        this.notify = notify;
+    }
+
+    public String getNotify() {
+        return notify;
+    }
+
+    public void setRankHasSP(int rankHasSP) {
+        this.rankHasSP = rankHasSP;
+    }
+
+    public int getRankHasSP() {
+        return rankHasSP;
+    }
+
+    public void setNotifyInit(String notifyInit) {
+        this.notifyInit = notifyInit;
+    }
+
+    public String getNotifyInit() {
+        return notifyInit;
+    }
+
+    public void setNotifyNext(String notifyNext) {
+        this.notifyNext = notifyNext;
+    }
+
+    public String getNotifyNext() {
+        return notifyNext;
+    }
+
+    public void setNotifyNumInput(String notifyNumInput) {
+        this.notifyNumInput = notifyNumInput;
+    }
+
+    public String getNotifyNumInput() {
+        return notifyNumInput;
+    }
+
+    public void setRankResult1(Map<String, String> rankResult1) {
+        this.rankResult1 = rankResult1;
+    }
+
+    public Map<String, String> getRankResult1() {
+        return rankResult1;
+    }
+
+    public void setRankResult2(Map<String, String> rankResult2) {
+        this.rankResult2 = rankResult2;
+    }
+
+    public Map<String, String> getRankResult2() {
+        return rankResult2;
+    }
+
+    public void setRankResult3(Map<String, String> rankResult3) {
+        this.rankResult3 = rankResult3;
+    }
+
+    public Map<String, String> getRankResult3() {
+        return rankResult3;
+    }
+
+    public void setDisDungCu(int disDungCu) {
+        this.disDungCu = disDungCu;
+    }
+
+    public int getDisDungCu() {
+        return disDungCu;
+    }
+
+    public void setDisDoiTuong(int disDoiTuong) {
+        this.disDoiTuong = disDoiTuong;
+    }
+
+    public int getDisDoiTuong() {
+        return disDoiTuong;
+    }
+
+    public void setRankNum(int rankNum) {
+        this.rankNum = rankNum;
+    }
+
+    public int getRankNum() {
+        return rankNum;
+    }
+    
+    
+   
+    public void setRankInput(String rankInput) {
+        this.rankInput = rankInput;
+    }
+
+    public String getRankInput() {
+        return rankInput;
+    }
+
+    public void setRankHas(String rankHas) {
+        this.rankHas = rankHas;
+    }
+
+    public String getRankHas() {
+        return rankHas;
+    }
+
+    public void setRankHasRK(int rankHasRK) {
+        this.rankHasRK = rankHasRK;
+    }
+
+    public int getRankHasRK() {
+        return rankHasRK;
+    }
+
+    public void setRankHasRQ(int rankHasRQ) {
+        this.rankHasRQ = rankHasRQ;
+    }
+
+    public int getRankHasRQ() {
+        return rankHasRQ;
+    }
+
+    public void setCurRankHas(String curRankHas) {
+        this.curRankHas = curRankHas;
+    }
+
+    public String getCurRankHas() {
+        return curRankHas;
+    }
+
+    public void setReRank(int reRank) {
+        this.reRank = reRank;
+    }
+
+    public int getReRank() {
+        return reRank;
+    }
+
+    public void setHdrCreateDate(String hdrCreateDate) {
+        this.hdrCreateDate = hdrCreateDate;
+    }
+
+    public String getHdrCreateDate() {
+        return hdrCreateDate;
+    }
+
+    public void setRankInitDate(String rankInitDate) {
+        this.rankInitDate = rankInitDate;
+    }
+
+    public String getRankInitDate() {
+        return rankInitDate;
+    }
+
+    public void setRankPercent(String rankPercent) {
+        this.rankPercent = rankPercent;
+    }
+
+    public String getRankPercent() {
+        return rankPercent;
+    }
+
+    public void setCurResult(int curResult) {
+        this.curResult = curResult;
+    }
+
+    public int getCurResult() {
+        return curResult;
     }
 }

@@ -40,7 +40,7 @@
                                         <td valign="top">
                                             <bean:message key="rank.edit.parent" bundle="<%=interfaces%>"/>
                                         </td>
-                                        <td colspan="3" >
+                                        <td colspan="3">
                                             <html:select styleClass="inputbox" name="rank" property="parentID" styleClass="combobox_w200">
                                                 <html:option value="0">
                                                     <bean:message key="combo.luachon" bundle="<%=interfaces%>"/>
@@ -50,7 +50,17 @@
                                                 </logic:present>
                                             </html:select>
                                         </td>
-                                        
+                                    </tr>
+                                    <tr>
+                                        <td valign="top">
+                                            <bean:message key="rank.edit.report" bundle="<%=interfaces%>"/>
+                                        </td>
+                                         <td colspan="3">
+                                            <html:select styleClass="inputbox" name="rank" property="report" styleClass="combobox_w200">
+                                                <html:option value="0"><bean:message key="common.no" bundle="<%=interfaces%>"/></html:option>
+                                                <html:option value="1"><bean:message key="common.yes" bundle="<%=interfaces%>"/></html:option>
+                                            </html:select>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>

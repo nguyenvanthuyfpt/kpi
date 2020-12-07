@@ -65,7 +65,7 @@
                 <li class="">
                     <a href="#" onclick="javascrip:postTab(this,'_HOTRO:id:<%=id%>:type:1');" onmouseover="Tip('H&#7895; tr&#7907; NKT &#273;&#227; nh&#7853;n ',SHADOW, true, SHADOWWIDTH, 7)" onmouseout="UnTip()">H&#7895; tr&#7907; &#273;&#227; nh&#7853;n</a></li>
                 <li class="">
-                    <a href="#" onclick="javascrip:postTab(this,'_TINHHINH:id:<%=id%>');" onmouseover="Tip('K&#7871;t qu&#7843; th&#7921;c hi&#7879;n k&#7871; ho&#7841;ch h&#7895; tr&#7907; c&#225; nh&#226;n',SHADOW, true, SHADOWWIDTH, 7)" onmouseout="UnTip()">K&#7871;t qu&#7843; PHCN</a></li>
+                    <a href="#" onclick="javascrip:postTab(this,'_TINHHINH:id:<%=id%>');" onmouseover="Tip('K&#7871;t qu&#7843; th&#7921;c hi&#7879;n k&#7871; ho&#7841;ch h&#7895; tr&#7907; c&#225; nh&#226;n',SHADOW, true, SHADOWWIDTH, 7)" onmouseout="UnTip()">K&#7871;t qu&#7843; &#273;&#225;nh gi&#225;</a></li>
                     <!--<a href="#" onclick="javascrip:postTab(this,'_TINHHINH:id:<%=id%>');"></a>-->
                     
                     

@@ -584,3 +584,10 @@ function hideshow(id, value) {
         getObj(id).style.display = (display == '' || display == 'block') ? 'none' : 'block';
     }
 }
+
+//function getDanhGia(val,dtlId,rankId){
+//    // postAjax('kpi','MainCate',anchor + ':_PRE_CRUD_RANK:dtlId:'+dtlId+':rankId:'+rankId);
+//    alert(val);
+//    //post('disabilityFuntion',anchor + ':_PREPARED_CREATE_KPI:objId:' +objId+':indId:'+indId+':inputType:'+type+':yearReport:'+year);
+//    //messageImg('right');
+//}

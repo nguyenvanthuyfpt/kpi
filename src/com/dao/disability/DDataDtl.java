@@ -121,9 +121,9 @@ public class DDataDtl extends DSqlDisability {
             SQL += " AND dtl.period=? ";
             
             if (bean.getPeriod()>=0) {
-                SQL += " ORDER BY dtl.location_id, ";
+                SQL += " ORDER BY dtl.create_date DESC, dtl.location_id, ";
                 if (bean.getPeriod()==0) {
-                    SQL += " CASE WHEN dtl.period=0 THEN dtl.month END DESC ";
+                    SQL += " CASE WHEN dtl.period=1 THEN dtl.month END DESC ";
                 } else if (bean.getPeriod()==1) {
                     SQL += " CASE WHEN dtl.period=1 THEN dtl.quarter END DESC ";
                 } else if (bean.getPeriod()==2) {

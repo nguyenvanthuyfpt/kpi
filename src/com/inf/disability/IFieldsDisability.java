@@ -344,6 +344,7 @@ public interface IFieldsDisability extends IParams {
         public final String HOTRO_CT_ANTL = "ct_antl";
         public final String HOTRO_THOIDIEM_TAIKHAM = "thoidiem_taikham"; 
         public final String HOTRO_DIADIEM = "diadiem_kham";
+        public final String HOTRO_DOITUONG = "doi_tuong";
         
         public final String[] HOTRO_ALL_FIELDS = {HOTRO_ID_NKT,HOTRO_USER_ID,HOTRO_DATECREATE,HOTRO_RESON,HOTRO_DM_HOTRO_IDS,HOTRO_STATUS_ID,
             HOTRO_DATEFORM,HOTRO_DATETO,HOTRO_NGUONHOTRO,HOTRO_NGUONHOTRO_ID,
@@ -352,7 +353,8 @@ public interface IFieldsDisability extends IParams {
             HOTRO_LOAIVAY_KHAC,HOTRO_SOTIENVAY_KHAC,HOTRO_MUCDICHVAY_KHAC,HOTRO_TOCHUCXAHOI_KHAC,
             HOTRO_NHUCAU_DOISONG_KHAC,HOTRO_NHUCAU_GIAODUC_KHAC,
             HOTRO_KN_CHITRA,HOTRO_THE_BHYT,HOTRO_SD_THE,HOTRO_SD_THE_PHCN,
-            HOTRO_MTIEU_GDINH,HOTRO_MTIEU_DTRI,HOTRO_CT_VLTL,HOTRO_CT_HDTL,HOTRO_MDO_PTDL,HOTRO_MDO_HLONG,HOTRO_CT_ANTL,HOTRO_THOIDIEM_TAIKHAM,HOTRO_DIADIEM}; 
+            HOTRO_MTIEU_GDINH,HOTRO_MTIEU_DTRI,HOTRO_CT_VLTL,HOTRO_CT_HDTL,HOTRO_MDO_PTDL,HOTRO_MDO_HLONG,
+            HOTRO_CT_ANTL,HOTRO_THOIDIEM_TAIKHAM,HOTRO_DIADIEM, HOTRO_DOITUONG}; 
     
     //  SET OF FIELDS ON DANH GIA TABLES
          public final String DANHGIA_NKT_ID="ID";
@@ -669,9 +671,10 @@ public interface IFieldsDisability extends IParams {
         public final String KPI_RANK_CREATE_DATE="create_date";
         public final String KPI_RANK_MODIFY_DATE="modify_date";
         public final String KPI_RANK_CODE="code";
-        public final String KPI_RANK_NAME="name";        
+        public final String KPI_RANK_NAME="name";
+        public final String KPI_RANK_REPORT="report";
         public final String[] KPI_RANK_ALL_FIELDS = {KPI_RANK_PARENT_ID, KPI_RANK_CREATE_DATE, KPI_RANK_MODIFY_DATE, 
-                                                       KPI_RANK_CODE, KPI_RANK_NAME};
+                                                       KPI_RANK_CODE, KPI_RANK_NAME, KPI_RANK_REPORT};
         
         // 13. KPI_DATA_RANK
         public final String KPI_DATA_RANK_ID="id";        
@@ -686,10 +689,23 @@ public interface IFieldsDisability extends IParams {
         public final String KPI_DATA_RANK_P2="p2";
         public final String KPI_DATA_RANK_P3="p3";
         public final String KPI_DATA_RANK_P4="p4";
+        public final String KPI_DATA_RANK_HAS_SUPPORT = "has_sp";
+        public final String KPI_DATA_RANK_HAS_RANK = "has_rank";
+        public final String KPI_DATA_RANK_HAS_REQUIRE = "has_req";
         
-        public final String[] KPI_DATA_RANK_ALL_FIELDS = {KPI_DATA_RANK_CREATE_DATE, KPI_DATA_RANK_MODIFY_DATE, KPI_DATA_RANK_USER_ID,
-                                                          KPI_DATA_RANK_NKT_ID, KPI_DATA_RANK_LOCATION_ID, KPI_DATA_RANK_RANK_ID,
-                                                          KPI_DATA_RANK_P0,KPI_DATA_RANK_P1,KPI_DATA_RANK_P2,KPI_DATA_RANK_P3,KPI_DATA_RANK_P4};
+        public final String[] KPI_DATA_RANK_ALL_FIELDS = {KPI_DATA_RANK_CREATE_DATE, KPI_DATA_RANK_MODIFY_DATE, 
+                                                          KPI_DATA_RANK_USER_ID,
+                                                          KPI_DATA_RANK_NKT_ID, 
+                                                          KPI_DATA_RANK_LOCATION_ID, 
+                                                          KPI_DATA_RANK_RANK_ID,
+                                                          KPI_DATA_RANK_P0, 
+                                                          KPI_DATA_RANK_P1,
+                                                          KPI_DATA_RANK_P2,
+                                                          KPI_DATA_RANK_P3,
+                                                          KPI_DATA_RANK_P4,
+                                                          KPI_DATA_RANK_HAS_RANK,
+                                                          KPI_DATA_RANK_HAS_REQUIRE,
+                                                          KPI_DATA_RANK_HAS_SUPPORT};
         
         
         // 14. KPI_EVENT_OBJ_IN
@@ -800,7 +816,7 @@ public interface IFieldsDisability extends IParams {
         public final String KPI_DIS_REPORT_CANTHIEP = "huong_ct";
         public final String KPI_DIS_REPORT_HUONGCANTHIEP = "canthiep";
         public final String KPI_DIS_REPORT_HTRO_DKIEN = "htro_dkien";
-       
+        public final String KPI_DIS_REPORT_DOITUONG = "doi_tuong";
        
         public final String[] KPI_DIS_REPORT_ALL_FIELDS = {
                                         KPI_DIS_REPORT_NKT_ID,
@@ -816,7 +832,8 @@ public interface IFieldsDisability extends IParams {
                                         KPI_DIS_REPORT_HD_NCS,
                                         KPI_DIS_REPORT_CANTHIEP,
                                         KPI_DIS_REPORT_HUONGCANTHIEP,
-                                        KPI_DIS_REPORT_HTRO_DKIEN
+                                        KPI_DIS_REPORT_HTRO_DKIEN, 
+                                        KPI_DIS_REPORT_DOITUONG
         };
         
         public final String TABLE_KPI_JOB_SCHEDULER_ID = "id";
@@ -826,6 +843,7 @@ public interface IFieldsDisability extends IParams {
         public final String TABLE_KPI_JOB_SCHEDULER_JOB_EXEC = "job_exec";
         public final String TABLE_KPI_JOB_SCHEDULER_JOB_CRON = "job_cron";
         public final String TABLE_KPI_JOB_SCHEDULER_JOB_STATUS = "job_status";
+        public final String TABLE_KPI_JOB_SCHEDULER_JOB_LOCATION_ID = "location_id";
         
         public final String[] KPI_JOB_SCHEDULER_ALL_FIELDS = {
                                           TABLE_KPI_JOB_SCHEDULER_ID,
@@ -834,7 +852,8 @@ public interface IFieldsDisability extends IParams {
                                           TABLE_KPI_JOB_SCHEDULER_JOB_NAME,
                                           TABLE_KPI_JOB_SCHEDULER_JOB_EXEC,
                                           TABLE_KPI_JOB_SCHEDULER_JOB_CRON,     
-                                          TABLE_KPI_JOB_SCHEDULER_JOB_STATUS
+                                          TABLE_KPI_JOB_SCHEDULER_JOB_STATUS,
+                                          TABLE_KPI_JOB_SCHEDULER_JOB_LOCATION_ID
         };
         
         public final String TABLE_KPI_JOB_LOG_ID = "id";
@@ -842,11 +861,13 @@ public interface IFieldsDisability extends IParams {
         public final String TABLE_KPI_JOB_LOG_END_EXEC = "end_exec";
         public final String TABLE_KPI_JOB_LOG_JOB_ID = "job_id";
         public final String TABLE_KPI_JOB_LOG_MSG_EXEC = "msg_exec";
+        public final String TABLE_KPI_JOB_LOG_LOCATION_ID = "location_id";
         
         public final String[] KPI_JOB_LOG_ALL_FIELDS = {
                                           TABLE_KPI_JOB_LOG_START_EXEC,
                                           TABLE_KPI_JOB_LOG_END_EXEC,
                                           TABLE_KPI_JOB_LOG_JOB_ID,
-                                          TABLE_KPI_JOB_LOG_MSG_EXEC
+                                          TABLE_KPI_JOB_LOG_MSG_EXEC,
+                                          TABLE_KPI_JOB_LOG_LOCATION_ID
         };
 }

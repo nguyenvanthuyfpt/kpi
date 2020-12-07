@@ -445,7 +445,7 @@ public class ADisability extends ACore {
     
                 String FileName = IKeyDisability.REPORT_FILE_DISABILITY_HUONGLOI;
                 FDisability beanT = new FDisability();
-                beanT = bo.getRecordByIDHuongLoi(bean);
+                beanT = bo.getRecordByIDHuongLoi(bean);              
                 beanT.setTinhName("");
                 if (beanT.getTinhId() > 0) {
                     FTinh beanCa = new FTinh();

@@ -1,5 +1,6 @@
 package com.util;
 
+import com.dao.disability.DSqlDisability;
 import com.dao.disability.report.DReportKpi;
 
 import com.exp.EException;
@@ -14,6 +15,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import java.sql.Statement;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 
@@ -46,8 +52,11 @@ public class DaoUtil {
                                          String job_exec) throws EException {
         String LOCATION = "~~>execSchedulerJobs()";
         CallableStatement state = null;
+        PreparedStatement prstm = null;
+        ResultSet rs = null;
         try {
             logger.debug("BEGIN::execSchedulerJobs");
+            logger.debug("job_exec:: "+job_exec);
             state = cnn.prepareCall(job_exec);
             state.execute();
             logger.debug("END::execSchedulerJobs");

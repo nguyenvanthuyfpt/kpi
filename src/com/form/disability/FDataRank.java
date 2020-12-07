@@ -17,6 +17,9 @@ public class FDataRank extends FSeed {
     private int locationId;
     private String locationName;
 
+    private int hasSP = 0;
+    private int hasRK = 0;
+    private int hasRQ = 0;
     private int p0 = 0;
     private int p1 = 0;
     private int p2 = 0;
@@ -93,6 +96,7 @@ public class FDataRank extends FSeed {
         return locationName;
     }
 
+
     public void setP0(int p0) {
         this.p0 = p0;
     }
@@ -155,5 +159,29 @@ public class FDataRank extends FSeed {
 
     public FBeans getStore() {
         return store;
+    }
+
+    public void setHasSP(int hasSP) {
+        this.hasSP = hasSP;
+    }
+
+    public int getHasSP() {
+        return hasSP;
+    }
+
+    public void setHasRK(int hasRK) {
+        this.hasRK = hasRK;
+    }
+
+    public int getHasRK() {
+        return hasRK;
+    }
+
+    public void setHasRQ(int hasRQ) {
+        this.hasRQ = hasRQ;
+    }
+
+    public int getHasRQ() {
+        return hasRQ;
     }
 }

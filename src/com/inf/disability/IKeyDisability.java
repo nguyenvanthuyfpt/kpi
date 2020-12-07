@@ -76,14 +76,20 @@ public class IKeyDisability extends IKey {
     public static final String REPORT_FILE_KPI_LIST_DIS_COUNT_LATE  = getValue("REPORT.FILE.KPI.LIST.DIS.COUNT.LATE");
     
     public static final String REPORT_FILE_KPI_LIST_DIS  = getValue("REPORT.FILE.KPI.LIST.DIS");
-    
+
+    public static final String REPORT_FILE_KPI_LIST_DIS_2020  = getValue("REPORT.FILE.KPI.LIST.DIS.2020");
+        
     public static final String REPORT_FILE_KPI_DIS       = getValue("REPORT.FILE.KPI.DIS") ;
+    
+    public static final String REPORT_FILE_KPI_DIS_COMMUNE       = getValue("REPORT.FILE.KPI.DIS.COMMUNE") ;
     
     public static final String REPORT_FILE_KPI_PER       = getValue("REPORT.FILE.KPI.PER") ;  
     
     public static final String REPORT_FILE_KPI_VAL       = getValue("REPORT.FILE.KPI.VAL") ;
     
     public static final String REPORT_FILE_KPI_SP         = getValue("REPORT.FILE.KPI.SP");
+    
+    public static final String REPORT_FILE_KPI_CHART         = getValue("REPORT.FILE.KPI.CHART");
       
     public static final String REPORT_FILE_KPI_EVENT = getValue("REPORT.FILE.KPI.EVENT");
     

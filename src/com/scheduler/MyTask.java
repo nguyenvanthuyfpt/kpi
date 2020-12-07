@@ -26,14 +26,16 @@ public class MyTask {
         int logId = 0;
         boolean retval = false;
         try {
-            logger.info("BEGIN:perform " + execJob);
+            //logger.info("BEGIN:perform " + execJob);
             String[] paramJob = execJob.split("#");
             int jobId = Integer.parseInt(paramJob[0]);
             String jobCode = paramJob[1];
             String jobStore = paramJob[2];
+            int locationId = Integer.parseInt(paramJob[3]);
             
             fLog.setStartExec(Utilities.getCurrentTimestamp());
             fLog.setJobId(jobId);
+            fLog.setLocationId(locationId);
             logId = new BJobLog().insert(fLog);
             Connection cnn = DBConnector.getConnection();            
             DaoUtil.execSchedulerJobs(cnn, jobStore);
@@ -43,7 +45,7 @@ public class MyTask {
             
             fLog.setEndExec(Utilities.getCurrentTimestamp());
             retval = new BJobLog().update(fLog);
-            logger.info("END:perform");
+            //logger.info("END:perform");
         } catch (EException ex) {
             fLog.setId(logId);
             fLog.setEndExec(Utilities.getCurrentTimestamp());

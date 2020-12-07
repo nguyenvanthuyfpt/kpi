@@ -8,11 +8,15 @@ import com.exp.EException;
 
 import com.form.FBeans;
 import com.form.FSeed;
+import com.form.disability.FDisExport;
 import com.form.disability.FSupport;
 
 import com.lib.AppConfigs;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import java.util.Date;
@@ -192,6 +196,86 @@ public class BSupport {
             conn = DBConnector.getConnection();
             DBConnector.startTransaction(conn);
             result = dao.getSupportByNktID_HotroID(conn, nktId, hotroId);
+            DBConnector.endTransaction(conn);
+        } catch (EException ex) {
+            DBConnector.rollBackTransaction(conn);
+            if (AppConfigs.APP_DEBUG)
+                throw new EException(LOCATION, ex);
+        } finally {
+            DBConnector.closeConnection(conn);
+        }
+        return result;
+    }
+    
+    public FSupport getDoiTuongHoTroByNktId(int nktId) throws EException,
+                                                                  SQLException {
+        final String LOCATION = this + "->getDoiTuongHoTroByNktId()";
+        FSupport result = new FSupport();
+        Connection conn = null;
+        try {
+            conn = DBConnector.getConnection();
+            DBConnector.startTransaction(conn);
+            result = dao.getDoiTuongHoTroByNktId(conn, nktId);
+            DBConnector.endTransaction(conn);
+        } catch (EException ex) {
+            DBConnector.rollBackTransaction(conn);
+            if (AppConfigs.APP_DEBUG)
+                throw new EException(LOCATION, ex);
+        } finally {
+            DBConnector.closeConnection(conn);
+        }
+        return result;
+    }
+    
+    public int countNhuCauByNktId(int nktId, String supportId) throws EException,
+                                                                  SQLException {
+       final String LOCATION = this + "->countNhuCauByNktId()";
+       int result = 0;
+       Connection conn = null;
+       try {
+           conn = DBConnector.getConnection();
+           DBConnector.startTransaction(conn);
+           result = dao.countNhuCauByNktId(conn, nktId, supportId);
+           DBConnector.endTransaction(conn);
+       } catch (EException ex) {
+           DBConnector.rollBackTransaction(conn);
+           if (AppConfigs.APP_DEBUG)
+               throw new EException(LOCATION, ex);
+       } finally {
+           DBConnector.closeConnection(conn);
+       }
+       return result;
+   }
+    
+    public FBeans getSupportsByNktId(int idNkt, String supportId) throws EException,
+                                                                SQLException {
+        final String LOCATION = this + "->getSupportsByNktId()";
+        FBeans result = null;
+        Connection conn = null;
+        try {
+            conn = DBConnector.getConnection();
+            DBConnector.startTransaction(conn);
+            result = dao.getSupportsByNktId(conn, idNkt, supportId);
+            DBConnector.endTransaction(conn);
+        } catch (EException ex) {
+            DBConnector.rollBackTransaction(conn);
+            if (AppConfigs.APP_DEBUG)
+                throw new EException(LOCATION, ex);
+        } finally {
+            DBConnector.closeConnection(conn);
+        }
+        return result;
+    }
+    
+    public FBeans getSupportsForChart(int idNkt) throws EException,
+                                                                SQLException {
+        final String LOCATION = this + "->getSupportsForChart()";
+        FBeans result = null;
+        Connection conn = null;
+        try {
+            conn = DBConnector.getConnection();
+            DBConnector.startTransaction(conn);
+            result = dao.getSupportsForChart(conn, idNkt);
             DBConnector.endTransaction(conn);
         } catch (EException ex) {
             DBConnector.rollBackTransaction(conn);

@@ -10,7 +10,9 @@ public class FJobLog extends FSeed{
     private Timestamp startExec;
     private Timestamp endExec;
     private int jobId;
+    private String jobCode;
     private String msgExec;
+    private int locationId;
 
     public void setId(int id) {
         this.id = id;
@@ -51,4 +53,21 @@ public class FJobLog extends FSeed{
     public Timestamp getEndExec() {
         return endExec;
     }
+
+    public void setJobCode(String jobCode) {
+        this.jobCode = jobCode;
+    }
+
+    public String getJobCode() {
+        return jobCode;
+    }
+
+    public void setLocationId(int locationId) {
+        this.locationId = locationId;
+    }
+
+    public int getLocationId() {
+        return locationId;
+    }
 }
+

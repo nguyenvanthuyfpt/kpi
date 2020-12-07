@@ -6,10 +6,11 @@
 <tbody>	
 	<TR>
 	    <TH width="10px" align="center">#</TH>
-      <TH width="18%" align="center"><bean:message key="hotro.list.label.createDate" bundle="<%=interfaces%>"/></TH>
-	    <TH><bean:message key="common.label.createby" bundle="<%=interfaces%>"/></TH>	    			
-      <TH><bean:message key="hotro.list.label.detail" bundle="<%=interfaces%>"/></TH>		
-      <TH width="18%"><bean:message key="common.label.re-examination" bundle="<%=interfaces%>"/></TH>		
+      <TH><bean:message key="hotro.list.label.createDate" bundle="<%=interfaces%>"/></TH>
+	    <TH><bean:message key="common.label.createby" bundle="<%=interfaces%>"/></TH>
+      <TH><bean:message key="hotro.list.label.nguonhotro" bundle="<%=interfaces%>"/></TH>
+      <TH><bean:message key="common.label.re-examination" bundle="<%=interfaces%>"/></TH>
+      <TH><bean:message key="common.label.object.support" bundle="<%=interfaces%>"/></TH>
       <TH width="40px" align="center">#</TH>
 	</TR>
 	
@@ -30,11 +31,28 @@
               </td>
               <td align="center">
                   <a href="javascript:postAjax('kpi','MainCate',anchor + ':_DETAIL_SUPPORT:nktId:<%=bean.getIdNkt()%>:dateCreate:<%=bean.getDateCreate()%>')">
-                    <bean:write name="bean" property="reson" /></a>
-              </td>				
+                      <bean:write name="bean" property="nguonhotro" />
+                  </a>
+              </td>           		
               <td align="center">
                   <a href="javascript:postAjax('kpi','MainCate',anchor + ':_DETAIL_SUPPORT:nktId:<%=bean.getIdNkt()%>:dateCreate:<%=bean.getDateCreate()%>')">
                     <bean:write name="bean" property="thoiDiemTK" /></a>
+              </td>
+              <td align="center">
+                  <a href="javascript:postAjax('kpi','MainCate',anchor + ':_DETAIL_SUPPORT:nktId:<%=bean.getIdNkt()%>:dateCreate:<%=bean.getDateCreate()%>')">
+                      <logic:equal name="bean" property="doiTuong" value="1" >
+                          <bean:message key="kpi.dis.support.vnah" bundle="<%=interfaces%>"/>
+                      </logic:equal>                      
+                      <logic:equal name="bean" property="doiTuong" value="2" >
+                          <bean:message key="kpi.dis.support.province" bundle="<%=interfaces%>"/>
+                      </logic:equal>                       
+                      <logic:equal name="bean" property="doiTuong" value="3" >
+                          <bean:message key="kpi.dis.support.district" bundle="<%=interfaces%>"/>
+                      </logic:equal>                      
+                      <logic:equal name="bean" property="doiTuong" value="4" >
+                          <bean:message key="kpi.dis.support.ward" bundle="<%=interfaces%>"/>
+                      </logic:equal>
+                  </a>
               </td>
               <td width="40px">
                   <img style="border:0px;cursor:pointer;" src="<%=contextPath%>/images/editdraft.png" 

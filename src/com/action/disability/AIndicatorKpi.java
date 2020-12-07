@@ -3,6 +3,7 @@ package com.action.disability;
 
 import com.action.ACore;
 
+import com.bo.admin.users.BUsers;
 import com.bo.disability.BDataDtl;
 import com.bo.disability.BDataHdr;
 import com.bo.disability.BDataNkt;
@@ -25,6 +26,7 @@ import com.bo.disability.categorys.BTinh;
 import com.bo.disability.search.BSearch;
 import com.bo.tree.BTreeView;
 
+import com.dao.disability.report.DReportKpiChart;
 import com.dao.disability.report.DReportKpiData;
 
 import com.exp.EException;
@@ -35,6 +37,7 @@ import com.form.disability.FDataHdr;
 import com.form.disability.FDataNkt;
 import com.form.disability.FDataPer;
 import com.form.disability.FDataRank;
+import com.form.disability.FDisChart;
 import com.form.disability.FDisProfile;
 import com.form.disability.FDisReport;
 import com.form.disability.FDisability;
@@ -52,6 +55,8 @@ import com.form.disability.report.FReportKpiData;
 import com.form.disability.search.FSearch;
 
 import com.inf.disability.IKeyDisability;
+
+import com.lib.Base64Coder;
 
 import com.util.Constant;
 import com.util.Formater;
@@ -72,6 +77,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionError;
 import org.apache.struts.action.ActionErrors;
@@ -85,9 +91,8 @@ public class AIndicatorKpi extends  ACore {
     
     final static Logger logger = Logger.getLogger(AIndicatorKpi.class);
     
-    public ActionForward executeAction(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws EException,IOException, ServletException,SQLException
-    {
-        
+    public ActionForward executeAction(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) 
+      throws EException, IOException, ServletException, SQLException {
         try { 
              
             final String LOCATION = this + "->executeAction()";
@@ -117,19 +122,26 @@ public class AIndicatorKpi extends  ACore {
             int perSel = fdataHdr.getPerSel();
             int hdrId = 0, dtlId = 0, perId =0, refId = 0, disId = 0, indId = 0, objId = 0; 
             int locationId = 0, districtId = 0, communeId = 0;
-            int total = 0, typeSel = 0, period = 0;
+            int total = 0, typeSel = 0, period = 1;
             int nktId = 0, eventId = 0, yearReport = 0;
             int rankId = fdataHdr.getRankId();
             int rankDtlId = fdataHdr.getDtlId();
             int state = fdataHdr.getState();
             int tabId = fdataHdr.getTabId();
+            period = fdataHdr.getTypePeriod();
             perId = fdataHdr.getPerId();
             
             int defaultParent = 1;
             int parRankId = fdataHdr.getParRankId();        
             int parentId = 0;
+            String msgInfoNum = "Hi&#7879;n b&#7841;n m&#7899;i &#273;&#225;nh gi&#225; [$num-indicator$] ch&#7881; ti&#234;u.";            
+            String msgInfoInit = "Hi&#7879;n NKT ch&#432;a th&#7921;c hi&#7879;n &#273;&#225;nh gi&#225; l&#7847;n n&#224;o.B&#7841;n vui l&#242;ng th&#7921;c hi&#7879;n &#272;&#225;nh gi&#225; ban &#273;&#7847;u cho NKT.";
+            String msgInfoNext = "Ng&#224;y &#273;&#225;nh gi&#225; g&#7847;n nh&#7845;t c&#7911;a NKT: [$rank-date$], B&#7841;n vui l&#242;ng th&#7921;c hi&#7879;n \"T&#225;i &#273;&#225;nh gi&#225;\" cho NKT";
+            int totalIndicator = 0;
+            int numRankIndicator = 0;
             
-            String createDate = "", locationName = "", disCode = "";
+            String createDate = "", locationName = "", disCode = "", rankInitDate = "", rankCurDate = "";
+            String profileDate = "";
             String SQL = "SELECT tinh_id,parent_id,name FROM dr_area WHERE parent_id = ? ";
             String characters = "/ ";
             String member = "";
@@ -232,6 +244,7 @@ public class AIndicatorKpi extends  ACore {
             Map<String, String> map_kpi_vote_result = (HashMap<String,String>)mapObject.get("KPI_VOTE_RESULT"); 
             Map<String, String> map_phanloai_diadiem = (HashMap<String,String>)mapObject.get("KPI_PHANLOAI_DIADIEM");
             Map<String, String> map_hotro = (HashMap<String,String>)mapObject.get("NKT_HOTRO");
+            Map<String, String> map_quanhe = (HashMap<String,String>)mapObject.get("NKT_QUANHE");
             
             Map<String, String> map_hotro_kn_chitra = (HashMap<String,String>)mapObject.get("KPI_HOTRO_KN_CHITRA");
             Map<String, String> map_hotro_the_bhyt = (HashMap<String,String>)mapObject.get("KPI_HOTRO_THE_BHYT");
@@ -251,8 +264,30 @@ public class AIndicatorKpi extends  ACore {
             perId = fdataHdr.getPerId();
             nktId = fdataHdr.getNktId();
             createDate = fdataHdr.getCreateDate();
+            profileDate = fdataHdr.getCreateDate();
             typeSel = fdataHdr.getTypeSel();
             period = fdataHdr.getTypePeriod();
+            
+            String rankDate = "", strRankDate = "";
+            String[] arrRankDate = null;
+            rankInitDate = new BRank().getRankDate(nktId, null, 1, 0, "ASC");
+            rankCurDate = new BRank().getRankDate(nktId, null, 1, 0, "DESC");            
+            int countNumRanked = new BDataRank().getNumRanked(nktId);
+            
+            System.out.println("countNumRanked " + countNumRanked);
+            
+            if (!"".equals(rankInitDate) && rankInitDate!=null){
+                rankInitDate = rankInitDate.substring(0, rankInitDate.length()-1);
+                fdataHdr.setRankInitDate(rankInitDate); 
+            } else {
+                fdataHdr.setRankInitDate(Formater.date2str(new Date())); 
+            }
+            
+            if (!"".equals(rankCurDate)){
+                rankCurDate = rankCurDate.substring(0, rankCurDate.length()-1);
+            }
+            
+            System.out.println("### RankInitDate ### " + rankInitDate + " ## rankCurDate ## " + rankCurDate + " ## " + createDate);
             
             if (yearReport==0) {
                 String strYearReport = (String)request.getParameter("yearReport");
@@ -548,6 +583,16 @@ public class AIndicatorKpi extends  ACore {
                 }
                 request.setAttribute("menuObjectInput", menuObject);
                 target = _SUCCESS;
+            } else if (anchor.equals("_EXPORT_REPORT")) {
+                String fileName = IKeyDisability.REPORT_FILE_KPI_CHART; 
+                request.setAttribute("map_quanhe", map_quanhe);
+                String report = new DReportKpiChart().exportExcel(fdataHdr, map_quanhe, seed, fileName);
+                fdataHdr.download(report, fileName, null);
+                fdataHdr.deleteFile(report);
+                String password = "JfnnlDI7RTiF9RgfG2JNCw==";
+                String retval = Base64Coder.encodeString(password);
+                System.out.println("RETVAL " + retval);
+                target = null;
             } else if (anchor.equals(_CREATE)) {
                 int refIndId = 0, refHdrId = 0;
                 
@@ -968,6 +1013,7 @@ public class AIndicatorKpi extends  ACore {
     
                     if (fdataHdr.getType()==Constant.KPI_DATA_VALUE) {
                         fdataDtl.setDataId(locationId==0?0:hdrId);
+                        fdataDtl.setPeriod(period);
                         fdataDtl.setObjId(objId);
                         fdataDtl.setIndId(indId);
                         fdataDtl.setLocationId(locationId);
@@ -1703,7 +1749,7 @@ public class AIndicatorKpi extends  ACore {
                     hdrId = new BDataHdr().getHdrId(fdataHdr);
                 }
                 
-                createDate = fdataHdr.getCreateDate();
+                // createDate = fdataHdr.getCreateDate();
                 
                 fdataHdr.setNktId(0);
                 fdataHdr.setDtlId(0);
@@ -1947,6 +1993,7 @@ public class AIndicatorKpi extends  ACore {
             }  else if (anchor.equals("_INSERT_RANK") || anchor.equals("_UPDATE_RANK") || anchor.equals("_DELETE_RANK")) { 
                   BDataRank bo = new BDataRank();
                   
+                  FRank rank = new FRank();
                   fdataRank.setId(fdataHdr.getId());
                   fdataRank.setRankId(fdataHdr.getRankId());
                   fdataRank.setCreateDate(fdataHdr.getRankCreateDate());
@@ -1955,95 +2002,372 @@ public class AIndicatorKpi extends  ACore {
                   fdataRank.setId(dtlId);
                   fdataRank.setLocationId(locationId);
                   
-                  int result = fdataHdr.getRankResult();
+                  FRank fRank = new BRank().getRankByDtlId(rankId, nktId, dtlId);
+                  FRank initRank = new BRank().getRankByDtlId(rankId, nktId, dtlId, rankInitDate);
+                  String[] req = request.getParameterValues("rankHas");
+                  String hasRank = "0";
+                  if (req != null && req.length > 1) {
+                      for (int i = 0; i < req.length; i++) {
+                          if (req[i].endsWith(String.valueOf(rankId))) {
+                              hasRank = req[i];
+                              break;
+                          }
+                      }
+                  } else {
+                      hasRank = fdataHdr.getRankHas();
+                  }
+                  
+                  System.out.println("hasRank " + hasRank);
+                  
+                  boolean chkCombo = hasRank.startsWith("0") ? false:true;
+                  boolean chkCurDtl =  fdataHdr.getCurRankHas().startsWith("0") ? false:true;
+                  System.out.println("hasRank: " +hasRank +" chkCombo: " + chkCombo + " chkCurDtl: "+ chkCurDtl);
+                  
+                  int result = hasRank.startsWith("0")?-1:fdataHdr.getRankResult();                  
+                  int hasRQ = hasRank.startsWith("0")?0:fdataHdr.getRankHasRQ();
+                  int hasSP = hasRank.startsWith("0")?0:fdataHdr.getRankHasSP();                  
                   
                   fdataRank.setP0(result==0?1:0);
                   fdataRank.setP1(result==1?1:0);
                   fdataRank.setP2(result==2?1:0);
                   fdataRank.setP3(result==3?1:0);
-                  fdataRank.setP4(result==4?1:0);
+                  fdataRank.setP4(result==4?1:0);                  
                   
+                  fdataRank.setHasRK(hasRank.startsWith("1")?1:0);                  
+                  fdataRank.setHasRQ(result>0?1:0);
+                  fdataRank.setHasSP(hasSP);
+              
                   parentId = (parRankId!=defaultParent) ? parRankId:defaultParent;
+                  FBeans listRank = new BRank().getAllRecordByR_D(rankId, nktId);
+                  
+                  boolean allowAdd = true; //((hasRank.startsWith("1"))) ?true:false;
+                  boolean allowUpdate = (listRank.size()>1 && rankInitDate.equals(fRank.getCreateDate())) ? false:true;
+                  boolean allowDelete = (listRank.size()>1 && rankInitDate.equals(fRank.getCreateDate())) ? false:true;                  
+                  boolean check = true;
+                  
+                  if (anchor.equals("_INSERT_RANK") || anchor.equals("_UPDATE_RANK")) {
+                      createDate = fdataRank.getCreateDate();                      
+                      try {
+                          Date rankInsertDate = Formater.str2date(createDate);
+                          Date rankCurrentDate = Formater.str2date(rankInitDate);
+                          if (rankInsertDate.before(rankCurrentDate)) {
+                              check = false;
+                              errors.add("alert", new ActionError("common.label.rank.date-before-init"));
+                          } 
+                          
+                          int numRanked = new BRank().countNumRanked(rank, nktId, rankInitDate, 0);
+                          if ((numRanked<32) && rankInsertDate.after(rankCurrentDate)) {
+                              check = false;
+                              errors.add("alert", new ActionError("common.label.rank.unable-rank-next"));
+                          }                         
+                      } catch (Exception e) {
+                      }
+                  }
                   
                   if (anchor.equals("_DELETE_RANK")) {
-                      if (bo.delete(fdataRank)) {
-                          fdataHdr.setDtlId(0);
-                          errors.add("alert", new ActionError("alert.delete.successfull"));
+                      if (!allowDelete) {
+                          errors.add("alert", new ActionError("common.label.rank.cannot-delete"));
                       } else {
-                          errors.add("errors",new ActionError("alert.delete.unSuccessfull"));
-                      }
-                  } else {
-                      if (anchor.startsWith("_INSERT")) {
-                          if (bo.isExist(fdataRank)) {
-                              errors.add("alert", new ActionError("common.label.rank.exists"));
-                          } else if (bo.insert(fdataRank)) {
-                              errors.add("alert", new ActionError("alert.insert.successfull"));
+                          if (bo.delete(fdataRank)) {
+                              rankCurDate = new BRank().getRankDate(nktId, null, 1, 0, "DESC");
+                              if (!"".equals(rankCurDate)) {
+                                  rankCurDate = rankCurDate.substring(0, rankCurDate.length()-1);
+                              }
+                              fdataHdr.setHdrCreateDate(rankCurDate);
+                              fdataHdr.setDtlId(0);
+                              fdataHdr.setCurResult(0);
+                              errors.add("alert", new ActionError("alert.delete.successfull"));
                           } else {
-                              errors.add("alert",new ActionError("alert.insert.unSuccessfull"));
+                              errors.add("errors",new ActionError("alert.delete.unSuccessfull"));
                           }
-                      } else {
-                          if (bo.update(fdataRank)) {
-                              errors.add("alert", new ActionError("alert.update.successfull"));
+                      }                      
+                  } else {
+                      if (anchor.startsWith("_INSERT")) {                        
+                          if (allowAdd) {
+                              if (check) {
+                                  if (bo.isExist(fdataRank)) {
+                                        errors.add("alert", new ActionError("common.label.rank.exists"));
+                                  } else if (bo.insert(fdataRank)) {
+                                        rankCurDate = createDate;
+                                        fdataHdr.setRankResult(-1);
+                                        fdataHdr.setRankHasRQ(0);
+                                        fdataHdr.setRankHasSP(0);
+                                        fdataHdr.setParRankId(parentId);
+                                        fdataHdr.setDtlId(0);
+                                        
+                                        fdataHdr.setCurRankHas(rankCurDate);
+                                        fdataHdr.setHdrCreateDate(rankCurDate);
+                                        rankInitDate = new BRank().getRankDate(nktId, null, 1, 0, "ASC");
+                                        rankInitDate = rankInitDate.substring(0, rankInitDate.length()-1);
+                                        
+                                        errors.add("alert", new ActionError("alert.insert.successfull"));
+                                  } else {
+                                        errors.add("alert",new ActionError("alert.insert.unSuccessfull"));
+                                  }  
+                              }                              
                           } else {
-                              errors.add("alert",new ActionError("alert.update.unSuccessfull"));
+                              errors.add("alert", new ActionError("common.label.rank.cannot-rank"));
+                          }                         
+                      } else {
+                          if (!allowUpdate) {
+                              errors.add("alert", new ActionError("common.label.rank.cannot-update"));
+                          } else {                             
+                              if (check) {
+                                  if (bo.update(fdataRank)) {
+                                      rankCurDate = createDate;
+                                      fdataHdr.setRankResult(-1);
+                                      fdataHdr.setRankHasRQ(0);
+                                      fdataHdr.setRankHasSP(0);
+                                      fdataHdr.setParRankId(parentId);
+                                      fdataHdr.setDtlId(0);
+                                      
+                                      fdataHdr.setCurRankHas(rankCurDate);
+                                      fdataHdr.setHdrCreateDate(rankCurDate);
+                                      errors.add("alert", new ActionError("alert.update.successfull"));
+                                  } else {
+                                      errors.add("alert",new ActionError("alert.update.unSuccessfull"));
+                                  }
+                              }                              
                           }
                       }
                   }
                   
-                  request.setAttribute("BRankByR_D", new BRank().getAllRecordByR_D(rankId, nktId));
+                  // Reset form
+                  //fdataHdr.setRankCreateDate(Formater.date2str(new Date()));
+                  fdataHdr.setRankResult(0);            
+                  
+                  totalIndicator = new BRank().countIndicator(parentId);
+                  numRankIndicator = new BRank().countNumRanked(rank, nktId, rankInitDate.equals(rankCurDate)?rankInitDate:rankCurDate, parentId);
+                  
+                  if ("".equals(rankInitDate)) {
+                      fdataHdr.setNotifyNumInput("");
+                      fdataHdr.setNotifyInit(fdataHdr.ncrToString(msgInfoInit));
+                  } else {                  
+                      String num_indicator = String.valueOf(numRankIndicator) + "/" + String.valueOf(totalIndicator);
+                      if (numRankIndicator<totalIndicator) {
+                          fdataHdr.setNotifyInit(""); 
+                          fdataHdr.setNotifyNumInput(fdataHdr.ncrToString(msgInfoNum.replace("[$num-indicator$]", num_indicator)));                        
+                          fdataHdr.setNotifyNext("");
+                      } else {                
+                          fdataHdr.setNotifyInit("");
+                          fdataHdr.setNotifyNumInput("");
+                          fdataHdr.setNotifyNext(fdataHdr.ncrToString(msgInfoNext.replace("[$rank-date$]", "".equals(rankCurDate)?rankInitDate:rankCurDate)));
+                      }             
+                  }
+                  
+                  getRankResults(request, rank, nktId, (listRank.size()==1)?rankInitDate:rankCurDate);
+                  fdataHdr.setRankHas((listRank.size()>0) ? "1":"0");
+                  
+                  request.setAttribute("BRankByR_D", listRank);
                   request.setAttribute("BComboRank", new BRank().getAllRecordByParent(0));
-                  request.setAttribute("BRanks", new BRank().getAllRecordByDis(parentId, nktId));
+                  request.setAttribute("ListRanks", new BRank().getListRanks(rank, nktId, rankInitDate));
+                  
+                  if (countNumRanked>1) {
+                      request.setAttribute("BRanks", new BRank().getAllRecordByDisContinues(rank, nktId, rankInitDate, rankCurDate, parentId));
+                  } else {
+                      request.setAttribute("BRanks", new BRank().getAllRecordByDis(rank, nktId, rankInitDate.equals(rankCurDate)?rankInitDate:rankCurDate, parentId));
+                  }
+                  
                   request.setAttribute("kpi", fdataHdr);
                   target = "_RANK";
-            } else if (anchor.equals("_DETAIL_RANK") || anchor.equals("_DETAIL_RANK_DTL")) {
+            } else if (anchor.equals("_DETAIL_RANK") || anchor.equals("_DETAIL_RANK_DTL") 
+                       || anchor.equals("_PRE_CRUD_RANK") || anchor.equals("_PRE_EDIT_RANK")
+                       || anchor.equals("_PRE_CRUD_RE_RANK")) {
                 FRank rank = new FRank();
-                fDis.setId(fdataHdr.getNktId());
-                
-                parentId = (parRankId!=defaultParent) ? parRankId:defaultParent;
-                if (rankId>0) {
-                    rank.setId(rankId);
-                    if (anchor.equals("_DETAIL_RANK_DTL")) {
-                        rank = new BRank().getRankByDtlId(rankId, nktId, dtlId);
-                        fdataHdr.setRankCreateDate(rank.getCreateDate());
-                        fdataHdr.setRankResult(rank.getResult());
+                FDataRank dataRank = new FDataRank();
+                String curRankDate = fdataHdr.getHdrCreateDate();            
+                boolean isReRank = fdataHdr.getReRank()==1?true:false;
+
+                if (anchor.equals("_PRE_CRUD_RANK")) {             
+                    fdataHdr.setDtlId(0);
+                    fdataHdr.setRankHasSP(0);
+                    if (isReRank) {
+                        curRankDate  = fdataHdr.getHdrCreateDate();
+                        fdataHdr.setRankCreateDate(curRankDate);
                     } else {
-                        rank = new BRank().getRankById(rank);
-                        rank.setResult(0);
-                        rank.setDtlId(0);
+                        fdataHdr.setRankCreateDate("".equals(rankCurDate)?profileDate:rankCurDate);
+                    }
+                } else if (anchor.equals("_PRE_CRUD_RE_RANK")) {
+                    isReRank = true;
+                    fdataHdr.setDtlId(0);
+                    curRankDate = Formater.date2str(new Date());
+                    fdataHdr.setHdrCreateDate(curRankDate);
+                    fdataHdr.setRankCreateDate(curRankDate);
+                    fdataHdr.setRankHasSP(0);
+                } else if (anchor.equals("_PRE_EDIT_RANK")) {
+                    if (isReRank) {
+                        curRankDate  = fdataHdr.getRankCreateDate();
+                        fdataHdr.setRankCreateDate(fdataHdr.getRankCreateDate());
+                    } else {
+                        fdataHdr.setRankCreateDate("".equals(rankCurDate)?profileDate:rankCurDate);
+                    }
+                    fdataHdr.setRankHasSP(0);
+                } else if (anchor.equals("_DETAIL_RANK")) {
+                    fdataHdr.setRankCreateDate(curRankDate);
+                    fdataHdr.setCreateDate(curRankDate);
+                }
+                 
+                // Get RankResult
+                 getRankResults(request, rank, nktId, rankInitDate);
+                
+                fDis.setId(fdataHdr.getNktId());
+                FBeans listRank = new BRank().getAllRecordByR_D(rankId, nktId);
+                parentId = (parRankId!=defaultParent) ? parRankId:defaultParent;
+                
+                if (rankId>0) {
+                    rank.setId(rankId);                   
+                    rank = new BRank().getRankByDtlId(rankId, nktId, dtlId);
+                    String[] req = request.getParameterValues("rankHas");
+
+                    String hasRank = "0";
+                    if (req != null && req.length > 0) {
+                        for (int i = 0; i < req.length; i++) {
+                            if (req[i].endsWith(String.valueOf(rankId))) {
+                                hasRank = req[i];
+                                break;
+                            }
+                        }
+                    } else {
+                        hasRank = fdataHdr.getRankHas();
                     }
                     
-                    fdataHdr.setRankId(rank.getId());
-                    fdataHdr.setDtlId(rank.getDtlId());
+                    boolean chkCombo = hasRank.startsWith("0") ? false:true;
+                    boolean chkCurDtl =  fdataHdr.getCurRankHas().startsWith("0") ? false:true;
+                    
+                    if (chkCombo && chkCurDtl) {
+                        fdataHdr.setRankResult(-1);
+                        fdataHdr.setRankHasSP(0);                     
+                        fdataHdr.setRankHas("1_"+rankId);
+                    } else if (!chkCombo && chkCurDtl) {
+                        fdataHdr.setDtlId(dtlId);
+                        if (anchor.equals("_PRE_CRUD_RANK")) {
+                            fdataHdr.setRankHas("0_"+rankId);
+                        } else {
+                            fdataHdr.setRankHas("1_"+rankId);    
+                        }
+                    } else if (!chkCombo && !chkCurDtl) {
+                        fdataHdr.setDtlId(dtlId);
+                        if (anchor.equals("_PRE_CRUD_RANK")) {
+                            fdataHdr.setRankHas("0_"+rankId);
+                        }
+                        fdataHdr.setRankHas("0_"+rankId);
+                    } else if (chkCombo && !chkCurDtl) {
+                        fdataHdr.setDtlId(dtlId);
+                        if (anchor.equals("_PRE_CRUD_RANK")) {
+                            if (hasRank.startsWith("1")) {
+                                fdataHdr.setRankHas("1_"+rankId);            
+                            } else {
+                                fdataHdr.setRankHas("0_"+rankId);
+                            }                            
+                        }
+                    } else {
+                        fdataHdr.setRankHas(fdataHdr.getCurRankHas());
+                        fdataHdr.setRankResult(rank.getResult());
+                        fdataHdr.setRankHasSP(rank.getHasSP());  
+                    }
+                    
+                    fdataHdr.setRankId(rank.getId());                   
                     fdataHdr.setRankResult(rank.getResult());
-                    fdataHdr.setParRankId(rank.getParentID());
+                    // fdataHdr.setParRankId(parentId);
                     fdataHdr.setRankName(rank.getName());
                     fdataHdr.setBreadcrumb(rank.getBreadcrumb());
-                    request.setAttribute("BRankByR_D", new BRank().getAllRecordByR_D(rankId, nktId));
-                } else {
+                    if (dtlId>0) {
+                        fdataHdr.setRankCreateDate(rank.getCreateDate());
+                    }
+                    request.setAttribute("BRankByR_D", listRank);
+                }
+                               
+                fdataHdr.setNotifyInit("");               
+                fdataHdr.setMode((anchor.equals("_PRE_CRUD_RANK")||anchor.equals("_PRE_EDIT_RANK")||anchor.equals("_PRE_CRUD_RE_RANK"))?"CRUD_RANK":"VIEW_RANK");
+                request.setAttribute("BComboRank", new BRank().getAllRecordByParent(0));
+                request.setAttribute("ListRanks", new BRank().getListRanks(rank, nktId, rankInitDate));
+                if (anchor.equals("_PRE_CRUD_RANK")) {
+                    if (isReRank) {
+                        request.setAttribute("BRanks", new BRank().getAllRecordByDisContinues(rank, nktId, rankInitDate, curRankDate, parentId));
+                    } else {
+                        request.setAttribute("BRanks", new BRank().getAllRecordByDis(rank, nktId, curRankDate, parentId));
+                    }
                     
+                    /*                     
+                    if (countNumRanked>1) {
+                        request.setAttribute("BRanks", new BRank().getAllRecordByDisContinues(rank, nktId, rankInitDate, curRankDate, parentId));
+                    } else {
+                        
+                    }
+                    */
+                } else if (anchor.equals("_PRE_CRUD_RE_RANK")) {
+                    request.setAttribute("BRanks", new BRank().getAllRecordByDisContinues(rank, nktId, rankInitDate, curRankDate, parentId));
+                } else {
+                    request.setAttribute("BRanks", new BRank().getAllRecordByDis(rank, nktId, rankInitDate, parentId));  
                 }
                 
-                request.setAttribute("BComboRank", new BRank().getAllRecordByParent(0));
-                request.setAttribute("BRanks", new BRank().getAllRecordByDis(parentId, nktId));            
                 request.setAttribute("kpi", fdataHdr);
                 request.setAttribute("rank", rank);   
                 target = anchor;            
-            } else if (anchor.equals("_RANK")||anchor.equals("_PRE_INSERT_RANK")||anchor.equals("_RANK_CHANGE_OPTION")) {            
-                
-                if (anchor.equals("_RANK")){
-                    parentId = defaultParent;
+            } else if (anchor.equals("_RANK")
+                        ||anchor.equals("_PRE_INSERT_RANK")
+                        ||anchor.equals("_CRUD_RANK_CHANGE_OPTION") 
+                        || anchor.equals("_VIEW_RANK_CHANGE_OPTION")) {
+                if (anchor.equals("_RANK")){                    
+                    //parentId = defaultParent;
                     fdataHdr.setRankId(0);
                     fdataHdr.setRankResult(0);
+                    fdataHdr.setCurResult(0);
+                    fdataHdr.setParRankId(defaultParent);
                     fdataHdr.setBreadcrumb("");
+                    fdataHdr.setMode("");
+                    fdataHdr.setHdrCreateDate(rankCurDate);
                 } else {
-                    parentId = (parRankId!=defaultParent) ? parRankId:defaultParent;
+                    //parentId = (parRankId!=defaultParent) ? parRankId:defaultParent;
                     fdataHdr.setRankId(0);
                     fdataHdr.setBreadcrumb("");
                     fdataHdr.setRankResult(0);
+                    fdataHdr.setMode("_CRUD_RANK_CHANGE_OPTION".equals(anchor)?"CRUD_RANK":"VIEW_RANK");
                 }
                 
-                request.setAttribute("BComboRank", new BRank().getAllRecordByParent(0));
-                request.setAttribute("BRanks", new BRank().getAllRecordByDis(parentId, nktId));
+                FRank rank = new FRank();
+                
+                
+                // Get RankResult
+                getRankResults(request, rank, nktId, rankInitDate);
+                                
+                // Check num inpur rank                
+                totalIndicator = new BRank().countIndicator(parentId);
+                numRankIndicator = new BRank().countNumRanked(rank, nktId, rankInitDate, parentId);
+                
+                FBeans listRank = new BRank().getAllRecordByR_D(rankId, nktId);
+                int rankSize = listRank.size();
+                int hdrTotalInd = new BRank().countIndicatorChild();
+                int hdrTotalIndRanked = new BRank().countNumRanked(rank, nktId, rankInitDate.equals(rankCurDate)?rankInitDate:rankCurDate, 0);
+                
+                boolean chk = (numRankIndicator==total) ? true: false;
+                
+                if ("".equals(rankInitDate)) {
+                    fdataHdr.setNotifyNumInput("");
+                    fdataHdr.setNotifyInit(fdataHdr.ncrToString(msgInfoInit));
+                    fdataHdr.setNotifyNext("");
+                } else if (hdrTotalIndRanked==hdrTotalInd) {
+                    fdataHdr.setNotifyInit("");
+                    fdataHdr.setNotifyNumInput("");
+                    fdataHdr.setNotifyNext(fdataHdr.ncrToString(msgInfoNext.replace("[$rank-date$]", ("".equals(rankCurDate)?rankInitDate:rankCurDate))));                    
+                } else {
+                    String num_indicator = String.valueOf(numRankIndicator) + "/" + String.valueOf(totalIndicator);
+                    if (numRankIndicator<totalIndicator) {
+                        fdataHdr.setNotifyInit(""); 
+                        fdataHdr.setNotifyNumInput(fdataHdr.ncrToString(msgInfoNum.replace("[$num-indicator$]", num_indicator)));                        
+                        fdataHdr.setNotifyNext("");
+                    } else {
+                        fdataHdr.setNotifyInit("");
+                        fdataHdr.setNotifyNumInput("");
+                        //fdataHdr.setNotifyNext(fdataHdr.ncrToString(msgInfoNext.replace("[$rank-date$]", ("".equals(rankCurDate)?rankInitDate:rankCurDate))));
+                    }
+                }                                  
+               
+                request.setAttribute("ListRanks", new BRank().getListRanks(rank, nktId, rankInitDate));
+                if (anchor.equals("_PRE_INSERT_RANK")||anchor.equals("_CRUD_RANK_CHANGE_OPTION")||anchor.equals("_VIEW_RANK_CHANGE_OPTION")) {                  
+                    request.setAttribute("BComboRank", new BRank().getAllRecordByParent(0));
+                    request.setAttribute("BRanks", new BRank().getAllRecordByDis(rank, nktId, rankInitDate.equals(rankCurDate)?rankInitDate:rankCurDate, parentId));
+                }
                 request.setAttribute("kpi", fdataHdr);
                 target = anchor;
             } else if (anchor.equals("_COMMUNE")||(anchor.equals("_CHANGE_COMMUNE"))) {
@@ -2073,7 +2397,8 @@ public class AIndicatorKpi extends  ACore {
                   fdataHdr.setRptNcs(fReport.getHdNcs());
                   fdataHdr.setRptHuongCanThiep(fReport.getCanThiep());
                   fdataHdr.setRptCanThiep(fReport.getHuongCanThiep());
-                  fdataHdr.setRptHtroDKien(fReport.getHtroDuKien());        
+                  fdataHdr.setRptHtroDKien(fReport.getHtroDuKien());
+                  // fdataHdr.setRptObj(fReport.getObjId());
                   request.setAttribute("BCommunes", new BDisReport().getReporByNktId(nktId));
                   request.setAttribute("kpi", fdataHdr);
                   target = anchor;
@@ -2097,6 +2422,7 @@ public class AIndicatorKpi extends  ACore {
                       disReport.setCanThiep(fdataHdr.getRptHuongCanThiep());
                       disReport.setHuongCanThiep(fdataHdr.getRptHuongCanThiep()==1?fdataHdr.getRptCanThiep():"");
                       disReport.setHtroDuKien(fdataHdr.getRptHtroDKien());
+                      // disReport.setObjId(fdataHdr.getRptObj());
                       retval = new BDisReport().update(disReport);
                   } else {
                       disReport.setNktId(nktId);
@@ -2113,6 +2439,7 @@ public class AIndicatorKpi extends  ACore {
                       disReport.setCanThiep(fdataHdr.getRptHuongCanThiep());
                       disReport.setHuongCanThiep(fdataHdr.getRptHuongCanThiep()==1?fdataHdr.getRptCanThiep():"");
                       disReport.setHtroDuKien(fdataHdr.getRptHtroDKien());
+                      // disReport.setObjId(fdataHdr.getRptObj());
                       retval = new BDisReport().insert(disReport);
                   }
                   if (retval) {
@@ -2215,8 +2542,9 @@ public class AIndicatorKpi extends  ACore {
                 request.setAttribute("BProfiles", new BDisProfile().getProfileByNktId(nktId));
                 fdataHdr.resetProfile();
                 target = "_PROFILE"; 
-            } else if (anchor.equals("_HOTRO")) {
-                int statusId = fdataHdr.getTabId(); 
+              } else if (anchor.equals("_HOTRO")) {
+                int statusId = fdataHdr.getTabId();
+                fdataHdr.setDisDoiTuong(0);
                 request.setAttribute("BSupportTrailers", new BSupport().getAllByIdNkt(nktId, statusId));
                 if (anchor.equals("_RANK")) { 
                     FObject object = new FObject();                
@@ -2239,8 +2567,9 @@ public class AIndicatorKpi extends  ACore {
                     fdataHdr.setObjCode(object.getCode());
                     fdataHdr.setObjName(object.getName());
                     fdataHdr.setObjDesc(object.getDescription());
+                   
                     
-                    String valMdoHLong = "";
+                    String valMdoHLong = "";                    
                     String keyMdoHLong = fdataHdr.getMdoHlong();
                     if (!"-1".equals(keyMdoHLong)){
                         valMdoHLong =  map_hotro_danhgia.get(keyMdoHLong);
@@ -2254,6 +2583,7 @@ public class AIndicatorKpi extends  ACore {
                     fSupport.setHotroIds(String.valueOf(fdataHdr.getSupportId()));
                     fSupport.setThoiDiemTK(fdataHdr.getDisNgayTK());
                     fSupport.setDiaDiemKham(fdataHdr.getDisDiaDiem());
+                    fSupport.setDoiTuong(fdataHdr.getDisDoiTuong());
                     if (new BSupport().updateSupport(fSupport)) {
                         errors.add("alert", new ActionError("alert.rank.successfull"));
                     } else {
@@ -2276,6 +2606,7 @@ public class AIndicatorKpi extends  ACore {
                     support.setDateTo(fdataHdr.dateToString(fdataHdr.getCurrentDate()));
                     support.setThoiDiemTK(fdataHdr.getDisNgayTK());
                     support.setDiaDiemKham(fdataHdr.getDisDiaDiem());
+                    support.setDoiTuong(fdataHdr.getDisDoiTuong());
                     support.setStatusId(tabId);
                     request.setAttribute("kpi", fdataHdr);
                     request.setAttribute("support", support);
@@ -2348,6 +2679,7 @@ public class AIndicatorKpi extends  ACore {
                 support.setStatusId(fdataHdr.getStatusId());
                 fdataHdr.setDisNgayTK("");
                 fdataHdr.setDisDiaDiem(0);
+                fdataHdr.setDisDoiTuong(0);
                 request.setAttribute("BSupportTrailers", new BSupport().getAllByIdNkt(fdataHdr.getNktId(), fdataHdr.getStatusId()));
                 request.setAttribute("support", support);
                 request.setAttribute("BNkts", fDis);
@@ -2395,7 +2727,7 @@ public class AIndicatorKpi extends  ACore {
                 
                 fdataHdr.setDisNgayTK(ngayTaiKham);
                 fdataHdr.setDisDiaDiem(fSupport.getDiaDiemKham()); 
-                
+                fdataHdr.setDisDoiTuong(fSupport.getDoiTuong());
                 fDis = (FDisability)request.getAttribute("NKT");
                 if (fDis!=null) {
                     supportSel = Utilities.parseArr2Str(fdataHdr.getSupportIds(), "#");                          
@@ -2619,7 +2951,6 @@ public class AIndicatorKpi extends  ACore {
                 acBeans = new BDisability().getDisKpiAc(fDis);
             }
             
-            //request.setAttribute("listDataDtlAc",acBeans);
             request.setAttribute("kpi", fdataHdr); 
             
             request.setAttribute("mapBaseline", map_combobox);
@@ -2739,6 +3070,8 @@ public class AIndicatorKpi extends  ACore {
         
         support.setThoiDiemTK(fdataHdr.getDisNgayTK());
         support.setDiaDiemKham(fdataHdr.getDisDiaDiem());
+        support.setBaoQuanDC(fdataHdr.getDisDungCu());
+        support.setDoiTuong(fdataHdr.getDisDoiTuong());
     }
     
     private void getListDtl(FPerson fPerson, HttpServletRequest request, HttpSession session) {
@@ -2770,5 +3103,29 @@ public class AIndicatorKpi extends  ACore {
             request.setAttribute("total", beans.size());
         } catch (EException e) {            
         }
+    }
+    
+    private void getRankResults(HttpServletRequest request, FRank rank, int nktId, String rankInitDate) throws EException, SQLException {
+        // Process next rank 1,2,3
+        java.sql.Date initDate = rank.stringToSqlDate(rankInitDate);
+        String nextRankDate =  new BRank().getRankDate(nktId, initDate, 100, 0, "DESC");
+        String strNextRankDate = "".equals(nextRankDate)? "" : nextRankDate.substring(0, nextRankDate.length()-1);
+        String[] arrNextRankDate = StringUtils.split(strNextRankDate, ",");
+        
+        Map<String, String> mapResult = new HashMap<String, String>();
+        Map<String, Object> mapRanks = new HashMap<String, Object>();
+        int len = arrNextRankDate.length;
+        for (int i=0;i<len;i++) {
+            String createDate = arrNextRankDate[i];
+            FBeans ranksByCreate = new BRank().getRankByCreateDate(rank, nktId, createDate);
+            
+            for (int j=0;j<ranksByCreate.size();j++) {
+                com.form.disability.categorys.FRank r = (FRank)ranksByCreate.get(j);
+                mapResult.put(String.valueOf(r.getId()), String.valueOf(r.getResult()));
+            }            
+            mapRanks.put(createDate, mapResult);
+            mapResult = new HashMap<String, String>();
+        }
+        request.setAttribute("mapRanks", mapRanks);
     }
 }

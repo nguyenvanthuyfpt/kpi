@@ -23,6 +23,7 @@
         <servlet-name>ChartDisServlet</servlet-name>
         <servlet-class>com.util.ChartDisServlet</servlet-class>
     </servlet>
+    
     <servlet-mapping>
         <servlet-name>ChartDisServlet</servlet-name>
         <url-pattern>/chartDis</url-pattern>
@@ -32,6 +33,7 @@
         <servlet-name>ChartPersonServlet</servlet-name>
         <servlet-class>com.util.ChartPersonServlet</servlet-class>
     </servlet>
+    
     <servlet-mapping>
         <servlet-name>ChartPersonServlet</servlet-name>
         <url-pattern>/chartPerson</url-pattern>
@@ -50,6 +52,7 @@
         <servlet-name>ChartEventServlet</servlet-name>
         <servlet-class>com.util.ChartEventServlet</servlet-class>
     </servlet>
+    
     <servlet-mapping>
         <servlet-name>ChartEventServlet</servlet-name>
         <url-pattern>/chartEvent</url-pattern>

@@ -116,8 +116,13 @@ public class DReportKpiData extends FExportExcel {
         
         HSSFRow row = null;        
         int dong = 3;
-        int stt=1;
         int dataType = beanTemp.getDataType();
+        
+        if (dataType==Constant.KPI_DATA_DIS_COMMUNE) {
+            dong = 4;    
+        }
+        int stt=1;
+        
         FSearch beanC = null;       
         FDisability beanD = null;
         
@@ -128,7 +133,8 @@ public class DReportKpiData extends FExportExcel {
         // Data 
         if (dataType!=Constant.KPI_DATA_LIST_PERSON_HOURS
             && dataType!=Constant.KPI_DATA_LIST_COUNT
-            && dataType!=Constant.KPI_DATA_LIST_DIS) {
+            && dataType!=Constant.KPI_DATA_LIST_DIS
+            && dataType!=Constant.KPI_DATA_DIS_COMMUNE) {
             row = sheet.createRow(2);  
         }
         
@@ -166,32 +172,67 @@ public class DReportKpiData extends FExportExcel {
         int actual = 0;
         int curPerId = 0;
         boolean chkRow = false;
-        
-        if (dataType>=7) {  // List CountDown
+
+        if (dataType == Constant.KPI_DATA_LIST_COUNT_LATE) {  // List CountDown
             for (int i = 0; i < beanTemp.getStore().size(); i++) {
                 int cot = 0;
                 beanD = (FDisability)beanTemp.getStore().get(i);
                 row = sheet.createRow(dong+i);
-                
+
                 createCell(row, cot++, stt+i, wb, csLeft);
                 createCell(row, cot++, beanD.getTinhName(), wb, csLeft);
                 createCell(row, cot++, beanD.getNkt(), wb, csLeft);
                 createCell(row, cot++, beanD.getMa(), wb, csLeft);
                 createCell(row, cot++, beanD.getNgaySinh(), wb, csLeft);
-                createCell(row, cot++, beanD.getGioiTinh(), wb, csLeft);                
-                createCell(row, cot++, beanD.ncrToString(arrDiaDiem[beanD.getTkDiaDiem()-1]),wb, csLeft);                
+                createCell(row, cot++, beanD.getGioiTinh(), wb, csLeft);
+                createCell(row, cot++, beanD.ncrToString(arrDiaDiem[beanD.getTkDiaDiem()-1]),wb, csLeft);
                 createCell(row, cot++, beanD.getSoNha(),wb, csLeft);
                 createCell(row, cot++, beanD.getPhoneNumber(),wb, csLeft);
                 createCell(row, cot++, beanD.getLastDateSupport(), wb, csLeft);
-                //createCell(row, cot++, beanD.getThoiDiemKT(), wb, csLeft); 
-                //createCell(row, cot++, beanD.getDay(), wb, csLeft); 
+                //createCell(row, cot++, beanD.getThoiDiemKT(), wb, csLeft);
+                //createCell(row, cot++, beanD.getDay(), wb, csLeft);
+            }
+        } else if (dataType == Constant.KPI_DATA_DIS_COMMUNE) {
+            for (int i = 0; i < beanTemp.getStore().size(); i++) {
+                int cot = 0;
+                beanC = (FSearch)beanTemp.getStore().get(i);
+                row = sheet.createRow(dong+i);
+                
+                createCell(row, cot++, stt+i, wb, csLeft);
+                createCell(row, cot++, beanC.getNkt(), wb, csLeft);
+                createCell(row, cot++, beanC.getMaSo(), wb, csLeft);
+                createCell(row, cot++, beanC.getSoNha(), wb, csLeft);
+                createCell(row, cot++, beanC.getNamSinh(), wb, csLeft);
+                createCell(row, cot++, beanC.getGioiTinh(), wb, csLeft);
+                createCell(row, cot++, beanC.getPhoneNumber(), wb, csLeft);
+                createCell(row, cot++, beanC.getDTatName(), wb, csLeft);
+                createCell(row, cot++, beanC.getDTatMucDo(), wb, csLeft);
+                
+                createCell(row, cot++, (beanC.getCommP1()!=null && beanC.getCommP1().equals("1")) ? beanC.ncrToString("C&#243;") : beanC.ncrToString("Kh&#244;ng"), wb, csCenter);
+                createCell(row, cot++, (beanC.getCommP2()!=null && beanC.getCommP1().equals("1")) ? beanC.ncrToString("C&#243;") : beanC.ncrToString("Kh&#244;ng"), wb, csCenter);
+                createCell(row, cot++, (beanC.getCommP3()!=null && beanC.getCommP1().equals("1")) ? beanC.ncrToString("C&#243;") : beanC.ncrToString("Kh&#244;ng"), wb, csCenter);
+                createCell(row, cot++, (beanC.getCommP4()!=null && beanC.getCommP1().equals("1")) ? beanC.ncrToString("C&#243;") : beanC.ncrToString("Kh&#244;ng"), wb, csCenter);
+                createCell(row, cot++, (beanC.getCommP5()!=null && beanC.getCommP1().equals("1")) ? beanC.ncrToString("C&#243;") : beanC.ncrToString("Kh&#244;ng"), wb, csCenter);
+                createCell(row, cot++, (beanC.getCommP6()!=null && beanC.getCommP1().equals("1")) ? beanC.ncrToString("C&#243;") : beanC.ncrToString("Kh&#244;ng"), wb, csCenter);
+                createCell(row, cot++, (beanC.getCommP7()!=null && beanC.getCommP1().equals("1")) ? beanC.ncrToString("C&#243;") : beanC.ncrToString("Kh&#244;ng"), wb, csCenter);
+                createCell(row, cot++, (beanC.getCommP8()!=null) ? beanC.getCommP8() : "", wb, csCenter);
+                
+                createCell(row, cot++, beanC.getLastupdate(), wb, csLeft);
+                createCell(row, cot++, beanC.getPhcnCanThiep(), wb, csLeft);
+                createCell(row, cot++, beanC.getPhcnDungCu(), wb, csLeft);
+                createCell(row, cot++, beanC.getHtNhaO(), wb, csLeft);
+                createCell(row, cot++, beanC.getHtNgay(), wb, csLeft);
+                createCell(row, cot++, beanC.getTrangthai(), wb, csLeft);
+                createCell(row, cot++, beanC.getNgayDongHS(), wb, csLeft);
+                createCell(row, cot++, beanC.getLydoDongHS(), wb, csLeft);
+                createCell(row, cot++, beanC.getNguoiDongHS(), wb, csLeft);
             }
         } else {
             for (int i = 0; i < beanTemp.getStore().size(); i++) {
                 int cot = 0;
                 beanC = (FSearch)beanTemp.getStore().get(i);
                 row = sheet.createRow(dong+i);
-                if (dataType==Constant.KPI_DATA_VALUE) {                
+                if (dataType==Constant.KPI_DATA_VALUE) {
                     if (beanC.getPeriodType()==0) {
                         period = beanC.getMonth() + "/" + beanC.getYear();
                         target = beanC.getTarget();
@@ -200,9 +241,9 @@ public class DReportKpiData extends FExportExcel {
                         target = beanC.getTarget();
                     } else {
                         period = "" + beanC.getYear();
-                        target = beanC.getTarget();                                                  
+                        target = beanC.getTarget();
                     }
-                    
+
                     createCell(row, cot++, stt+i, wb, csLeft);
                     createCell(row, cot++, beanC.getLocationName(), wb, csLeft);
                     createCell(row, cot++, beanC.getCreateDate(), wb, csCenter);
@@ -215,34 +256,34 @@ public class DReportKpiData extends FExportExcel {
                     createCell(row, cot++, beanC.getActual(), wb, csRight);
                     createCell(row, cot++, beanC.getNote(), wb, csLeft);
                 } else if (dataType==Constant.KPI_DATA_DIS) {
-                    beanC = (FSearch)beanTemp.getStore().get(i);            
+                    beanC = (FSearch)beanTemp.getStore().get(i);
                     row = sheet.createRow(dong);
                     createCell(row, (0), i+1, wb, style);
-                    
+
                     String columValues[] =
-                    {   
+                    {
                         //1
-                        beanC.getTinhName(), 
-                        beanC.getLastupdate(), 
-                        beanC.getMa(), 
-                        beanC.getNkt(), 
-                        beanC.getMaSo(), 
+                        beanC.getTinhName(),
+                        beanC.getLastupdate(),
+                        beanC.getMa(),
+                        beanC.getNkt(),
+                        beanC.getMaSo(),
                         //2
                         beanC.getNgaySinh(),
-                        beanC.getPhoneNumber(), 
-                        beanC.getDanTocName(), 
+                        beanC.getPhoneNumber(),
+                        beanC.getDanTocName(),
                         beanC.getGioiTinh(),
                         beanC.getDaCam(),
-                        //3 
+                        //3
                         beanC.getNgheNghiep(),
                         beanC.getTrangthai(),
                         //4  NCS
-                        beanC.getNcsTen(), 
-                        beanC.getNcsNamSinh(), 
+                        beanC.getNcsTen(),
+                        beanC.getNcsNamSinh(),
                         beanC.getNcsQuanHeName(),
-                        beanC.getNcsDienThoai(),                     
+                        beanC.getNcsDienThoai(),
                         beanC.getNcsGioiTinhName(),
-                        
+
                         //5 Phan-Loai
                         beanC.getDTatName(),
                         beanC.getDTatNgayCapNhat(),
@@ -251,9 +292,9 @@ public class DReportKpiData extends FExportExcel {
                         beanC.getDTatTDiemKT(),
                         beanC.getDTatTinhTrang(),
                         beanC.getDTatNguyenNhan(),
-                        beanC.getDTatMucDo(),                    
-                        
-                        // 6 NhuCau-HoTro    
+                        beanC.getDTatMucDo(),
+
+                        // 6 NhuCau-HoTro
                         beanC.getNcauName(),
                         beanC.getNcauDungCuKhac(),
                         beanC.getHtroName(),
@@ -267,26 +308,27 @@ public class DReportKpiData extends FExportExcel {
                         beanC.getMtieuDtri(),
                         beanC.getCtVltl(),
                         beanC.getCtHdtl(),
+                        beanC.getCtAntl(),
                         beanC.getMdoPtdl(),
                         beanC.getMdoHlong(),
                         beanC.getDungCuKhac()
-                    };                      
-                        
+                    };
+
                     for (int h = 0; h < beanTemp.getFields().length; h++) {
                         createCell(row, h+1, columValues[beanTemp.getFields()[h]], wb, style);
                     }
-                    
+
                     dong++;
-                    row = sheet.createRow(dong);                
+                    row = sheet.createRow(dong);
                 } else if (dataType==Constant.KPI_DATA_PERSON) {
                     createCell(row, cot++, stt+i, wb, csLeft);
                     createCell(row, cot++, beanC.getLocationName(), wb, csLeft);
                     createCell(row, cot++, beanC.getCreateDate(), wb, csCenter);
                     createCell(row, cot++, beanC.getUserFullName(), wb, csLeft);
                     createCell(row, cot++, beanC.getPerName(), wb, csLeft);
-                    createCell(row, cot++, beanC.ncrToString(arrSex[beanC.getPerSex()]), wb, csLeft);                
+                    createCell(row, cot++, beanC.ncrToString(arrSex[beanC.getPerSex()]), wb, csLeft);
                     createCell(row, cot++, beanC.getPerTitle(), wb, csLeft);
-                    createCell(row, cot++, beanC.getPerAgency(), wb, csLeft);                
+                    createCell(row, cot++, beanC.getPerAgency(), wb, csLeft);
                     createCell(row, cot++, beanC.getPerContact(), wb, csLeft);
                     createCell(row, cot++, beanC.getPerAddress(), wb, csLeft);
                 } else if (dataType==Constant.KPI_DATA_EVENT) {
@@ -295,7 +337,7 @@ public class DReportKpiData extends FExportExcel {
                     createCell(row, cot++, beanC.getLocationName(), wb, csLeft);
                     createCell(row, cot++, beanC.getEventActivity(), wb, csLeft);
                     createCell(row, cot++, beanC.getEventLocation(), wb, csLeft);
-                    createCell(row, cot++, beanC.getEventStartDate(), wb, csCenter);                
+                    createCell(row, cot++, beanC.getEventStartDate(), wb, csCenter);
                     createCell(row, cot++, beanC.getEventEndDate(), wb, csCenter);
                 } else if (dataType==Constant.KPI_DATA_LIST_DIS) {
                     createCell(row, cot++, stt+i, wb, csLeft);
@@ -308,18 +350,20 @@ public class DReportKpiData extends FExportExcel {
                     createCell(row, cot++, beanC.getDTatName(), wb, csLeft);
                     createCell(row, cot++, beanC.getDTatMucDo(), wb, csLeft);
                     createCell(row, cot++, beanC.getLastupdate(), wb, csLeft);
-                    
+
                     createCell(row, cot++, beanC.getPhcnCanThiep(), wb, csLeft);
                     createCell(row, cot++, beanC.getPhcnDungCu(), wb, csLeft);
                     createCell(row, cot++, beanC.getHtNhaO(), wb, csLeft);
                     createCell(row, cot++, beanC.getHtNgay(), wb, csLeft);
                     createCell(row, cot++, beanC.getTrangthai(), wb, csLeft);
                     createCell(row, cot++, beanC.getNgayDongHS(), wb, csLeft);
-                } else if (dataType==Constant.KPI_DATA_LIST_PERSON_HOURS) {                    
+                    createCell(row, cot++, beanC.getLydoDongHS(), wb, csLeft);
+                    createCell(row, cot++, beanC.getNguoiDongHS(), wb, csLeft);               
+                } else if (dataType==Constant.KPI_DATA_LIST_PERSON_HOURS) {
                     if (curPerId>0) {
                         chkRow = (curPerId==beanC.getId()) ? true:false;
                     }
-                            
+
                     createCell(row, cot++, chkRow ? "" : stt++, wb, csLeft);
                     createCell(row, cot++, chkRow ? "" : beanC.getPerName(), wb, csLeft);
                     createCell(row, cot++, chkRow ? "" : beanC.getPerMale(), wb, csLeft);
@@ -329,15 +373,15 @@ public class DReportKpiData extends FExportExcel {
                     createCell(row, cot++, beanC.getLocationName(), wb, csLeft);
                     createCell(row, cot++, beanC.getEventStartDate(), wb, csLeft);
                     createCell(row, cot++, beanC.getEventEndDate(), wb, csLeft);
-                    
+
                     createCell(row, cot++, beanC.getPerHours(), wb, csLeft);
                     createCell(row, cot++, beanC.getEventActivity(), wb, csLeft);
-                    
+
                     curPerId = beanC.getId();
-                } 
+                }
             }
         }
-        
+
         sheet.setHorizontallyCenter(true);
         sheet.setMargin(sheet.TopMargin, 0);
         sheet.setMargin(sheet.BottomMargin, 2.5);

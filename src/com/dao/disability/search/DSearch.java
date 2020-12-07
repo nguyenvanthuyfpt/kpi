@@ -271,19 +271,29 @@ public class DSearch extends DSqlDisability {
             if ((!"".equals(bean.getHt_ngayTu()) && bean.getHt_ngayTu()!=null) && (!"".equals(bean.getHt_ngayDen()) && bean.getHt_ngayDen()!=null)) {
                 mapParam.put("htroTuNgay", bean.getHt_ngayTu());
                 mapParam.put("htroTuDen", bean.getHt_ngayDen());
-                SQL_SEARCH += AND + "sp" + STOP + HOTRO_DATEFORM + " between '" + bean.stringToSqlDate(bean.getHt_ngayTu(), true) + "' AND '" + bean.stringToSqlDate(bean.getHt_ngayDen(), true) + "'";
-                SQL_COUNT += AND + "sp" + STOP + HOTRO_DATEFORM + " between '" + bean.stringToSqlDate(bean.getHt_ngayTu(), true) + "' AND '" + bean.stringToSqlDate(bean.getHt_ngayDen(), true) + "'";
+                SQL_SEARCH += AND + "( sp" + STOP + HOTRO_DATEFORM + " between '" + bean.stringToSqlDate(bean.getHt_ngayTu(), true) + "' AND '" + bean.stringToSqlDate(bean.getHt_ngayDen(), true) + "' ) ";
+                SQL_COUNT += AND + " (sp" + STOP + HOTRO_DATEFORM + " between '" + bean.stringToSqlDate(bean.getHt_ngayTu(), true) + "' AND '" + bean.stringToSqlDate(bean.getHt_ngayDen(), true) + "' ) ";
+                
+                //SQL_SEARCH += OR + " (pf.create_on " + " between '" + bean.stringToSqlDate(bean.getHt_ngayTu(), true) + "' AND '" + bean.stringToSqlDate(bean.getHt_ngayDen(), true) + "' )) ";
+                //SQL_COUNT += OR + "  (pf.create_on " + " between '" + bean.stringToSqlDate(bean.getHt_ngayTu(), true) + "' AND '" + bean.stringToSqlDate(bean.getHt_ngayDen(), true) + "' )) ";
             }  else {
                 if (!"".equals(bean.getHt_ngayTu()) && bean.getHt_ngayTu()!=null) {
                     mapParam.put("htroTuNgay", bean.getHt_ngayTu());
-                    SQL_SEARCH += AND + "sp" + STOP + HOTRO_DATEFORM + ">='" + bean.stringToSqlDate(bean.getHt_ngayTu(), true) + "'";
-                    SQL_COUNT += AND + "sp" + STOP + HOTRO_DATEFORM + ">='" + bean.stringToSqlDate(bean.getHt_ngayTu(), true) + "'";            }
+                    SQL_SEARCH += AND + "(sp" + STOP + HOTRO_DATEFORM + ">='" + bean.stringToSqlDate(bean.getHt_ngayTu(), true) + "') ";
+                    SQL_COUNT += AND + "(sp" + STOP + HOTRO_DATEFORM + ">='" + bean.stringToSqlDate(bean.getHt_ngayTu(), true) + "') ";
+                    
+                    //SQL_SEARCH += OR + " (pf.create_on" + ">='" + bean.stringToSqlDate(bean.getHt_ngayTu(), true) + "')) ";
+                    //SQL_COUNT += OR + " (pf.create_on" + ">='" + bean.stringToSqlDate(bean.getHt_ngayTu(), true) + "')) ";
+                }
                 
                 if (!"".equals(bean.getHt_ngayDen()) && bean.getHt_ngayDen()!=null) {
                     mapParam.put("htroTuDen", bean.getHt_ngayDen());
-                    SQL_SEARCH += AND + "sp" + STOP + HOTRO_DATETO + "<='" + bean.stringToSqlDate(bean.getHt_ngayDen(), true) + "'";
-                    SQL_COUNT += AND + "sp" + STOP + HOTRO_DATETO + "<='" + bean.stringToSqlDate(bean.getHt_ngayDen(), true) + "'";       
-                }  
+                    SQL_SEARCH += AND + "(sp" + STOP + HOTRO_DATETO + "<='" + bean.stringToSqlDate(bean.getHt_ngayDen(), true) + "') ";
+                    SQL_COUNT += AND + "(sp" + STOP + HOTRO_DATETO + "<='" + bean.stringToSqlDate(bean.getHt_ngayDen(), true) + "') ";      
+                    
+                    //SQL_SEARCH += OR + " (pf.create_on" + "<='" + bean.stringToSqlDate(bean.getHt_ngayDen(), true) + "')) ";
+                    //SQL_COUNT += OR + " (pf.create_on" + "<='" + bean.stringToSqlDate(bean.getHt_ngayDen(), true) + "')) ";
+                }                  
             }
             
             if ((!"".equals(bean.getHt_ngayTu()) && bean.getHt_ngayTu()!=null) || (!"".equals(bean.getHt_ngayDen()) && bean.getHt_ngayDen()!=null)) {
@@ -818,6 +828,21 @@ public class DSearch extends DSqlDisability {
     public FBeans getReportAll(Connection cnn, FSeed seed, String SQL_REPORT, List params, Map<String, String> mapParam) throws EException {
         final String LOCATION = this.toString() + "getReport()";
         String SQL_REPORT_DIS = "SELECT * FROM dr_report_param a WHERE 1=1 ";
+        String SQL_REPORT_DIS_COMMUNE = "select\n" + 
+                                        "	krt.*,\n" + 
+                                        "	rpt.ktbt_thuongxuyen::text as P1,\n" + 
+                                        "	rpt.ktbt_tapdung::text as P2,\n" + 
+                                        "	rpt.dctg_phuhop::text as P3,\n" + 
+                                        "	rpt.dctg_thuongxuyen::text as P4,\n" + 
+                                        "	rpt.dctg_baoquan::text as P5,\n" + 
+                                        "	rpt.hd_ncs::text as P6,\n" + 
+                                        "	rpt.huong_ct::text as P7,\n" + 
+                                        "	rpt.htro_dkien as P8\n" + 
+                                        "from\n" + 
+                                        "	dr_report_param krt\n" + 
+                                        "left join kpi_dis_report rpt on\n" + 
+                                        "	krt.nkt_id = rpt.nkt_id ";
+        
         String SQL_PERSON_HOURS = "select a.per_id, p.name, case when p.sex=0 then 1 end male, case when p.sex=1 then 1 end female, \n" + 
                                   "p.agency, e.location, dm.name location_name, e.start_date, e.end_date, a.hours, e.activity from kpi_data_per a \n" + 
                                   "left join kpi_event e on a.event_id=e.id\n" + 
@@ -842,8 +867,20 @@ public class DSearch extends DSqlDisability {
                     SQL_REPORT_DIS += " AND a.location_id='"+locationId+"'"; 
                 }                    
                 
-                SQL_REPORT_DIS += " order by a.location_id, a.nkt_id";
+                SQL_REPORT_DIS_COMMUNE += " order by kpr.location_id, a.nkt_id";
                 prstm = prepareStatement(cnn, SQL_REPORT_DIS, null);
+            } else if (dataType==Constant.KPI_DATA_DIS_COMMUNE) {
+                csmt = cnn.prepareCall("{call report_param(?)}");
+                csmt.setString(1, SQL_REPORT);
+                csmt.execute(); 
+                
+                if (mapParam.get("locationId")!=null) {
+                    int locationId = Integer.parseInt(mapParam.get("locationId"));
+                    SQL_REPORT_DIS += " AND krt.location_id='"+locationId+"'"; 
+                }                    
+                
+                SQL_REPORT_DIS_COMMUNE += " order by krt.location_id, krt.nkt_id";
+                prstm = prepareStatement(cnn, SQL_REPORT_DIS_COMMUNE, null);
             } else {
                 if (dataType==Constant.KPI_DATA_LIST_PERSON_HOURS) {
                     if (mapParam.get("locationId")!=null) {
@@ -913,13 +950,15 @@ public class DSearch extends DSqlDisability {
                     bean = getInforKpiValue(rs);
                 else if (dataType==Constant.KPI_DATA_DIS)       
                     bean = getInformationDis(rs);
+                else if (dataType==Constant.KPI_DATA_DIS_COMMUNE)
+                    bean = getInformationDisCommune(rs);
                 else if (dataType==Constant.KPI_DATA_PERSON)    
                     bean = getInforKpiPerson(rs);
                 else if (dataType==Constant.KPI_DATA_HOURS)
                     bean = getInforKpiSP(rs);
                 else if (dataType==Constant.KPI_DATA_EVENT)
                     bean = getInforKpiEvent(rs);
-                else if (dataType==Constant.KPI_DATA_LIST_DIS)
+                else if (dataType==Constant.KPI_DATA_LIST_DIS)                    
                     bean = getInformationDis(rs);
                 else if (dataType==Constant.KPI_DATA_LIST_PERSON_HOURS)
                     bean = getInforPersonHours(rs);
@@ -1019,7 +1058,9 @@ public class DSearch extends DSqlDisability {
             bean.setNgheNghiep(rs.getString("nkt_nnghiep"));
             bean.setTrangthai(rs.getString("nkt_ttrang_hso"));
             bean.setNgayDongHS(rs.getString("nkt_ngaydong_hs"));
-            bean.setSoNha(rs.getString("nkt_diachi"));;
+            bean.setLydoDongHS(rs.getString("nkt_lydo_donghs"));
+            bean.setNguoiDongHS(rs.getString("nkt_nguoi_donghs"));
+            bean.setSoNha(rs.getString("nkt_diachi"));
                         
             // NCS            
             bean.setNcsTen(rs.getString("ncs_ten"));
@@ -1054,6 +1095,7 @@ public class DSearch extends DSqlDisability {
             bean.setMtieuDtri(rs.getString("htro_mtieu_dtri"));
             bean.setCtVltl(rs.getString("htro_ct_vltl"));
             bean.setCtHdtl(rs.getString("htro_ct_hdtl"));
+            bean.setCtAntl(rs.getString("htro_ct_antl"));
             bean.setMdoPtdl(rs.getString("htro_mdo_dlpt"));
             bean.setMdoHlong(rs.getString("htro_mdo_hlong"));
             bean.setDungCuKhac(rs.getString("htro_dungcu_khac"));
@@ -1062,6 +1104,96 @@ public class DSearch extends DSqlDisability {
             bean.setPhcnDungCu(rs.getString("htro_phcn_dungcu"));
             bean.setHtNhaO(rs.getString("htro_tcan_nhao"));
             bean.setHtNgay(rs.getString("htro_phcn_ngay"));
+            
+        } catch (SQLException sqle) {
+            if (AppConfigs.APP_DEBUG)
+                throw new EException(LOCATION, sqle);
+        } finally {
+        }
+        return bean;
+    }
+    
+    public FSearch getInformationDisCommune(ResultSet rs) throws EException {
+        final String LOCATION = "->getInformation()";
+        FSearch bean = new FSearch();
+        try {
+            
+            // Location
+            bean.setTinhId(rs.getInt("location_id"));
+            bean.setTinhName(rs.getString("location_name"));
+            
+            // NKT
+            bean.setLastupdate(rs.getString("create_date"));
+            bean.setId(rs.getInt("nkt_id"));
+            bean.setMa(rs.getString("nkt_stt"));
+            bean.setNkt(rs.getString("nkt_ten"));            
+            bean.setMaSo(rs.getString("nkt_maso"));
+            bean.setNamSinh(rs.getString("nkt_namsinh"));
+            bean.setNgaySinh(rs.getString("nkt_ngaysinh"));
+            bean.setCmnd(rs.getString("nkt_cmnd"));
+            bean.setPhoneNumber(rs.getString("nkt_sdt"));
+            bean.setDanTocName(rs.getString("nkt_dantoc"));
+            bean.setGioiTinh(rs.getString("nkt_gioitinh"));
+            bean.setDaCam(rs.getString("nkt_dacam"));
+            bean.setNgheNghiep(rs.getString("nkt_nnghiep"));
+            bean.setTrangthai(rs.getString("nkt_ttrang_hso"));
+            bean.setNgayDongHS(rs.getString("nkt_ngaydong_hs"));
+            bean.setLydoDongHS(rs.getString("nkt_lydo_donghs"));
+            bean.setNguoiDongHS(rs.getString("nkt_nguoi_donghs"));
+            bean.setSoNha(rs.getString("nkt_diachi"));
+                        
+            // NCS            
+            bean.setNcsTen(rs.getString("ncs_ten"));
+            bean.setNcsNamSinh(rs.getString("ncs_namsinh"));
+            bean.setNcsQuanHeName(rs.getString("ncs_qhe_nkt"));
+            bean.setNcsDienThoai(rs.getString("ncs_dthoai"));
+            bean.setNcsGioiTinhName(rs.getString("ncs_gioitinh"));
+            
+            // Dang-Tat
+            bean.setDTatNgayCapNhat(rs.getString("dtat_createdate"));
+            bean.setDTatName(rs.getString("dtat_ten"));
+            bean.setDTatNgayTaiKham(rs.getString("dtat_ngay_kham"));
+            bean.setDTatDiaDiemKham(rs.getString("dtat_ddiem_kham"));
+            bean.setDTatTDiemKT(rs.getString("dtat_tdiem_ktat"));
+            bean.setDTatNguyenNhan(rs.getString("dtat_nnhan_ktat"));
+            bean.setDTatMucDo(rs.getString("dtat_mdo_ktat"));            
+            
+            // Nhu-Cau - Ho-Tro
+            bean.setNcauCreateDate(rs.getString("ncau_createdate"));
+            bean.setNcauName(rs.getString("ncau_ten"));
+            bean.setNcauDungCuKhac(rs.getString("ncau_dungcu_khac"));
+            bean.setHtroCreateDate(rs.getString("htro_createdate"));
+            bean.setHtroName(rs.getString("htro_ten"));
+            
+            bean.setHtroTgianNhan(rs.getString("htro_tgian_nhan"));
+            bean.setNguonHoTro(rs.getString("htro_nguon_htro"));
+            bean.setKnChiTraName(rs.getString("htro_kn_chitra"));
+            bean.setTheBhyteName(rs.getString("htro_the_bhyt"));
+            bean.setSdTheName(rs.getString("htro_sd_bhyt"));
+            bean.setSdThePhcnName(rs.getString("htro_the_phcn"));
+            bean.setMtieuGdinh(rs.getString("htro_mtieu_gdinh"));
+            bean.setMtieuDtri(rs.getString("htro_mtieu_dtri"));
+            bean.setCtVltl(rs.getString("htro_ct_vltl"));
+            bean.setCtHdtl(rs.getString("htro_ct_hdtl"));
+            bean.setCtAntl(rs.getString("htro_ct_antl"));
+            bean.setMdoPtdl(rs.getString("htro_mdo_dlpt"));
+            bean.setMdoHlong(rs.getString("htro_mdo_hlong"));
+            bean.setDungCuKhac(rs.getString("htro_dungcu_khac"));
+            
+            bean.setPhcnCanThiep(rs.getString("htro_phcn_canthiep"));
+            bean.setPhcnDungCu(rs.getString("htro_phcn_dungcu"));
+            bean.setHtNhaO(rs.getString("htro_tcan_nhao"));
+            bean.setHtNgay(rs.getString("htro_phcn_ngay"));
+            
+            // Commune
+            bean.setCommP1(rs.getString("P1"));
+            bean.setCommP2(rs.getString("P2"));
+            bean.setCommP3(rs.getString("P3"));
+            bean.setCommP4(rs.getString("P4"));
+            bean.setCommP5(rs.getString("P5"));
+            bean.setCommP6(rs.getString("P6"));
+            bean.setCommP7(rs.getString("P7"));
+            bean.setCommP8(rs.getString("P8"));
             
         } catch (SQLException sqle) {
             if (AppConfigs.APP_DEBUG)

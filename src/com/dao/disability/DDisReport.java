@@ -129,6 +129,7 @@ public class DDisReport extends DSqlDisability {
             report.setHdNcs(rs.getInt(KPI_DIS_REPORT_HD_NCS));
             report.setHuongCanThiep(rs.getString(KPI_DIS_REPORT_HUONGCANTHIEP));
             report.setHtroDuKien(report.dateToString(rs.getDate(KPI_DIS_REPORT_HTRO_DKIEN)));
+            report.setObjId(rs.getInt(KPI_DIS_REPORT_DOITUONG));
         } catch (SQLException sqle) {
             if (AppConfigs.APP_DEBUG)
                 throw new EException(LOCATION, sqle);
@@ -158,6 +159,7 @@ public class DDisReport extends DSqlDisability {
             params.add(report.getCanThiep());
             params.add(report.getHuongCanThiep());
             params.add(report.stringToSqlDate(report.getHtroDuKien()));
+            params.add(report.getObjId());
         } catch (Exception exp) {
             if (AppConfigs.APP_DEBUG)
                 throw new EException(LOCATION, exp);

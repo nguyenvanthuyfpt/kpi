@@ -40,8 +40,6 @@ public class ChartDisServlet extends HttpServlet {
         try {
             
             String chartType = (String)request.getAttribute("type");
-            System.out.println("chartType " + chartType);
-            
             dataset.executeQuery("SELECT b.name ||'-'||a.total , a.total FROM\n" + 
                                 "(SELECT dis.id_tinh, count(1) total FROM dr_disabilitypeople dis GROUP BY dis.id_tinh) a, dr_area b\n" + 
                                 "WHERE a.id_tinh=b.tinh_id");

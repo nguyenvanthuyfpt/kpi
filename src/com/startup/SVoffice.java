@@ -133,9 +133,12 @@ public class SVoffice{
                 String userName = bean.me.getUsername();
                 if (userName.startsWith("policy")) {
                     defaultLocation = 2748;
+                } else if (userName.startsWith("dongnai")) {
+                  defaultLocation = 537;
                 } else {
                     defaultLocation = userName.startsWith("binhphuoc") ? 2746:2747;
                 }
+                                
                 bean.setId(defaultLocation);
                 FTinh beanTinh = new FTinh();
                 beanTinh.setId(defaultLocation);
@@ -263,6 +266,24 @@ public class SVoffice{
             Map<String, String> map_doituong = new BDoiTuong().get_map_doituong();
             Map<String, String> map_tinhtrang = new BDanhgia().get_map_tinhtrang();
             
+            Map<String, String> map_quanhe = new HashMap<String, String>();
+            map_quanhe.put("1", bean.ncrToString("&#212;ng"));
+            map_quanhe.put("2", bean.ncrToString("B&#224;"));
+            map_quanhe.put("3", bean.ncrToString("C&#244;"));
+            map_quanhe.put("4", bean.ncrToString("D&#236;"));
+            map_quanhe.put("5", bean.ncrToString("Ch&#250;"));
+            map_quanhe.put("6", bean.ncrToString("B&#225;c"));
+            map_quanhe.put("7", bean.ncrToString("Anh"));
+            map_quanhe.put("8", bean.ncrToString("Ch&#7883;"));
+            map_quanhe.put("9", bean.ncrToString("Em"));
+            map_quanhe.put("10", bean.ncrToString("B&#7889;"));
+            map_quanhe.put("11", bean.ncrToString("M&#7865;"));
+            map_quanhe.put("12", bean.ncrToString("Ch&#7891;ng"));
+            map_quanhe.put("13", bean.ncrToString("V&#7907;"));
+            map_quanhe.put("14", bean.ncrToString("Kh&#225;c"));
+            map_quanhe.put("15", bean.ncrToString("Con"));
+            map_quanhe.put("16", bean.ncrToString("Ch&#225;u"));
+
             Map<String, String> map_kpi_combox = new HashMap<String, String>();
             Map<String, String> map_kpi_event_type = new HashMap<String, String>();
             Map<String, String> map_kpi_event_field = new HashMap<String, String>();
@@ -313,7 +334,8 @@ public class SVoffice{
             request.getSession().setAttribute("MAP_DANGTAT", map_dangtat);
             request.getSession().setAttribute("MAP_HOTRO", map_hotro);
             request.getSession().setAttribute("MAP_DOITUONG", map_doituong);
-            request.getSession().setAttribute("MAP_TINHTRANG", map_tinhtrang);            
+            request.getSession().setAttribute("MAP_TINHTRANG", map_tinhtrang);
+            request.getSession().setAttribute("MAP_QUANHE", map_quanhe);
             
             // Kpi
             String val_combobox = bean.ncrToString(IKeyDisability.KPI_COMBOBOX);
@@ -428,6 +450,7 @@ public class SVoffice{
             
             Map<String,Object> mapObject = new HashMap<String, Object>();
             mapObject.put("NKT_DOITUONG", map_doituong);
+            mapObject.put("NKT_QUANHE", map_quanhe);
             mapObject.put("NKT_NGUONHOTRO", map_nguonhotro);
             mapObject.put("NKT_DIEUKIEN", map_dieukien);
             mapObject.put("NKT_NGUYENNHAN", map_nguyennhan);

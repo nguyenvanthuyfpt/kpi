@@ -52,6 +52,8 @@ public class FSupport extends FSeed {
     
     private String thoiDiemTK = "";
     private int diaDiemKham;
+    private int baoQuanDC;
+    private int doiTuong;    
 
     // Add for KPI
     public int knChiTra;
@@ -65,6 +67,17 @@ public class FSupport extends FSeed {
     public String ctAntl;
     public String mdoPtdl;
     public String mdoHlong;
+    
+    public int spVnah;
+    public int spTtp;
+    public int spQhu;
+    public int spPxa;
+    
+    public String sp1;
+    public String sp2;
+    public String sp3;
+    public String sp4;
+    public String sp5;
 
     public void reset() {
         this.id = 0;
@@ -99,6 +112,7 @@ public class FSupport extends FSeed {
         this.ctHdtl = "";
         this.diaDiemKham = 0;
         this.thoiDiemTK = "";
+        this.doiTuong = -1;
     }
 
     public int getIdNkt() {
@@ -521,5 +535,93 @@ public class FSupport extends FSeed {
 
     public int getDiaDiemKham() {
         return diaDiemKham;
+    }
+
+    public void setDoiTuong(int doiTuong) {
+        this.doiTuong = doiTuong;
+    }
+
+    public int getDoiTuong() {
+        return doiTuong;
+    }
+
+    public void setBaoQuanDC(int baoQuanDC) {
+        this.baoQuanDC = baoQuanDC;
+    }
+
+    public int getBaoQuanDC() {
+        return baoQuanDC;
+    }
+
+    public void setSpVnah(int spVnah) {
+        this.spVnah = spVnah;
+    }
+
+    public int getSpVnah() {
+        return spVnah;
+    }
+
+    public void setSpTtp(int spTtp) {
+        this.spTtp = spTtp;
+    }
+
+    public int getSpTtp() {
+        return spTtp;
+    }
+
+    public void setSpQhu(int spQhu) {
+        this.spQhu = spQhu;
+    }
+
+    public int getSpQhu() {
+        return spQhu;
+    }
+
+    public void setSpPxa(int spPxa) {
+        this.spPxa = spPxa;
+    }
+
+    public int getSpPxa() {
+        return spPxa;
+    }
+
+    public void setSp1(String sp1) {
+        this.sp1 = sp1;
+    }
+
+    public String getSp1() {
+        return sp1;
+    }
+
+    public void setSp2(String sp2) {
+        this.sp2 = sp2;
+    }
+
+    public String getSp2() {
+        return sp2;
+    }
+
+    public void setSp3(String sp3) {
+        this.sp3 = sp3;
+    }
+
+    public String getSp3() {
+        return sp3;
+    }
+
+    public void setSp4(String sp4) {
+        this.sp4 = sp4;
+    }
+
+    public String getSp4() {
+        return sp4;
+    }
+
+    public void setSp5(String sp5) {
+        this.sp5 = sp5;
+    }
+
+    public String getSp5() {
+        return sp5;
     }
 }

@@ -19,7 +19,7 @@
 
 <logic:greaterThan value="0" name="kpi" property="rankId">
 <tr>
-    <td colspan="2"><bean:write name="kpi" property="breadcrumb" /></td>
+    <td colspan="2"><b><bean:write name="kpi" property="breadcrumb" /></b></td>
 </tr>
 </logic:greaterThan>
 
@@ -61,9 +61,37 @@
 </tr>
 </logic:greaterEqual>
 
+<%--<logic:equal value="false" name="kpi" property="hasRank">--%>
+<tr>
+    <td><bean:message key="common.label.rank.has-support" bundle="<%=interfaces%>"/></td>
+    <td>
+         <html:select name="kpi" property="rankHasSP" >
+            <html:option value="0">Kh&#244;ng</html:option>
+            <html:option value="1">C&#243;</html:option>
+         </html:select>
+    </td>
+</tr>
+<%--</logic:equal>--%>
+
 <tr>
     <td colspan="2">
-        <bean:message key="common.label.rank.note" bundle="<%=interfaces%>"/>
+        <div class="rank">
+          <span>
+              <bean:message key="common.label.rank.note" bundle="<%=interfaces%>"/>
+          </span>
+          <ul>
+              <li><bean:message key="common.label.rank.contraint" bundle="<%=interfaces%>"/></li>
+              <logic:notEqual name="kpi" property="notifyInit" value="">
+                  <li><bean:write name="kpi" property="notifyInit" /></li>
+              </logic:notEqual>
+              <logic:notEqual name="kpi" property="notifyNext" value="">
+                  <li><bean:write name="kpi" property="notifyNext" /></li>
+              </logic:notEqual>
+              <logic:notEqual name="kpi" property="notifyNumInput" value="">
+                  <li><bean:write name="kpi" property="notifyNumInput" /></li>
+              </logic:notEqual>
+          </ul>
+        </div>
     </td>
 </tr>
 </table>
@@ -72,7 +100,6 @@
 <br/>
 
 <logic:notEmpty name="BRankByR_D">
-<!--<div>L&#7883;ch s&#7917; &#273;&#225;nh gi&#225;</div>-->
 <div style="padding:5px;">
 <table class="list-voffice" cellpadding="2" width="100%" align="center" cellspacing="2" border="0">    
   <TR>
@@ -80,6 +107,7 @@
       <TH width="15%">Ng&#224;y &#273;&#225;nh gi&#225;</TH>
       <TH width="15%">Ng&#432;&#7901;i &#273;&#225;nh gi&#225;</TH>
       <TH><bean:message key="common.label.rank.score" bundle="<%=interfaces%>"/></TH>
+      <TH>C&#243; h&#7895; tr&#7907;</TH>
       <TH width="8%">#</TH>
   </TR>
 
@@ -93,6 +121,14 @@
               <td><bean:write name="bean" property="createDate"/></td>
               <td><bean:write name="bean" property="userName"/></td>
               <td><bean:write name="bean" property="result"/></td>
+              <td>
+                  <logic:equal name="bean" property="hasSP" value="1">
+                      C&#243;
+                  </logic:equal>
+                  <logic:equal name="bean" property="hasSP" value="0">
+                      Kh&#244;ng
+                  </logic:equal>
+              </td>
               <td>
                   <img style="border:0px" src="<%=contextPath%>/images/editdraft.png" 
                         title="<bean:message key="action.detail" bundle="<%=interfaces%>"/>" 
@@ -116,18 +152,17 @@
 <bean:define name="kpi" property="rankId" id="rankId" type="java.lang.Integer"/>
 <table id="toolbar" cellspacing="0" cellpadding="0" border="0" width="100%">    
     <tr>
-        <td>
+        <td>            
             <span class="bt_left_Search">
                 <span class="bt_right_Search">
-                    <span class="bt_center_Search">
-                          
-                          <%String ins = "postAjax('kpi','MainCate',anchor + ':_INSERT_RANK:id:"+rankId+"');";%>
-                          <html:button property="_EDIT" styleClass="button" onclick="<%=ins%>">
-                              <bean:message key="action.insert" bundle="<%=interfaces%>"/>
-                          </html:button>
+                    <span class="bt_center_Search">                          
+                        <%String ins = "postAjax('kpi','MainCate',anchor + ':_INSERT_RANK:id:"+rankId+"');";%>
+                        <html:button property="_EDIT" styleClass="button" onclick="<%=ins%>">
+                            <bean:message key="action.insert" bundle="<%=interfaces%>"/>
+                        </html:button>                         
                     </span>
                 </span>
-            </span>
+            </span>           
         </td>
         
         <logic:greaterThan value="0" name="kpi" property="dtlId">

@@ -72,6 +72,35 @@ public class DPhanLoai extends DSqlDisability {
         }
         return bean;
     }
+    
+    public FPhanLoai getPhanLoaiByNktID(Connection cnn, int nktId) throws EException {
+        final String LOCATION = this.toString() + "getAll()";
+        FPhanLoai bean = new FPhanLoai();
+        PreparedStatement prstm = null;
+        ResultSet rs = null;
+        try {
+            String sql = " SELECT get_dangtat(pl.id, pl.id_nkt) dangtat, dm.name mucdo \n" + 
+                        " FROM dr_phanloai pl, dr_mucdo dm \n" + 
+                        " WHERE pl.id_nkt = ? \n" + 
+                        " AND pl.mucdo_id = dm.mucdo_id ORDER BY pl.id DESC LIMIT 1 OFFSET 0";
+            List params = new ArrayList();
+            params.add(nktId);
+            prstm = prepareStatement(cnn, sql, params);
+            rs = prstm.executeQuery();
+            if (rs != null && rs.next()) {
+                bean = new FPhanLoai();
+                bean.setDangTat(rs.getString("dangtat"));
+                bean.setMucDoKT(rs.getString("mucdo"));
+            }
+        } catch (SQLException sqle) {
+            if (AppConfigs.APP_DEBUG)
+                throw new EException(LOCATION, sqle);
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(prstm);
+        }
+        return bean;
+    }
 
 
     public boolean insert(Connection cnn, FSeed seed) throws EException {

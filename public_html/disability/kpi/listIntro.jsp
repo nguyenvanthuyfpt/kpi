@@ -9,7 +9,7 @@
   $( function() {
     $( "#accordion" ).accordion();
   } );
-  </script>
+</script>
   
 <div id="accordion">
     <logic:present name="listIndicator">            

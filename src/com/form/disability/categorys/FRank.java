@@ -16,13 +16,29 @@ public class FRank extends FSeed {
     private int parentID;
     private String code;
     private String name;
+    private int report = 0;
     private String createDate = dateToString(getCurrentDate());
     private String modifyDate = dateToString(getCurrentDate());
     private int total = 0;
     private int result = 0;
+    private int hasSP = 0;
+    private int prevHasSP = 0;
+    private int hasDel = 0;
+    private int hasRK = 0;
+    private int hasRQ = 0;
+    private String percent = "";
+    private String numRanked = ""; 
     private FBeans ranks;
     private int pageIndex;
     private int totalResult;
+    
+    private int rankNum;
+    private String rankDate;
+    private String rsInit;
+    private String rsHasSP;
+    private String rs1St;
+    private String rs2Nd;
+    private String rs3Rd;
     
     private String reson;
     private String tochucKhac;
@@ -99,6 +115,7 @@ public class FRank extends FSeed {
         this.parentID = 0;
         this.code = "";
         this.name = "";
+        this.report = 0;
     }
 
     public void setRanks(FBeans ranks) {
@@ -203,5 +220,125 @@ public class FRank extends FSeed {
 
     public String getUserName() {
         return userName;
+    }
+
+    public void setReport(int report) {
+        this.report = report;
+    }
+
+    public int getReport() {
+        return report;
+    }
+
+    public void setHasSP(int hasSP) {
+        this.hasSP = hasSP;
+    }
+
+    public int getHasSP() {
+        return hasSP;
+    }
+
+    public void setRsInit(String rsInit) {
+        this.rsInit = rsInit;
+    }
+
+    public String getRsInit() {
+        return rsInit;
+    }
+
+    public void setRsHasSP(String rsHasSP) {
+        this.rsHasSP = rsHasSP;
+    }
+
+    public String getRsHasSP() {
+        return rsHasSP;
+    }
+
+    public void setRs1St(String rs1St) {
+        this.rs1St = rs1St;
+    }
+
+    public String getRs1St() {
+        return rs1St;
+    }
+
+    public void setRs2Nd(String rs2Nd) {
+        this.rs2Nd = rs2Nd;
+    }
+
+    public String getRs2Nd() {
+        return rs2Nd;
+    }
+
+    public void setRs3Rd(String rs3Rd) {
+        this.rs3Rd = rs3Rd;
+    }
+
+    public String getRs3Rd() {
+        return rs3Rd;
+    }
+
+    public void setRankNum(int rankNum) {
+        this.rankNum = rankNum;
+    }
+
+    public int getRankNum() {
+        return rankNum;
+    }
+
+    public void setRankDate(String rankDate) {
+        this.rankDate = rankDate;
+    }
+
+    public String getRankDate() {
+        return rankDate;
+    }
+
+    public void setHasRK(int hasRK) {
+        this.hasRK = hasRK;
+    }
+
+    public int getHasRK() {
+        return hasRK;
+    }
+
+    public void setHasRQ(int hasRQ) {
+        this.hasRQ = hasRQ;
+    }
+
+    public int getHasRQ() {
+        return hasRQ;
+    }
+
+    public void setPercent(String percent) {
+        this.percent = percent;
+    }
+
+    public String getPercent() {
+        return percent;
+    }
+
+    public void setNumRanked(String numRanked) {
+        this.numRanked = numRanked;
+    }
+
+    public String getNumRanked() {
+        return numRanked;
+    }
+
+    public void setPrevHasSP(int prevHasSP) {
+        this.prevHasSP = prevHasSP;
+    }
+
+    public int getPrevHasSP() {
+        return prevHasSP;
+    }
+
+    public void setHasDel(int hasDel) {
+        this.hasDel = hasDel;
+    }
+
+    public int getHasDel() {
+        return hasDel;
     }
 }

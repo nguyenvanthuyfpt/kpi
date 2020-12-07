@@ -27,6 +27,7 @@ public interface IConstantsDisability {
       "M&#7909;c ti&#234;u &#273;i&#7873;u tr&#7883;",
       "Ch&#432;&#417;ng tr&#236;nh VLTL", 
       "Ch&#432;&#417;ng tr&#236;nh HDTL", 
+      "Ch&#432;&#417;ng tr&#236;nh ANTL",
       "M&#7913;c &#273;&#7897; &#272;L-PT", 
       "M&#7913;c &#273;&#7897; h&#224;i l&#242;ng",
       "H&#7895; tr&#7907; d&#7909;ng c&#7909; kh&#225;c"

@@ -17,11 +17,16 @@ import com.form.disability.categorys.FDonvi;
 
 import com.lib.AppConfigs;
 
+import com.util.Formater;
+
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import java.sql.Types;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -468,12 +473,10 @@ public class DDisability extends DSqlDisability {
         ResultSet rs = null;
         FDisability bean = (FDisability)seed;
         try {
-            //.println(SELECT_GET_BY_ID_FROM_TABLE_DISABILITY);
             prstm = cnn.prepareStatement(SELECT_GET_BY_ID_FROM_TABLE_DISABILITY);
             prstm.setInt(PARAM_01, bean.getId());
             rs = prstm.executeQuery();
-            if ((rs != null) && (rs.next())) {
-                //            bean = new FDisability();
+            if ((rs != null) && (rs.next())) {            
                 bean = getInformation(rs, true);
             }
         } catch (SQLException sqle) {
@@ -494,7 +497,6 @@ public class DDisability extends DSqlDisability {
         ResultSet rs = null;
         FDisability bean = (FDisability)seed;
         try {
-            //.println(SELECT_GET_BY_ID_FROM_TABLE_DISABILITY_MAX_ID);
             prstm = cnn.prepareStatement(SELECT_GET_BY_ID_FROM_TABLE_DISABILITY_MAX_ID);
             rs = prstm.executeQuery();
             if ((rs != null) && (rs.next())) {
@@ -910,6 +912,25 @@ public class DDisability extends DSqlDisability {
             closePreparedStatement(prstm);
         }
         return result;
+    }
+    
+    public String getDangTat(Connection cnn, int nktId) throws EException, SQLException {
+        final String LOCATION =  this.toString() + "~~>getDangTat()";
+        CallableStatement state = null;
+        state = cnn.prepareCall("{? = call get_dangtat(?)}");
+        state.registerOutParameter(1, Types.VARCHAR);
+        state.setInt(2, nktId);
+        state.execute(); 
+        String retval = "";
+        try {
+            retval = state.getString(1);
+        } catch (SQLException sqle) {
+            if (AppConfigs.APP_DEBUG)
+                throw new EException(LOCATION, sqle);
+        } finally {
+            state.close();
+        }
+        return retval;
     }
 
     public boolean hasKhuyetTatKhac(Connection cnn, 

@@ -47,6 +47,7 @@
         <form-bean name="dis_profile" type="com.form.disability.FDisProfile"/>
         <form-bean name="dis_export" type="com.form.disability.FDisExport"/>
         <form-bean name="dis_report" type="com.form.disability.FDisReport"/>
+        <form-bean name="dis_chart" type="com.form.disability.FDisChart" />
         <!--END: KPI-->
         <form-bean name="disabilityReport" type="com.form.admin.reportSystem.FReportSystem"/>
         <form-bean name="exportdata" type="com.form.disability.FExport"/>
@@ -286,9 +287,16 @@
             
             <forward name="_RANK" path="/disability/rank/list.jsp"/>
             <forward name="_DETAIL_RANK" path="/disability/rank/list.jsp"/>
+            <forward name="_PRE_CRUD_RANK" path="/disability/rank/list.jsp"/>
+            <forward name="_PRE_CRUD_RE_RANK" path="/disability/rank/list.jsp"/>
+            <forward name="_PRE_EDIT_RANK" path="/disability/rank/list.jsp"/>            
             <forward name="_DETAIL_RANK_DTL" path="/disability/rank/list.jsp"/>
             <forward name="_PRE_INSERT_RANK" path="/disability/rank/index.jsp"/>
             <forward name="_RANK_CHANGE_OPTION" path="/disability/rank/list.jsp"/>
+            
+            <forward name="_CRUD_RANK_CHANGE_OPTION" path="/disability/rank/list.jsp"/>
+            <forward name="_VIEW_RANK_CHANGE_OPTION" path="/disability/rank/list.jsp"/>
+            
 
             <forward name="_COMMUNE" path="/disability/commune/list.jsp"/>
             <forward name="_CHANGE_COMMUNE" path="/disability/commune/list.jsp"/>

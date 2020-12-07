@@ -19,6 +19,8 @@ public class FSearch extends FSeed {
     private String nkt;
     private String trangthai;
     private String ngayDongHS;
+    private String lydoDongHS;
+    private String nguoiDongHS;
     private String cmnd;
     private String ngaySinh;
     private String namSinh;
@@ -68,6 +70,7 @@ public class FSearch extends FSeed {
     private String mtieuDtri;
     private String ctVltl;
     private String ctHdtl;
+    private String ctAntl;
     private String mdoPtdl;
     private String mdoHlong;
     private String dungCuKhac;
@@ -267,6 +270,15 @@ public class FSearch extends FSeed {
     public String eventLocation;
     public String eventStartDate;
     public String eventEndDate;
+    
+    private String commP1;
+    private String commP2;
+    private String commP3;
+    private String commP4;
+    private String commP5;
+    private String commP6;
+    private String commP7;
+    private String commP8;
 
     // Kpi Disability
     private int statusId = -1;
@@ -2179,5 +2191,93 @@ public class FSearch extends FSeed {
 
     public String getNgayDongHS() {
         return ngayDongHS;
+    }
+
+    public void setLydoDongHS(String lydoDongHS) {
+        this.lydoDongHS = lydoDongHS;
+    }
+
+    public String getLydoDongHS() {
+        return lydoDongHS;
+    }
+
+    public void setNguoiDongHS(String nguoiDongHS) {
+        this.nguoiDongHS = nguoiDongHS;
+    }
+
+    public String getNguoiDongHS() {
+        return nguoiDongHS;
+    }
+
+    public void setCtAntl(String ctAntl) {
+        this.ctAntl = ctAntl;
+    }
+
+    public String getCtAntl() {
+        return ctAntl;
+    }
+
+    public void setCommP1(String commP1) {
+        this.commP1 = commP1;
+    }
+
+    public String getCommP1() {
+        return commP1;
+    }
+
+    public void setCommP2(String commP2) {
+        this.commP2 = commP2;
+    }
+
+    public String getCommP2() {
+        return commP2;
+    }
+
+    public void setCommP3(String commP3) {
+        this.commP3 = commP3;
+    }
+
+    public String getCommP3() {
+        return commP3;
+    }
+
+    public void setCommP4(String commP4) {
+        this.commP4 = commP4;
+    }
+
+    public String getCommP4() {
+        return commP4;
+    }
+
+    public void setCommP5(String commP5) {
+        this.commP5 = commP5;
+    }
+
+    public String getCommP5() {
+        return commP5;
+    }
+
+    public void setCommP6(String commP6) {
+        this.commP6 = commP6;
+    }
+
+    public String getCommP6() {
+        return commP6;
+    }
+
+    public void setCommP7(String commP7) {
+        this.commP7 = commP7;
+    }
+
+    public String getCommP7() {
+        return commP7;
+    }
+
+    public void setCommP8(String commP8) {
+        this.commP8 = commP8;
+    }
+
+    public String getCommP8() {
+        return commP8;
     }
 }

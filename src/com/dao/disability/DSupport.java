@@ -5,10 +5,12 @@ import com.exp.EException;
 
 import com.form.FBeans;
 import com.form.FSeed;
+import com.form.disability.FDisExport;
 import com.form.disability.FSupport;
 
 import com.lib.AppConfigs;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,6 +18,7 @@ import java.sql.SQLException;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Formatter;
 import java.util.List;
 
 
@@ -28,8 +31,11 @@ public class DSupport extends DSqlDisability {
         FBeans beans = new FBeans();
         PreparedStatement prstm = null;
         ResultSet rs = null;
-        String sql = "SELECT DISTINCT a.id_nkt, a.datecreate, a.reson, u.fullname, get_ncau_htro(a.id_nkt, a.datecreate::date,"+statusId+") ncau_htro, a.diadiem_kham, to_char(a.thoidiem_taikham,'mm/YYYY') thoidiem_taikham \n" +
-            " FROM dr_support a LEFT JOIN users u ON a.user_id=u.user_id WHERE a.id_nkt=? AND a.status_id=? ORDER BY a.datecreate DESC";
+        String sql = "SELECT DISTINCT a.id_nkt, a.datecreate, a.reson, u.fullname, get_ncau_htro(a.id_nkt, a.datecreate::date,"+statusId+") ncau_htro, " +
+            " a.diadiem_kham, to_char(a.thoidiem_taikham,'mm/YYYY') thoidiem_taikham, a.doi_tuong, dm.name as nguonhotro \n" +
+            " FROM dr_support a LEFT JOIN users u ON a.user_id=u.user_id " +
+            " LEFT JOIN dr_nguonhotro dm ON a.nguonhotro_id = dm.nguonhotro_id " +
+            " WHERE a.id_nkt=? AND a.status_id=? ORDER BY a.datecreate DESC";
         try {
             List params = new ArrayList();
             params.add(idNkt);
@@ -100,7 +106,7 @@ public class DSupport extends DSqlDisability {
                 "case when kn_chitra is null then -1 else kn_chitra end, the_bhyt, \n" +
                 "case when sd_the is null then -1 else sd_the end, \n" +
                 "case when sd_the_phcn is null then -1 else sd_the_phcn end, mtieu_gdinh, mtieu_dtri, ct_vltl, ct_hdtl, ct_antl, mdo_ptdl, mdo_hlong, dungcu_khac, \n" +
-                "diadiem_kham, thoidiem_taikham " + 
+                "diadiem_kham, thoidiem_taikham, doi_tuong " + 
                 "from dr_support where 1=1 and id_nkt=? and status_id=? and datecreate=?";
             prstm = prepareStatement(cnn, SQL, params);
             rs = prstm.executeQuery();
@@ -305,7 +311,45 @@ public class DSupport extends DSqlDisability {
         }
         return bean;
     }
-
+    
+  
+    public FSupport getDoiTuongHoTroByNktId(Connection cnn, int idNkt) throws EException {
+        final String LOCATION = this.toString() + "getDoiTuongHoTroByNktId()";
+        FSupport bean = new FSupport();
+        bean.setStatusId(1);
+        PreparedStatement prstm = null;
+        ResultSet rs = null;       
+  
+        String SQL = "SELECT SUM(vnah) vnah, SUM(ttp) ttp, SUM(qhu) qhu, SUM(pxa) pxa\n" + 
+                    " FROM (SELECT (CASE WHEN  doi_tuong = 1 then 1 ELSE 0 end) vnah,\n" + 
+                    " (CASE WHEN  doi_tuong = 2 then 1 ELSE 0 end) ttp, \n" + 
+                    " (CASE WHEN  doi_tuong = 3 then 1 ELSE 0 end) qhu, \n" + 
+                    " 0 pxa FROM\n" + 
+                    " (SELECT datecreate, max(doi_tuong) doi_tuong FROM dr_support\n" + 
+                    " WHERE id_nkt = "+idNkt+" AND status_id = 1 GROUP BY datecreate) a" +
+            " UNION ALL (SELECT 0 vnah, 0 ttp, 0 qhu, count(1) FROM kpi_dis_report where nkt_id = "+idNkt+ ")) b"; 
+        try {
+            
+            List params = new ArrayList();
+            prstm = prepareStatement(cnn, SQL, params);
+            rs = prstm.executeQuery();
+            
+            if (rs != null && rs.next()) {
+                bean = new FSupport();
+                bean.setSpVnah(rs.getInt("vnah"));
+                bean.setSpTtp(rs.getInt("ttp"));
+                bean.setSpQhu(rs.getInt("qhu"));
+                bean.setSpPxa(rs.getInt("pxa"));
+            }
+        } catch (SQLException sqle) {
+            if (AppConfigs.APP_DEBUG)
+                throw new EException(LOCATION, sqle);
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(prstm);
+        }
+        return bean;
+    }
 
     public FSupport getByIdNkt_IdTypeSupport(Connection cnn, int idNkt,
                                              int idTypeSupport, int ky,
@@ -363,8 +407,6 @@ public class DSupport extends DSqlDisability {
             params.add(bean.stringToSqlDate(denNgay));
             params.add(bean.stringToSqlDate(denNgay));
             prstm = prepareStatement(cnn, SQL, params);
-
-            System.out.println(SQL);
 
             rs = prstm.executeQuery();
 
@@ -518,6 +560,25 @@ public class DSupport extends DSqlDisability {
             }
   
             bean.setDiaDiemKham(rs.getInt(HOTRO_DIADIEM));
+            bean.setDoiTuong(rs.getInt(HOTRO_DOITUONG));
+        } catch (SQLException sqle) {
+            if (AppConfigs.APP_DEBUG)
+                throw new EException(LOCATION, sqle);
+        } finally {
+        }
+        return bean;
+    }
+    
+    public FSupport getInfoChart(ResultSet rs) throws EException {
+        final String LOCATION = "->getInformation()";
+        FSupport bean = new FSupport();
+        try {
+            bean.setCreateDate(bean.dateToString(rs.getDate(HOTRO_DATECREATE)));
+            bean.setSp1(bean.dateToString(rs.getDate("sp1")));
+            bean.setSp2(bean.dateToString(rs.getDate("sp2")));
+            bean.setSp3(bean.dateToString(rs.getDate("sp3")));
+            bean.setSp4(bean.dateToString(rs.getDate("sp4")));
+            bean.setSp5(bean.dateToString(rs.getDate("sp5")));            
         } catch (SQLException sqle) {
             if (AppConfigs.APP_DEBUG)
                 throw new EException(LOCATION, sqle);
@@ -538,6 +599,8 @@ public class DSupport extends DSqlDisability {
             bean.setNCauHtro(rs.getString("ncau_htro"));
             bean.setThoiDiemTK(rs.getString(HOTRO_THOIDIEM_TAIKHAM));
             bean.setDiaDiemKham(rs.getInt(HOTRO_DIADIEM));
+            bean.setDoiTuong(rs.getInt(HOTRO_DOITUONG));
+            bean.setNguonhotro(rs.getString("nguonhotro"));
         } catch (SQLException sqle) {
             if (AppConfigs.APP_DEBUG)
                 throw new EException(LOCATION, sqle);
@@ -590,6 +653,7 @@ public class DSupport extends DSqlDisability {
             
             params.add(bean.stringToSqlDate("01/"+bean.getThoiDiemTK()));
             params.add(bean.getDiaDiemKham());
+            params.add(bean.getDoiTuong());
         } catch (Exception exp) {
             if (AppConfigs.APP_DEBUG)
                 throw new EException(LOCATION, exp);
@@ -670,8 +734,7 @@ public class DSupport extends DSqlDisability {
         try {
             List params = new ArrayList();
             params.add(idNKT);
-            prstm =
-                    prepareStatement(cnn, SQL_SELECT_ALL_HOTRO_NGUON_HOTRO_BY, params);
+            prstm = prepareStatement(cnn, SQL_SELECT_ALL_HOTRO_NGUON_HOTRO_BY, params);
             rs = prstm.executeQuery();
             if (rs != null && rs.next()) {
                 bean = new FSupport();
@@ -685,5 +748,98 @@ public class DSupport extends DSqlDisability {
             closePreparedStatement(prstm);
         }
         return bean;
+    }
+    
+    public int countNhuCauByNktId(Connection cnn, int idNKT, String supportId) throws EException {
+        final String LOCATION = this.toString() + "getAll()";
+        FSupport bean = new FSupport();
+        PreparedStatement prstm = null;
+        ResultSet rs = null;
+        int retval = 0;
+        try {
+           List params = new ArrayList();
+            String sql = "SELECT count(1) total FROM dr_disabilitypeople a INNER JOIN dr_support sp ON a.id=sp.id_nkt \n" + 
+                         "WHERE  a.id="+idNKT + " AND sp.status_id=0 AND sp.dm_hotro_ids LIKE '"+supportId+"'";
+            prstm = prepareStatement(cnn, sql, params);
+            rs = prstm.executeQuery();
+            while (rs.next()){
+                retval = rs.getInt(1);
+            }
+        } catch (SQLException sqle) {
+            if (AppConfigs.APP_DEBUG)
+                throw new EException(LOCATION, sqle);
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(prstm);
+        }
+        return retval;
+    }
+    
+    public FBeans getSupportsByNktId(Connection cnn, int idNKT, String supportId) throws EException {
+        final String LOCATION = this.toString() + "getSupportsByNktId()";
+        FBeans beans = new FBeans();
+        PreparedStatement prstm = null;
+        ResultSet rs = null;
+        try {
+            List params = new ArrayList();          
+            String sql = "SELECT sp.* FROM dr_support sp LEFT JOIN dr_disabilitypeople a ON sp.id_nkt=a.id \n" + 
+                          "WHERE a.id="+idNKT+" AND sp.status_id=1 AND sp.dm_hotro_ids LIKE '"+supportId+"' \n" + 
+                          "ORDER BY sp.id DESC LIMIT 5 OFFSET 0";
+            
+            prstm = prepareStatement(cnn, sql, params);
+            rs = prstm.executeQuery();
+            FSupport bean = null;
+            while (rs != null && rs.next()) {
+                bean = new FSupport();
+                bean = getInformationKpi(rs);
+                beans.add(bean);
+            }
+        } catch (SQLException sqle) {
+            if (AppConfigs.APP_DEBUG)
+                throw new EException(LOCATION, sqle);
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(prstm);
+        }
+        return beans;
+    }
+    
+    public FBeans getSupportsForChart(Connection cnn, int idNKT) throws EException {
+        final String LOCATION = this.toString() + "getSupportsForChart()";
+        FBeans beans = new FBeans();
+        PreparedStatement prstm = null;
+        ResultSet rs = null;
+        try {
+            List params = new ArrayList();          
+            String sql = "SELECT a.* FROM \n" + 
+                          "(select a.datecreate, max(a.sp1) sp1, max(a.sp2) sp2, max(a.sp3) sp3, max(a.sp4) sp4, max(a.sp5) sp5 FROM\n" + 
+                          "(\n" + 
+                          "SELECT distinct sp.datecreate, \n" + 
+                          "case when dm_hotro_ids = '299' THEN sp.datecreate end as sp1, \n" + 
+                          "case when dm_hotro_ids = '301' THEN sp.datecreate end as sp2, \n" + 
+                          "case when dm_hotro_ids = '303' THEN sp.datecreate end as sp3, \n" + 
+                          "case when dm_hotro_ids = '13' THEN sp.datecreate end as sp4, \n" + 
+                          "case when dm_hotro_ids = '157' THEN sp.datecreate end as sp5\n" + 
+                          "FROM dr_support sp LEFT JOIN dr_disabilitypeople a ON sp.id_nkt=a.id\n" + 
+                          "WHERE a.id="+idNKT+" AND sp.status_id=1 \n" + 
+                          "ORDER BY sp.datecreate DESC\n" + 
+                          ") a GROUP by a.datecreate) a ORDER BY a.datecreate DESC LIMIT 5 OFFSET 0";
+            
+            prstm = prepareStatement(cnn, sql, params);
+            rs = prstm.executeQuery();
+            FSupport bean = null;
+            while (rs != null && rs.next()) {
+                bean = new FSupport();
+                bean = getInfoChart(rs);
+                beans.add(bean);
+            }
+        } catch (SQLException sqle) {
+            if (AppConfigs.APP_DEBUG)
+                throw new EException(LOCATION, sqle);
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(prstm);
+        }
+        return beans;
     }
 }

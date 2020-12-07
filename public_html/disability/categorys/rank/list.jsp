@@ -37,7 +37,7 @@
                 <td>
                     <img style="border:0px" src="<%=contextPath%>/images/editdraft.png" 
                         title="<bean:message key="action.detail" bundle="<%=interfaces%>"/>" 
-                        onClick="post('kpi_rank',anchor + ':_DETAIL:id:<%=bean.getId()%>');">
+                        onClick="post('kpi_rank',anchor + ':_DETAIL:dtlId:<%=bean.getId()%>');">
                         
                     <img style="border:0px" src="<%=contextPath%>/images/delete.png" 
                         title="<bean:message key="action.delete" bundle="<%=interfaces%>"/>" 

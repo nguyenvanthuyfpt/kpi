@@ -352,6 +352,25 @@ public class BDisability {
         }
         return result;
     }
+    
+    public String getDangTat(int nktId) throws EException, SQLException {
+        final String LOCATION = this + "->getDangTat()";
+        String result = "";
+        Connection conn = null;
+        try {
+            conn = DBConnector.getConnection();
+            DBConnector.startTransaction(conn);
+            result = dao.getDangTat(conn, nktId);
+            DBConnector.endTransaction(conn);
+        } catch (EException ex) {
+            DBConnector.rollBackTransaction(conn);
+            if (AppConfigs.APP_DEBUG)
+                throw new EException(LOCATION, ex);
+        } finally {
+            DBConnector.closeConnection(conn);
+        }
+        return result;
+    }
 
     public String getNguyenNhan(int nkt_id,int phanloai_id) throws EException, SQLException {
         final String LOCATION = this + "->getDangTat()";

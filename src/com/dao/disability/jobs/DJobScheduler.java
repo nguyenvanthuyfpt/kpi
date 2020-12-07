@@ -97,6 +97,7 @@ public class DJobScheduler extends DSqlDisability {
             bean.setJobExec(rs.getString(TABLE_KPI_JOB_SCHEDULER_JOB_EXEC));
             bean.setJobCron(rs.getString(TABLE_KPI_JOB_SCHEDULER_JOB_CRON));
             bean.setJobStatus(rs.getInt(TABLE_KPI_JOB_SCHEDULER_JOB_STATUS));
+            bean.setLocationId(rs.getInt(TABLE_KPI_JOB_SCHEDULER_JOB_LOCATION_ID));
         } catch (SQLException sqle) {
             if (AppConfigs.APP_DEBUG)
                 throw new EException(LOCATION, sqle);

@@ -33,6 +33,7 @@ import com.bo.disability.categorys.BObject;
 import com.bo.disability.categorys.BQuanhe;
 import com.bo.disability.categorys.BRank;
 import com.bo.disability.categorys.BTinh;
+import com.bo.disability.jobs.BJobLog;
 import com.bo.disability.list.BList;
 import com.bo.disability.search.BSearch;
 import com.bo.tree.BTreeView;
@@ -71,6 +72,7 @@ import com.form.disability.categorys.FObject;
 import com.form.disability.categorys.FQuanhe;
 import com.form.disability.categorys.FRank;
 import com.form.disability.categorys.FTinh;
+import com.form.disability.jobs.FJobLog;
 import com.form.disability.list.FList;
 import com.form.disability.report.FReportAnalysis;
 import com.form.disability.report.FReportCollect;
@@ -78,6 +80,7 @@ import com.form.disability.report.FReportKpi;
 import com.form.disability.report.FReportTotal;
 import com.form.disability.search.FSearch;
 
+import com.util.ChartEventServlet;
 import com.util.Constant;
 import com.util.Utilities;
 
@@ -114,12 +117,12 @@ public class ADisabilityFuntion extends ACore {
                                                                             ServletException, 
                                                                             SQLException {
         
-        try {          
-      
+        try {
             
             final String LOCATION = this + "->executeAction()";
             String target = _LOGOUT;
             ActionErrors errors = new ActionErrors();
+            
             FDisability bean = (FDisability)form;
             String func = bean.getFunc();
             FBeans beans = new FBeans();
@@ -307,6 +310,7 @@ public class ADisabilityFuntion extends ACore {
                     request.setAttribute("anchor", "08");
                     request.setAttribute("subanchor", "08.05");
                 }
+                
                 target = anchor;
             } else if (anchor.equals("_SEARCH_RESULT")) {
                 BSearch bo = new BSearch();
@@ -542,6 +546,7 @@ public class ADisabilityFuntion extends ACore {
                     
                     if (total>0) {
                         if (dataHdr.getType()==Constant.KPI_DATA_VALUE) {
+                            dataDtl.setPeriod(1);
                             beans = new BDataDtl().getAll(dataDtl, session);
                         } else if (dataHdr.getType()==Constant.KPI_DATA_DIS)  {
                             beans = new BDataNkt().getAll(dataNkt, session);                        
@@ -645,9 +650,7 @@ public class ADisabilityFuntion extends ACore {
                         beanT = new BTinh().getRecordByID(beanT);                    
                         locationName = beanT.getName();
                         districts = map_district.get(String.valueOf(fDis.getTinhId()));
-                        //System.out.print("communeID " + fDis.getDistrictId());
                         communes = map_commune.get(String.valueOf(fDis.getDistrictId()));
-                        //System.out.print("communes " + communes.size());
                         
                         if (anchor.equals("_DETAIL_LIST")) {
                             dataHdr.setMode("DETAIL_LIST");
@@ -952,14 +955,30 @@ public class ADisabilityFuntion extends ACore {
                 request.setAttribute("div_report", "true");
                 target = anchor;            
             } else if (anchor.equals("_REPORT_KPI")) {
-                FReportKpi beanP = new FReportKpi();            
+                FReportKpi beanP = new FReportKpi(); 
+                String msgJob = "B&#225;o c&#225;o/D&#7919; li&#7879;u NKT &#273;&#227; k&#7871;t xu&#7845;t th&#224;nh c&#244;ng v&#224;o l&#250;c [$last-update$], B&#7841;n c&#243; th&#7875; khai th&#225;c th&#244;ng tin.";
+                String msgInit = "B&#225;o c&#225;o/D&#7919; li&#7879;u NKT ch&#432;a &#273;&#432;&#7907;c k&#7871;t xu&#7845;t l&#7847;n &#273;&#7847;u, b&#7841;n ch&#432;a th&#7875; khai th&#225;c th&#244;ng tin!";
+                
+                FJobLog jobLog = new FJobLog();
+                jobLog.setJobCode(func);
+                jobLog.setLocationId(defaultLocation);
+                FBeans jobLogs = new BJobLog().getLogsByJobCode(jobLog);
+                String jobLastUpdate = "";
+                
+                if (jobLogs!=null && jobLogs.size()>0) {
+                    jobLog = (FJobLog)jobLogs.get(0);
+                    jobLastUpdate = Utilities.parseDateToTringType4(jobLog.getEndExec());
+                }
+                
                 if("_REPORT_INDICATOR".equals(func)) {
+                    beanP.setJobMsg(!"".equals(jobLastUpdate)?beanP.ncrToString(msgJob.replace("[$last-update$]", jobLastUpdate)):beanP.ncrToString(msgInit));
                     beanP.setPeriodType("1");
                     beanP.setSubFunction("04.01");
                     request.setAttribute("anchor", "04");
                     request.setAttribute("subanchor", "04.01");
                 } else if ("_REPORT_OBJECT".equals(func)) {
-                  beanP.setPeriodType("1");
+                  beanP.setJobMsg(!"".equals(jobLastUpdate)?beanP.ncrToString(msgJob.replace("[$last-update$]", jobLastUpdate)):beanP.ncrToString(msgInit));
+                    beanP.setPeriodType("1");
                     beanP.setSubFunction("04.02");
                     request.setAttribute("anchor", "04");
                     request.setAttribute("subanchor", "04.02");
@@ -968,20 +987,28 @@ public class ADisabilityFuntion extends ACore {
                     request.setAttribute("anchor", "04");
                     request.setAttribute("subanchor", "04.03");                            
                 } else if ("_REPORT_SUPPORT".equals(func)) {
-                      beanP.setYearReport(bean.getYear(bean.getCurrentSqlDate()));
-                      beanP.setSubFunction("04.04");
-                      request.setAttribute("anchor", "04");
-                      request.setAttribute("subanchor", "04.04"); 
+                    beanP.setYearReport(bean.getYear(bean.getCurrentSqlDate()));
+                    beanP.setSubFunction("04.04");
+                    request.setAttribute("anchor", "04");
+                    request.setAttribute("subanchor", "04.04"); 
                 } else if ("_REPORT_COMMUNE".equals(func)) {
-                      beanP.setYearReport(bean.getYear(bean.getCurrentSqlDate()));
-                      beanP.setSubFunction("04.05");
-                      request.setAttribute("anchor", "04");
-                      request.setAttribute("subanchor", "04.05"); 
+                    beanP.setJobMsg(beanP.ncrToString(msgJob.replace("[$last-update$]", jobLastUpdate)));
+                    beanP.setYearReport(bean.getYear(bean.getCurrentSqlDate()));
+                    beanP.setSubFunction("04.05");
+                    request.setAttribute("anchor", "04");
+                    request.setAttribute("subanchor", "04.05"); 
                 } else if ("_REPORT_EXPORT".equals(func)) {
+                    beanP.setJobMsg(!"".equals(jobLastUpdate)?beanP.ncrToString(msgJob.replace("[$last-update$]", jobLastUpdate)):beanP.ncrToString(msgInit));
                     beanP.setYearReport(bean.getYear(bean.getCurrentSqlDate()));
                     beanP.setSubFunction("03.01");
                     request.setAttribute("anchor", "03");
                     request.setAttribute("subanchor", "03.01");               
+                } else if ("_REPORT_EXPORT_2020".equals(func)) {
+                    beanP.setJobMsg(!"".equals(jobLastUpdate)?beanP.ncrToString(msgJob.replace("[$last-update$]", jobLastUpdate)):beanP.ncrToString(msgInit));
+                    beanP.setYearReport(bean.getYear(bean.getCurrentSqlDate()));
+                    beanP.setSubFunction("03.02");
+                    request.setAttribute("anchor", "03");
+                    request.setAttribute("subanchor", "03.02");               
                 } else {
                     request.setAttribute("anchor", "03");
                     request.setAttribute("subanchor", "03.08");
@@ -989,7 +1016,7 @@ public class ADisabilityFuntion extends ACore {
                     request.setAttribute("div_report", "true");
                 }
                 request.setAttribute("reportkpi", beanP);
-                request.setAttribute("BTreeTinhs", ("_REPORT_EXPORT|_REPORT_COMMUNE".indexOf(func)>-1)? beansTree:beans);           
+                request.setAttribute("BTreeTinhs", ("_REPORT_EXPORT|_REPORT_COMMUNE|_REPORT_EXPORT_2020".indexOf(func)>-1)? beansTree:beans);           
                 target = anchor;
             } else if (anchor.equals("_LISTDISTRICT")) {
                 if (bean.getId() > 0) {
@@ -1007,8 +1034,7 @@ public class ADisabilityFuntion extends ACore {
                 request.setAttribute("BTreeAllTinhs", tinhBeans);
                 request.setAttribute("BListTinhs", new BTinh().getAllRecordByParentId((bean.getId() > 0) ? bean.getId() : 0));            
                 target = anchor;
-            } else if (anchor.equals("_LIST_DANGTAT")) {
-    
+            } else if (anchor.equals("_LIST_DANGTAT")) {    
                 if (bean.getId() > 0) {
                     FDangTat beantemp = new FDangTat();
                     beantemp.setId(bean.getId());
@@ -1016,21 +1042,17 @@ public class ADisabilityFuntion extends ACore {
                 } else {
                     FDangTat beantemp = new FDangTat();
                     request.setAttribute("dangtat", beantemp);
-                }
-    
+                }    
                 SQL = "SELECT dangtat_id,parent_id,name FROM dr_classification WHERE parent_id = ?";
                 characters = "/ ";
                 member = "";
-    
+                
                 FBeans DangTatbeans = new FBeans();
-                DangTatbeans = new BTreeView().getTree(0, false, SQL, characters, member);
-    
+                DangTatbeans = new BTreeView().getTree(0, false, SQL, characters, member);    
                 request.setAttribute("BTreeDangTats", DangTatbeans);
                 request.setAttribute("BDangTats", new BDangTat().getAllRecord(0));
-                target = anchor;
-    
-            } else if (anchor.equals("_LISTCONDITION")) {
-    
+                target = anchor;    
+            } else if (anchor.equals("_LISTCONDITION")) {    
                 if (bean.getId() > 0) {
                     FDieuKien beantemp = new FDieuKien();
                     beantemp.setId(bean.getId());
@@ -1041,8 +1063,7 @@ public class ADisabilityFuntion extends ACore {
                 request.setAttribute("BTreeDieuKiens", new BDieuKien().getAllRecord(0));
                 target = anchor;
     
-            } else if (anchor.equals("_LIST_QUANHE")) {
-    
+            } else if (anchor.equals("_LIST_QUANHE")) {    
                 if (bean.getId() > 0) {
                     FQuanhe beantemp = new FQuanhe();
                     beantemp.setId(bean.getId());
@@ -1052,7 +1073,6 @@ public class ADisabilityFuntion extends ACore {
                 }
                 request.setAttribute("BQuanhes", new BQuanhe().getAllRecord(0));
                 target = anchor;
-    
             } else if (anchor.equals("_LIST_NGUYENNHAN")) {
     
                 if (bean.getId() > 0) {
@@ -1510,7 +1530,8 @@ public class ADisabilityFuntion extends ACore {
                 request.setAttribute("anchor","01");
                 request.setAttribute("subanchor", "01.02");
                 target = anchor;
-             }
+             }            
+              
               if (!errors.isEmpty())
                   saveErrors(request, errors);
       

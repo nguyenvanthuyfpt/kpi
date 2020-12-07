@@ -74,7 +74,7 @@ public class BPhanLoai {
         }
         return result;
     }
-    
+
     public int getRowExport(int nktId) throws EException, SQLException {
         final String LOCATION = this + "->update()";
         int result = 0;
@@ -121,6 +121,26 @@ public class BPhanLoai {
             conn = DBConnector.getConnection();
             DBConnector.startTransaction(conn);
             result = dao.getById(conn, id);
+            DBConnector.endTransaction(conn);
+        } catch (EException ex) {
+            DBConnector.rollBackTransaction(conn);
+            if (AppConfigs.APP_DEBUG)
+                throw new EException(LOCATION, ex);
+        } finally {
+            DBConnector.closeConnection(conn);
+        }
+        return result;
+    }
+
+    public FPhanLoai getPhanLoaiByNktID(int nktId) throws EException,
+                                                          SQLException {
+        final String LOCATION = this + "->getPhanLoaiByNktID()";
+        FPhanLoai result = new FPhanLoai();
+        Connection conn = null;
+        try {
+            conn = DBConnector.getConnection();
+            DBConnector.startTransaction(conn);
+            result = dao.getPhanLoaiByNktID(conn, nktId);
             DBConnector.endTransaction(conn);
         } catch (EException ex) {
             DBConnector.rollBackTransaction(conn);

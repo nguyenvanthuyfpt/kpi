@@ -60,7 +60,7 @@ public class ARank extends ACore {
                 errors.add("alert",
                            new ActionError("errors.doituong.update.departmentcode"));
             }
-
+            request.setAttribute("rank", bean);
             request.setAttribute("optRanks", optRanks);
             request.setAttribute("menuRanks", new BRank().getAllRecord(0));
             //request.setAttribute("listRanks", new BRank().getAll(bean));
@@ -73,6 +73,7 @@ public class ARank extends ACore {
             } else {
                 errors.add("alert", new ActionError("errors.rank.duplicate.code"));
             }
+           request.setAttribute("rank", bean);
             bean.reset();
             target = anchor;
         } else if (anchor.equals(_DELETE)) {
@@ -88,20 +89,21 @@ public class ARank extends ACore {
                 bean.setPageIndex(1);
             target = anchor;
         } else if (anchor.equals("_DETAIL")) {
-            if (bean.getId()>0) {
+            if (bean.getDtlId()>0) {
+                bean.setId(bean.getDtlId());
                 FRank beanTemp = new BRank().getRecordByID(bean);
                 request.setAttribute("rank", beanTemp);
             }
             
             request.setAttribute("optRanks", optRanks);
             request.setAttribute("menuRanks", new BRank().getAllRecord(0));
-            //request.setAttribute("listRanks", new BRank().getAll(bean));
             target = anchor;
         }
         
-        request.setAttribute("rank", bean);
+        // request.setAttribute("rank", bean);
         request.setAttribute("optRanks", optRanks);
         request.setAttribute("menuRanks", new BRank().getAllRecord(0));
+        request.setAttribute("listRanks", new BRank().getAllRecordByParent(bean.getParentID()));
         //request.setAttribute("listRanks", new BRank().getAll(bean));
         if (!errors.isEmpty())
             saveErrors(request, errors);

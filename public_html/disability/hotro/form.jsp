@@ -1,6 +1,5 @@
 <%@ include file="/commons/tags.jsp" %>
 <%@ include file="/commons/params.jsp" %>	
-
 <script type="text/javascript">
     function getSearchPanel(obj) {
          $(".khung-div-search").show();
@@ -27,7 +26,7 @@
     java.util.Map<String, String> map_hotro_kn_chitra = (java.util.Map<String, String>) request.getAttribute("map_hotro_kn_chitra");
     java.util.Map<String, String> map_hotro_the_bhyt = (java.util.Map<String, String>) request.getAttribute("map_hotro_the_bhyt");
     java.util.Map<String, String> map_hotro_sd_the = (java.util.Map<String, String>) request.getAttribute("map_hotro_sd_the");
-    java.util.Map<String, String> map_hotro_sd_the_phcn = (java.util.Map<String, String>) request.getAttribute("map_hotro_sd_the_phcn");    
+    java.util.Map<String, String> map_hotro_sd_the_phcn = (java.util.Map<String, String>) request.getAttribute("map_hotro_sd_the_phcn");
 %>
 <logic:notEmpty name="support" property="hotroIds">
 <bean:define name="support" property="hotroIds" id="hotroIds" type="java.lang.String" />	    
@@ -272,7 +271,7 @@
             <td><bean:message key="hotro.list.label.nguonhotro" bundle="<%=interfaces%>"/></td>
             <td colspan="3">
              <%
-              String onchange = "postAjax('support','MainCate',anchor + ':_VIEW_COMBO_BOX:');";
+                String onchange = "postAjax('support','MainCate',anchor + ':_VIEW_COMBO_BOX:');";
             %>
               
              <html:select styleClass="inputbox" name="support" property="nguonHoTroId">
@@ -311,6 +310,21 @@
                 </html:select>
             </td>
         </tr>
+        
+        <tr>
+            <td align="left" width="25%">
+              <bean:message key="common.label.object.support" bundle="<%=interfaces%>"/>:
+            </td>
+            <td>
+                <html:select styleClass="combobox_w120" name="kpi" property="disDoiTuong">
+                    <html:option value="-1"><bean:message key="combo.luachon" bundle="<%=interfaces%>"/></html:option>
+                    <html:option value="1"><bean:message key="kpi.dis.support.vnah" bundle="<%=interfaces%>"/></html:option>
+                    <html:option value="2"><bean:message key="kpi.dis.support.province" bundle="<%=interfaces%>"/></html:option>
+                    <html:option value="3"><bean:message key="kpi.dis.support.district" bundle="<%=interfaces%>"/></html:option> 
+                    <html:option value="4"><bean:message key="kpi.dis.support.ward" bundle="<%=interfaces%>"/></html:option>
+                </html:select>
+            </td>
+        </tr>
         </logic:equal>        
         </table>
     </td>
@@ -343,4 +357,3 @@
      </span>   
      </logic:notEqual>
  </div>   
-</div> 

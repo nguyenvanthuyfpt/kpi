@@ -3,6 +3,8 @@ package com.dao.disability.jobs;
 
 import com.dao.disability.DSqlDisability;
 import com.exp.EException;
+
+import com.form.FBeans;
 import com.form.FSeed;
 import com.form.disability.categorys.FDangTat;
 import com.form.disability.jobs.FJobLog;
@@ -42,6 +44,39 @@ public class DJobLog extends DSqlDisability {
             closePreparedStatement(prstm);
         }
         return bean;
+    }
+    
+    public FBeans getLogsByJobCode(Connection cnn, FSeed seed) throws EException,
+                                                      SQLException {
+        final String LOCATION = this.toString() + "getLogsByJobCode()";
+        PreparedStatement prstm = null;
+        ResultSet rs = null;
+        FBeans beans = null;
+        FJobLog bean = (FJobLog)seed;
+        String SQL = "SELECT l.* FROM kpi_job_log l, kpi_job_scheduler s\n" + 
+                      "WHERE l.job_id = s.id \n" + 
+                      "AND s.job_code = ? AND l.end_exec IS NOT NULL \n" + 
+                      "ORDER BY l.end_exec DESC LIMIT 1";
+        try {
+            prstm = cnn.prepareStatement(SQL);
+            prstm.setString(PARAM_01, bean.getJobCode());
+            //prstm.setInt(PARAM_02, bean.getLocationId());
+            rs = prstm.executeQuery();
+            beans = new FBeans();
+            
+            while (rs != null && rs.next()) {
+                bean = new FJobLog();
+                bean = getInformation(rs);
+                beans.add(bean);
+            }
+        } catch (SQLException sqle) {
+            if (AppConfigs.APP_DEBUG)
+                throw new EException(LOCATION, sqle);
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(prstm);
+        }
+        return beans;
     }
         
     public int insert(Connection cnn, FSeed seed) throws EException {
@@ -90,6 +125,7 @@ public class DJobLog extends DSqlDisability {
             params.add(bean.getEndExec());
             params.add(bean.getJobId());
             params.add(bean.getMsgExec());
+            params.add(bean.getLocationId());
         } catch (Exception exp) {
             if (AppConfigs.APP_DEBUG)
                 throw new EException(LOCATION, exp);
@@ -107,6 +143,7 @@ public class DJobLog extends DSqlDisability {
             bean.setEndExec(rs.getTimestamp(TABLE_KPI_JOB_LOG_END_EXEC));
             bean.setJobId(rs.getInt(TABLE_KPI_JOB_LOG_JOB_ID));
             bean.setMsgExec(rs.getString(TABLE_KPI_JOB_LOG_MSG_EXEC));
+            bean.setLocationId(rs.getInt(TABLE_KPI_JOB_LOG_LOCATION_ID));
         } catch (SQLException sqle) {
             if (AppConfigs.APP_DEBUG)
                 throw new EException(LOCATION, sqle);

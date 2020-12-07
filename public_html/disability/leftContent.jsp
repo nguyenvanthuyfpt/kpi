@@ -11,8 +11,7 @@
             post('disabilityFuntion',anchor + ':'+ anchorName+':func:'+funcName+':yearReport:'+year_proj+':objId:0');
         } else {
             post('disabilityFuntion',anchor + ':'+ anchorName+':func:'+funcName+':yearReport:'+year_proj);
-        }
-        
+        }        
         messageImg('right');
     }
     
@@ -67,6 +66,8 @@
                 <ul <%="03".equals(func)?"":"style='display:none;'"%> id="searchId">
                     <li><a <%="03.01".equals(sub_func)?"class='select'":""%> href="javascript:excutePostCategorys('_REPORT_KPI','_REPORT_EXPORT');" >
                         <bean:message key="common.label.function.report.export" bundle="<%=interfaces%>" /></a></li>
+                    <li><a <%="03.02".equals(sub_func)?"class='select'":""%> href="javascript:excutePostCategorys('_REPORT_KPI','_REPORT_EXPORT_2020');" >
+                        <bean:message key="common.label.function.report.export.2020" bundle="<%=interfaces%>" /></a></li>
                 </ul> 
     </li>
     

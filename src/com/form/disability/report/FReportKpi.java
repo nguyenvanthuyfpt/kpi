@@ -22,13 +22,27 @@ public class FReportKpi extends FSeed {
 
     private String fromYear = String.valueOf(getYear(getCurrentSqlDate()));
     private String toYear = String.valueOf(getYear(getCurrentSqlDate()));
-    
+
     private String createDateTo = "";
     private String createDateFrom = "";
 
-    private int tinhId;
+    private String dvuDateFrom = "";
+    private String dvuDateTo = "";
 
+    private String tdgDateFrom = "";
+    private String tdgDateTo = "";
+
+    private String dmcDateFrom = "";
+    private String dmcDateTo = "";
+
+    private int tinhId;
     private String tinhName;
+
+    private int qhuId;
+    private String qhuName;
+
+    private int pxaId;
+    private String pxaName;
 
     private String func;
     private int objNum;
@@ -37,12 +51,14 @@ public class FReportKpi extends FSeed {
     private String objName;
     private int extend = 0;
 
+    private String jobLastUpdate;
+    private String jobMsg;
+
     private int indId;
-
     private String indCode;
-
     private String indDesc;
     private int indBaseline;
+
     private int targetYear;
     private int targetQ1;
     private int targetQ2;
@@ -66,21 +82,14 @@ public class FReportKpi extends FSeed {
     private String subFunction = "04.01";
 
     private String name;
-
     private int male;
-
     private int female;
-
     private String address;
-
     private String phoneNumber;
-
     private String methodIntervention;
 
     private int isDis;
-
     private int notDis;
-
     private String typeLevelDis;
 
     private int numberTimes;
@@ -164,6 +173,7 @@ public class FReportKpi extends FSeed {
     private String ncsSex;
     private String trangThai;
     private String dangTat;
+    private String dangTatVanDong;
     private String mucDo;
     private String ngayDangTat;
     private String daCam;
@@ -198,6 +208,38 @@ public class FReportKpi extends FSeed {
     private String commP7;
     private String commP8;
 
+    private String ncauVLTL;
+    private String ncauHDTL;
+    private String ncauNNTL;
+    private String ncauDCHT;
+    private String ncauWC;
+
+    private String dgNum0;
+    private String dgNum1;
+    private String dgNum2;
+    private String dgNum3;
+    private String dgNum4;
+
+    private String dgCTh1;
+    private String dgCTh2;
+    private String dgCTh3;
+    private String dgCTh4;
+
+    private String htroPhcnVNAH;
+    private String htroPhcnTTP;
+    private String htroPhcnQHU;
+    private String htroPhcnPXA;
+
+    private String dgNgay;
+    private String cthNum0;
+    private String cthNum1;
+    private String cthNum2;
+    private String cthNum3;
+    private String cthNum4;
+
+    private String cthTyLe;
+    private String cthMuc;
+
     public FReportKpi() {
     }
 
@@ -210,8 +252,7 @@ public class FReportKpi extends FSeed {
     public String getTimeExport() {
         return timeExport;
     }
-    
-    
+
 
     public void setMonthReport(int monthReport) {
         this.monthReport = monthReport;
@@ -1555,5 +1596,318 @@ public class FReportKpi extends FSeed {
 
     public String getCreateDateFrom() {
         return createDateFrom;
+    }
+
+    public void setJobLastUpdate(String jobLastUpdate) {
+        this.jobLastUpdate = jobLastUpdate;
+    }
+
+    public String getJobLastUpdate() {
+        return jobLastUpdate;
+    }
+
+    public void setJobMsg(String jobMsg) {
+        this.jobMsg = jobMsg;
+    }
+
+    public String getJobMsg() {
+        return jobMsg;
+    }
+
+    public void setDvuDateFrom(String dvuDateFrom) {
+        this.dvuDateFrom = dvuDateFrom;
+    }
+
+    public String getDvuDateFrom() {
+        return dvuDateFrom;
+    }
+
+    public void setDvuDateTo(String dvuDateTo) {
+        this.dvuDateTo = dvuDateTo;
+    }
+
+    public String getDvuDateTo() {
+        return dvuDateTo;
+    }
+
+    public void setTdgDateFrom(String tdgDateFrom) {
+        this.tdgDateFrom = tdgDateFrom;
+    }
+
+    public String getTdgDateFrom() {
+        return tdgDateFrom;
+    }
+
+    public void setTdgDateTo(String tdgDateTo) {
+        this.tdgDateTo = tdgDateTo;
+    }
+
+    public String getTdgDateTo() {
+        return tdgDateTo;
+    }
+
+    public void setDmcDateFrom(String dmcDateFrom) {
+        this.dmcDateFrom = dmcDateFrom;
+    }
+
+    public String getDmcDateFrom() {
+        return dmcDateFrom;
+    }
+
+    public void setDmcDateTo(String dmcDateTo) {
+        this.dmcDateTo = dmcDateTo;
+    }
+
+    public String getDmcDateTo() {
+        return dmcDateTo;
+    }
+
+
+    public void setQhuId(int qhuId) {
+        this.qhuId = qhuId;
+    }
+
+    public int getQhuId() {
+        return qhuId;
+    }
+
+    public void setQhuName(String qhuName) {
+        this.qhuName = qhuName;
+    }
+
+    public String getQhuName() {
+        return qhuName;
+    }
+
+    public void setPxaId(int pxaId) {
+        this.pxaId = pxaId;
+    }
+
+    public int getPxaId() {
+        return pxaId;
+    }
+
+    public void setPxaName(String pxaName) {
+        this.pxaName = pxaName;
+    }
+
+    public String getPxaName() {
+        return pxaName;
+    }
+
+    public void setNcauVLTL(String ncauVLTL) {
+        this.ncauVLTL = ncauVLTL;
+    }
+
+    public String getNcauVLTL() {
+        return ncauVLTL;
+    }
+
+    public void setNcauHDTL(String ncauHDTL) {
+        this.ncauHDTL = ncauHDTL;
+    }
+
+    public String getNcauHDTL() {
+        return ncauHDTL;
+    }
+
+    public void setNcauNNTL(String ncauNNTL) {
+        this.ncauNNTL = ncauNNTL;
+    }
+
+    public String getNcauNNTL() {
+        return ncauNNTL;
+    }
+
+    public void setNcauDCHT(String ncauDCHT) {
+        this.ncauDCHT = ncauDCHT;
+    }
+
+    public String getNcauDCHT() {
+        return ncauDCHT;
+    }
+
+    public void setNcauWC(String ncauWC) {
+        this.ncauWC = ncauWC;
+    }
+
+    public String getNcauWC() {
+        return ncauWC;
+    }
+
+    public void setDgNum0(String dgNum0) {
+        this.dgNum0 = dgNum0;
+    }
+
+    public String getDgNum0() {
+        return dgNum0;
+    }
+
+    public void setDgNum1(String dgNum1) {
+        this.dgNum1 = dgNum1;
+    }
+
+    public String getDgNum1() {
+        return dgNum1;
+    }
+
+    public void setDgNum2(String dgNum2) {
+        this.dgNum2 = dgNum2;
+    }
+
+    public String getDgNum2() {
+        return dgNum2;
+    }
+
+    public void setDgNum3(String dgNum3) {
+        this.dgNum3 = dgNum3;
+    }
+
+    public String getDgNum3() {
+        return dgNum3;
+    }
+
+    public void setDgNum4(String dgNum4) {
+        this.dgNum4 = dgNum4;
+    }
+
+    public String getDgNum4() {
+        return dgNum4;
+    }
+
+    public void setDgCTh1(String dgCTh1) {
+        this.dgCTh1 = dgCTh1;
+    }
+
+    public String getDgCTh1() {
+        return dgCTh1;
+    }
+
+    public void setDgCTh2(String dgCTh2) {
+        this.dgCTh2 = dgCTh2;
+    }
+
+    public String getDgCTh2() {
+        return dgCTh2;
+    }
+
+    public void setDgCTh3(String dgCTh3) {
+        this.dgCTh3 = dgCTh3;
+    }
+
+    public String getDgCTh3() {
+        return dgCTh3;
+    }
+
+    public void setDgCTh4(String dgCTh4) {
+        this.dgCTh4 = dgCTh4;
+    }
+
+    public String getDgCTh4() {
+        return dgCTh4;
+    }
+
+    public void setHtroPhcnVNAH(String htroPhcnVNAH) {
+        this.htroPhcnVNAH = htroPhcnVNAH;
+    }
+
+    public String getHtroPhcnVNAH() {
+        return htroPhcnVNAH;
+    }
+
+    public void setHtroPhcnTTP(String htroPhcnTTP) {
+        this.htroPhcnTTP = htroPhcnTTP;
+    }
+
+    public String getHtroPhcnTTP() {
+        return htroPhcnTTP;
+    }
+
+    public void setHtroPhcnQHU(String htroPhcnQHU) {
+        this.htroPhcnQHU = htroPhcnQHU;
+    }
+
+    public String getHtroPhcnQHU() {
+        return htroPhcnQHU;
+    }
+
+    public void setHtroPhcnPXA(String htroPhcnPXA) {
+        this.htroPhcnPXA = htroPhcnPXA;
+    }
+
+    public String getHtroPhcnPXA() {
+        return htroPhcnPXA;
+    }
+
+    public void setDgNgay(String dgNgay) {
+        this.dgNgay = dgNgay;
+    }
+
+    public String getDgNgay() {
+        return dgNgay;
+    }
+
+    public void setCthNum0(String cthNum0) {
+        this.cthNum0 = cthNum0;
+    }
+
+    public String getCthNum0() {
+        return cthNum0;
+    }
+
+    public void setCthNum1(String cthNum1) {
+        this.cthNum1 = cthNum1;
+    }
+
+    public String getCthNum1() {
+        return cthNum1;
+    }
+
+    public void setCthNum2(String cthNum2) {
+        this.cthNum2 = cthNum2;
+    }
+
+    public String getCthNum2() {
+        return cthNum2;
+    }
+
+    public void setCthNum3(String cthNum3) {
+        this.cthNum3 = cthNum3;
+    }
+
+    public String getCthNum3() {
+        return cthNum3;
+    }
+
+    public void setCthNum4(String cthNum4) {
+        this.cthNum4 = cthNum4;
+    }
+
+    public String getCthNum4() {
+        return cthNum4;
+    }
+
+    public void setCthTyLe(String cthTyLe) {
+        this.cthTyLe = cthTyLe;
+    }
+
+    public String getCthTyLe() {
+        return cthTyLe;
+    }
+
+    public void setCthMuc(String cthMuc) {
+        this.cthMuc = cthMuc;
+    }
+
+    public String getCthMuc() {
+        return cthMuc;
+    }
+
+    public void setDangTatVanDong(String dangTatVanDong) {
+        this.dangTatVanDong = dangTatVanDong;
+    }
+
+    public String getDangTatVanDong() {
+        return dangTatVanDong;
     }
 }

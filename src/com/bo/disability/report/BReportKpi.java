@@ -117,6 +117,33 @@ public class BReportKpi {
         return beans;
     }
     
+    public FBeans getDataDisExport2020(int lvl, int locationId,                                        
+                                       String createDateFrom, String createDateTo, 
+                                       String dvuDateFrom, String dvuDateTo,
+                                       String tdgDateFrom, String tdgDateTo,
+                                       String dmcDateFrom, String dmcDateTo) throws EException, SQLException {
+        final String LOCATION = this + "->getDataDisExport()";
+        FBeans beans = new FBeans();
+        Connection conn = null;
+        try {
+            conn = DBConnector.getConnection();
+            DBConnector.startTransaction(conn);
+            beans = dao.getDataDisExport2020(conn, lvl, locationId, 
+                                            createDateFrom, createDateTo, 
+                                            dvuDateFrom, dvuDateTo, 
+                                            tdgDateFrom, tdgDateTo, 
+                                            dmcDateFrom, dmcDateTo);
+            DBConnector.endTransaction(conn);
+        } catch (EException ex) {
+            DBConnector.rollBackTransaction(conn);
+            if (AppConfigs.APP_DEBUG)
+                throw new EException(LOCATION, ex);
+        } finally {
+            DBConnector.closeConnection(conn);
+        }
+        return beans;
+    }
+    
     public FBeans getDataDisCommuneSummary (int lvl, int locationId, String val) throws EException, SQLException {
         final String LOCATION = this + "->getDataDisCommuneSummary()";
         FBeans beans = new FBeans();

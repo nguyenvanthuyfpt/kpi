@@ -9,6 +9,7 @@ public class Constant {
     
     public static final ResourceBundle config = ResourceBundle.getBundle("com.res.app-config");
     
+    public static final String export_dir = "e:\\temp\\";
     public static final String report_dir = "f:/tph/";
     public static final int max_row = 65000;
     public static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -45,6 +46,7 @@ public class Constant {
     public static final int KPI_DATA_LIST_PERSON_HOURS = 6;
     public static final int KPI_DATA_LIST_COUNT = 7;
     public static final int KPI_DATA_LIST_COUNT_LATE = 8;
+    public static final int KPI_DATA_DIS_COMMUNE = 9;
     
     public static final int KPI_SELECT_EVENT = 1;
     public static final int KPI_SELECT_PERSON = 2;

@@ -200,20 +200,25 @@
             </td>
             <td nowrap align="left">
                 <input type="checkbox" name="fields" value="38">
-                &nbsp;M&#7913;c &#273;&#7897; &#272;L-PT
+                &nbsp;Ch&#432;&#417;ng tr&#236;nh ANTL
             </td>
             <td nowrap align="left">
                 <input type="checkbox" name="fields" value="39">
-                &nbsp;M&#7913;c &#273;&#7897; h&#224;i l&#242;ng
-            </td>            
+                &nbsp;M&#7913;c &#273;&#7897; &#272;L-PT
+            </td>
+                     
         </tr>
         
         <tr>
             <td nowrap align="left">
                 <input type="checkbox" name="fields" value="40">
+                &nbsp;M&#7913;c &#273;&#7897; h&#224;i l&#242;ng
+            </td>   
+            <td nowrap align="left">
+                <input type="checkbox" name="fields" value="41">
                 &nbsp;H&#7895; tr&#7907; d&#7909;ng c&#7909; kh&#225;c
             </td>
-            <td colspan="4">&nbsp;</td>
+            <td colspan="3">&nbsp;</td>
         </tr>
         </table>    
     </td>

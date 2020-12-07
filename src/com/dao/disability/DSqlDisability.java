@@ -102,15 +102,6 @@ public class DSqlDisability extends DSqlAdmin {
             
      public final String SELECT_ALL_FROM_TABLE_DISABILITY = SELECT + DISTINCT +  ON + " (DR_DISABILITYPEOPLE.ID) "  
             + TABLE_DISABILITYPEOPLE + STOP + STAR 
-            //+ "get_dangtat(DR_DISABILITYPEOPLE.ID) as dtat_ten, dr_phanloai.datecreate as dtat_ngaycapnhat, " 
-            //+ "dr_phanloai.thoidiem_taikham as dtat_ngaytatkham, dr_phanloai.diadiem_kham as dtat_diadiemkham, dr_phanloai.thoidiem_kt as dtat_tdiemkt, "
-            //+ "dr_phanloai.reson as dtat_tinhtrang, dr_phanloai.nguyennhan_id as dtat_nguyennhan, " 
-            //+ "dr_phanloai.mucdo_id as dtat_mucdo," 
-            //+ "get_str_hotro(DR_DISABILITYPEOPLE.ID, 0, '') as htro_nhucau, " 
-            //+ "get_str_hotro(DR_DISABILITYPEOPLE.ID, 1, '') as htro_danhan, "
-            //+ "'' as htro_nhucau, "
-            //+ "'' as htro_danhan, "    
-            //+ "dr_support.dateform as htro_tungay" 
             + COMMA + TABLE_DANTOC + STOP + DANTOC_NAME + " as dantoc_name"                                                            
             + COMMA + TABLE_TINH + STOP + TINH_NAME 
             + COMMA + "sp.id_nkt, sp.datecreate, sp.reson, sp.dm_hotro_ids, sp.user_id, sp.status_id, sp.\n" + 
@@ -119,16 +110,17 @@ public class DSqlDisability extends DSqlAdmin {
             "       caithien_khac, sp.loaivay_khac, sp.sotienvay_khac, sp.mucdichvay_khac, sp.\n" + 
             "       tochucxahoi_khac, sp.nhucau_doisong_khac, sp.nhucau_giaoduc_khac, sp.ketqua, sp.\n" + 
             "       kn_chitra, sp.the_bhyt, sp.sd_the, sp.sd_the_phcn, sp.mtieu_gdinh, sp.mtieu_dtri, sp.\n" + 
-            "       ct_vltl, sp.ct_hdtl, sp.mdo_ptdl, sp.mdo_hlong "
-            //+ COMMA + TABLE_HOTRO + STOP + HOTRO_NGUONHOTRO_ID 
-            //+ COMMA + TABLE_TINH + STOP + TINH_CODE 
-            //+ COMMA + TABLE_RANK + STOP + RANK_ID + AS + "RANK_ID"
+            "       ct_vltl, sp.ct_hdtl, sp.ct_antl, sp.mdo_ptdl, sp.mdo_hlong, " + 
+            "       rpt.ktbt_thuongxuyen::text as P1, rpt.ktbt_tapdung::text as P2, rpt.dctg_phuhop::text as P3, rpt.dctg_thuongxuyen::text as P4, " + 
+            "       rpt.dctg_baoquan::text as P5, rpt.hd_ncs::text as P6, rpt.huong_ct::text as P7, rpt.htro_dkien as P8 "
             + FROM + TABLE_DISABILITYPEOPLE 
             + LEFT_JOIN + TABLE_TINH + ON + TABLE_DISABILITYPEOPLE + STOP + NKT_ID_TINH + EQUAL + TABLE_TINH + STOP + TINH_TINH_ID
             + LEFT_JOIN + TABLE_PHANLOAI + ON + TABLE_DISABILITYPEOPLE + STOP + NKT_ID + EQUAL + TABLE_PHANLOAI + STOP + PHANLOAI_ID_NKT
             + LEFT_JOIN + TABLE_HOTRO + " sp " + ON + TABLE_DISABILITYPEOPLE + STOP + NKT_ID + EQUAL + "sp" + STOP + HOTRO_ID_NKT
+            + LEFT_JOIN + TABLE_KPI_DIS_PROFILE + " pf " + ON + TABLE_DISABILITYPEOPLE + STOP + NKT_ID + EQUAL + "pf" + STOP + "nkt_id"
             + LEFT_JOIN + TABLE_RANK + ON + TABLE_DISABILITYPEOPLE + STOP + NKT_ID + EQUAL + TABLE_RANK + STOP + RANK_ID_NKT
-            + LEFT_JOIN + TABLE_DANTOC + ON + TABLE_DISABILITYPEOPLE + STOP + NKT_DANTOC_ID + EQUAL + TABLE_DANTOC + STOP + DANTOC_DANTOC_ID;
+            + LEFT_JOIN + TABLE_DANTOC + ON + TABLE_DISABILITYPEOPLE + STOP + NKT_DANTOC_ID + EQUAL + TABLE_DANTOC + STOP + DANTOC_DANTOC_ID
+            + LEFT_JOIN + " kpi_dis_report rpt " + ON + TABLE_DISABILITYPEOPLE + STOP + NKT_ID + EQUAL + " rpt.nkt_id ";
                  
     public final String COUNT_ALL_FROM_TABLE_DISABILITY = SELECT + " COUNT(DISTINCT DR_DISABILITYPEOPLE.ID) as TOTAL"
             + FROM + TABLE_DISABILITYPEOPLE 
@@ -136,7 +128,9 @@ public class DSqlDisability extends DSqlAdmin {
             + LEFT_JOIN + TABLE_PHANLOAI + ON + TABLE_DISABILITYPEOPLE + STOP + NKT_ID + EQUAL + TABLE_PHANLOAI + STOP + PHANLOAI_ID_NKT
             + LEFT_JOIN + TABLE_HOTRO + ON + TABLE_DISABILITYPEOPLE + STOP + NKT_ID + EQUAL + TABLE_HOTRO + STOP + HOTRO_ID_NKT
             + LEFT_JOIN + TABLE_HOTRO + " sp " + ON + TABLE_DISABILITYPEOPLE + STOP + NKT_ID + EQUAL + "sp" + STOP + HOTRO_ID_NKT
-            + LEFT_JOIN + TABLE_RANK + ON + TABLE_DISABILITYPEOPLE + STOP + NKT_ID + EQUAL + TABLE_RANK + STOP + RANK_ID_NKT;
+            + LEFT_JOIN + TABLE_KPI_DIS_PROFILE + " pf " + ON + TABLE_DISABILITYPEOPLE + STOP + NKT_ID + EQUAL + "pf" + STOP + "nkt_id"
+            + LEFT_JOIN + TABLE_RANK + ON + TABLE_DISABILITYPEOPLE + STOP + NKT_ID + EQUAL + TABLE_RANK + STOP + RANK_ID_NKT
+            + LEFT_JOIN + TABLE_DANTOC + ON + TABLE_DISABILITYPEOPLE + STOP + NKT_DANTOC_ID + EQUAL + TABLE_DANTOC + STOP + DANTOC_DANTOC_ID;
 
     // Quan ly ca    
     public final String SELECT_DISABILITY_FROM_TABLE_DISABILITY = SELECT + DISTINCT 
@@ -1327,14 +1321,26 @@ public class DSqlDisability extends DSqlAdmin {
                                                     "  FROM kpi_report_temp ORDER BY stt ASC, maso ASC, order_by ASC\n";
     */
     
-    public static String SQL_SELECT_KPI_DIS_EXPORT = "SELECT a.* FROM (\n" + 
+    public String SQL_SELECT_KPI_DIS_EXPORT = "SELECT a.* FROM (\n" + 
                                                       "SELECT * FROM kpi_report_temp a WHERE \n" + 
                                                       "EXISTS (SELECT * FROM kpi_report_temp b \n" + 
-                                                      "WHERE 1=1 \n" + 
-                                                      "AND TO_DATE(b.create_date,'DD/MM/YYYY') BETWEEN ? AND ? \n" + 
+                                                      "WHERE 1=1 [$TU_NGAY$] [$DEN_NGAY$] " +                                                       
                                                       "AND a.id=b.id) \n" + 
                                                       "ORDER BY a.stt ASC, a.maso ASC, a.order_by ASC) a INNER JOIN dr_disabilitypeople b ON a.id=b.id \n" + 
                                                       "WHERE 1=1 ";
+    
+   /*  public String SQL_SELECT_KPI_DIS_EXPORT_2020 = "SELECT a.* FROM (\n" + 
+                                                      "SELECT * FROM kpi_report_temp_2020 a WHERE \n" + 
+                                                      "EXISTS (SELECT * FROM kpi_report_temp_2020 b \n" + 
+                                                      "WHERE 1=1 [$TU_NGAY$] [$DEN_NGAY$] " +                                                       
+                                                      "AND a.id=b.id) \n" + 
+                                                      "ORDER BY a.stt ASC, a.maso ASC, a.order_by ASC) a INNER JOIN dr_disabilitypeople b ON a.id=b.id \n" + 
+                                                      "WHERE 1=1 "; */
+   public String SQL_SELECT_KPI_DIS_EXPORT_2020 = "SELECT * FROM kpi_report_temp_2020 a WHERE 1=1 " +
+                                                  " [$TU_NGAY$] [$DEN_NGAY$] " +
+                                                  " [$TU_DVU$] [$DEN_DVU$] " +
+                                                  " [$TU_TDG$] [$DEN_TDG$] " +
+                                                  " [$TU_DMC$] [$DEN_DMC$] ";
     
     // DATA DIS COMMUNE
     public static String SQL_SELECT_KPI_DIS_COMMUNE_SUMMARY = "SELECT total_visit, total_visit_male, total_visit_female, total_a, total_b, \n" + 
