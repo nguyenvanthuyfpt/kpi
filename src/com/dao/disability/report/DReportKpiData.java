@@ -208,15 +208,27 @@ public class DReportKpiData extends FExportExcel {
                 createCell(row, cot++, beanC.getDTatName(), wb, csLeft);
                 createCell(row, cot++, beanC.getDTatMucDo(), wb, csLeft);
                 
-                createCell(row, cot++, (beanC.getCommP1()!=null && beanC.getCommP1().equals("1")) ? beanC.ncrToString("C&#243;") : beanC.ncrToString("Kh&#244;ng"), wb, csCenter);
-                createCell(row, cot++, (beanC.getCommP2()!=null && beanC.getCommP1().equals("1")) ? beanC.ncrToString("C&#243;") : beanC.ncrToString("Kh&#244;ng"), wb, csCenter);
-                createCell(row, cot++, (beanC.getCommP3()!=null && beanC.getCommP1().equals("1")) ? beanC.ncrToString("C&#243;") : beanC.ncrToString("Kh&#244;ng"), wb, csCenter);
-                createCell(row, cot++, (beanC.getCommP4()!=null && beanC.getCommP1().equals("1")) ? beanC.ncrToString("C&#243;") : beanC.ncrToString("Kh&#244;ng"), wb, csCenter);
-                createCell(row, cot++, (beanC.getCommP5()!=null && beanC.getCommP1().equals("1")) ? beanC.ncrToString("C&#243;") : beanC.ncrToString("Kh&#244;ng"), wb, csCenter);
-                createCell(row, cot++, (beanC.getCommP6()!=null && beanC.getCommP1().equals("1")) ? beanC.ncrToString("C&#243;") : beanC.ncrToString("Kh&#244;ng"), wb, csCenter);
-                createCell(row, cot++, (beanC.getCommP7()!=null && beanC.getCommP1().equals("1")) ? beanC.ncrToString("C&#243;") : beanC.ncrToString("Kh&#244;ng"), wb, csCenter);
-                createCell(row, cot++, (beanC.getCommP8()!=null) ? beanC.getCommP8() : "", wb, csCenter);
-                
+                createCell(row, cot++, (beanC.getCommCreateDate()!=null) ? beanC.getCommCreateDate() : "", wb, csCenter);
+                if (beanC.getCommCreateDate()!=null) {
+                    createCell(row, cot++, (beanC.getCommP1()!=null && beanC.getCommP1().equals("1")) ? beanC.ncrToString("C&#243;") : beanC.ncrToString("Kh&#244;ng"), wb, csCenter);
+                    createCell(row, cot++, (beanC.getCommP2()!=null && beanC.getCommP2().equals("1")) ? beanC.ncrToString("C&#243;") : beanC.ncrToString("Kh&#244;ng"), wb, csCenter);
+                    createCell(row, cot++, (beanC.getCommP3()!=null && beanC.getCommP3().equals("1")) ? beanC.ncrToString("C&#243;") : beanC.ncrToString("Kh&#244;ng"), wb, csCenter);
+                    createCell(row, cot++, (beanC.getCommP4()!=null && beanC.getCommP4().equals("1")) ? beanC.ncrToString("C&#243;") : beanC.ncrToString("Kh&#244;ng"), wb, csCenter);
+                    createCell(row, cot++, (beanC.getCommP5()!=null && beanC.getCommP5().equals("1")) ? beanC.ncrToString("C&#243;") : beanC.ncrToString("Kh&#244;ng"), wb, csCenter);
+                    createCell(row, cot++, (beanC.getCommP6()!=null && beanC.getCommP6().equals("1")) ? beanC.ncrToString("C&#243;") : beanC.ncrToString("Kh&#244;ng"), wb, csCenter);
+                    createCell(row, cot++, (beanC.getCommP7()!=null && beanC.getCommP7().equals("1")) ? beanC.ncrToString("C&#243;") : beanC.ncrToString("Kh&#244;ng"), wb, csCenter);
+                    createCell(row, cot++, (beanC.getCommP8()!=null) ? beanC.getCommP8() : "", wb, csCenter);    
+                } else {
+                    createCell(row, cot++, "", wb, csCenter);
+                    createCell(row, cot++, "", wb, csCenter);
+                    createCell(row, cot++, "", wb, csCenter);
+                    createCell(row, cot++, "", wb, csCenter);
+                    createCell(row, cot++, "", wb, csCenter);
+                    createCell(row, cot++, "", wb, csCenter);
+                    createCell(row, cot++, "", wb, csCenter);
+                    createCell(row, cot++, "", wb, csCenter);                    
+                }
+                 
                 createCell(row, cot++, beanC.getLastupdate(), wb, csLeft);
                 createCell(row, cot++, beanC.getPhcnCanThiep(), wb, csLeft);
                 createCell(row, cot++, beanC.getPhcnDungCu(), wb, csLeft);

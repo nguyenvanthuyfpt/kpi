@@ -271,6 +271,7 @@ public class FSearch extends FSeed {
     public String eventStartDate;
     public String eventEndDate;
     
+    private String commCreateDate;
     private String commP1;
     private String commP2;
     private String commP3;
@@ -2279,5 +2280,13 @@ public class FSearch extends FSeed {
 
     public String getCommP8() {
         return commP8;
+    }
+
+    public void setCommCreateDate(String commCreateDate) {
+        this.commCreateDate = commCreateDate;
+    }
+
+    public String getCommCreateDate() {
+        return commCreateDate;
     }
 }

@@ -829,7 +829,8 @@ public class DSearch extends DSqlDisability {
         final String LOCATION = this.toString() + "getReport()";
         String SQL_REPORT_DIS = "SELECT * FROM dr_report_param a WHERE 1=1 ";
         String SQL_REPORT_DIS_COMMUNE = "select\n" + 
-                                        "	krt.*,\n" + 
+                                        "	krt.*,\n" +
+                                        " to_char(rpt.create_date,'dd/MM/yyyy') as dv_tuyenxa_ngay, \n" + 
                                         "	rpt.ktbt_thuongxuyen::text as P1,\n" + 
                                         "	rpt.ktbt_tapdung::text as P2,\n" + 
                                         "	rpt.dctg_phuhop::text as P3,\n" + 
@@ -879,7 +880,7 @@ public class DSearch extends DSqlDisability {
                     SQL_REPORT_DIS += " AND krt.location_id='"+locationId+"'"; 
                 }                    
                 
-                SQL_REPORT_DIS_COMMUNE += " order by krt.location_id, krt.nkt_id";
+                SQL_REPORT_DIS_COMMUNE += " order by krt.location_id, krt.nkt_id, rpt.create_date desc";
                 prstm = prepareStatement(cnn, SQL_REPORT_DIS_COMMUNE, null);
             } else {
                 if (dataType==Constant.KPI_DATA_LIST_PERSON_HOURS) {
@@ -1186,14 +1187,15 @@ public class DSearch extends DSqlDisability {
             bean.setHtNgay(rs.getString("htro_phcn_ngay"));
             
             // Commune
-            bean.setCommP1(rs.getString("P1"));
-            bean.setCommP2(rs.getString("P2"));
-            bean.setCommP3(rs.getString("P3"));
-            bean.setCommP4(rs.getString("P4"));
-            bean.setCommP5(rs.getString("P5"));
-            bean.setCommP6(rs.getString("P6"));
-            bean.setCommP7(rs.getString("P7"));
-            bean.setCommP8(rs.getString("P8"));
+            bean.setCommCreateDate(rs.getString("dv_tuyenxa_ngay"));
+            bean.setCommP1(rs.getString("P1")!=null?rs.getString("P1"):null);
+            bean.setCommP2(rs.getString("P2")!=null?rs.getString("P2"):null);
+            bean.setCommP3(rs.getString("P3")!=null?rs.getString("P3"):null);
+            bean.setCommP4(rs.getString("P4")!=null?rs.getString("P4"):null);
+            bean.setCommP5(rs.getString("P5")!=null?rs.getString("P5"):null);
+            bean.setCommP6(rs.getString("P6")!=null?rs.getString("P6"):null);
+            bean.setCommP7(rs.getString("P7")!=null?rs.getString("P7"):null);
+            bean.setCommP8(rs.getString("P1")!=null?rs.getString("P8"):null);
             
         } catch (SQLException sqle) {
             if (AppConfigs.APP_DEBUG)
