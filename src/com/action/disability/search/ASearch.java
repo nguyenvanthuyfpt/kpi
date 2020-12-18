@@ -347,7 +347,6 @@ public class ASearch extends  ACore {
             
             if (exportTemp) {
                 if (bean.getDataType()==1) {
-                    // listDisability.xls + listDisabilityCommune.xls
                     fileName = "_REPORT_TEMP_XA".equals(anchor)?IKeyDisability.REPORT_FILE_KPI_DIS_COMMUNE:IKeyDisability.REPORT_FILE_KPI_LIST_DIS;
                     bean.setDataType("_REPORT_TEMP_XA".equals(anchor)?Constant.KPI_DATA_DIS_COMMUNE:Constant.KPI_DATA_LIST_DIS);
                 } else {

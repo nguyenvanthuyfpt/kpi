@@ -104,6 +104,7 @@ public class DSqlDisability extends DSqlAdmin {
             + TABLE_DISABILITYPEOPLE + STOP + STAR 
             + COMMA + TABLE_DANTOC + STOP + DANTOC_NAME + " as dantoc_name"                                                            
             + COMMA + TABLE_TINH + STOP + TINH_NAME 
+            + ", dis.name qhu_name "
             + COMMA + "sp.id_nkt, sp.datecreate, sp.reson, sp.dm_hotro_ids, sp.user_id, sp.status_id, sp.\n" + 
             "       dateform, sp.dateto, sp.nguonhotro, sp.nguonhotro_id, sp.macbenh, sp.dungcu_khac, sp.\n" + 
             "       phauthuat_khac, sp.yte_khac, sp.trocap_thuongxuyen_khac, sp.trocap_dotxuat_khac, sp.\n" + 
@@ -115,6 +116,7 @@ public class DSqlDisability extends DSqlAdmin {
             "       rpt.dctg_baoquan::text as P5, rpt.hd_ncs::text as P6, rpt.huong_ct::text as P7, rpt.htro_dkien as P8 "
             + FROM + TABLE_DISABILITYPEOPLE 
             + LEFT_JOIN + TABLE_TINH + ON + TABLE_DISABILITYPEOPLE + STOP + NKT_ID_TINH + EQUAL + TABLE_TINH + STOP + TINH_TINH_ID
+            + " left join dr_area dis on DR_DISABILITYPEOPLE.id_district = dis.TINH_ID "                                                  
             + LEFT_JOIN + TABLE_PHANLOAI + ON + TABLE_DISABILITYPEOPLE + STOP + NKT_ID + EQUAL + TABLE_PHANLOAI + STOP + PHANLOAI_ID_NKT
             + LEFT_JOIN + TABLE_HOTRO + " sp " + ON + TABLE_DISABILITYPEOPLE + STOP + NKT_ID + EQUAL + "sp" + STOP + HOTRO_ID_NKT
             + LEFT_JOIN + TABLE_KPI_DIS_PROFILE + " pf " + ON + TABLE_DISABILITYPEOPLE + STOP + NKT_ID + EQUAL + "pf" + STOP + "nkt_id"
@@ -125,6 +127,7 @@ public class DSqlDisability extends DSqlAdmin {
     public final String COUNT_ALL_FROM_TABLE_DISABILITY = SELECT + " COUNT(DISTINCT DR_DISABILITYPEOPLE.ID) as TOTAL"
             + FROM + TABLE_DISABILITYPEOPLE 
             + LEFT_JOIN + TABLE_TINH + ON + TABLE_DISABILITYPEOPLE + STOP + NKT_ID_TINH + EQUAL + TABLE_TINH + STOP + TINH_TINH_ID
+            + " left join dr_area dis on DR_DISABILITYPEOPLE.id_district = dis.TINH_ID "
             + LEFT_JOIN + TABLE_PHANLOAI + ON + TABLE_DISABILITYPEOPLE + STOP + NKT_ID + EQUAL + TABLE_PHANLOAI + STOP + PHANLOAI_ID_NKT
             + LEFT_JOIN + TABLE_HOTRO + ON + TABLE_DISABILITYPEOPLE + STOP + NKT_ID + EQUAL + TABLE_HOTRO + STOP + HOTRO_ID_NKT
             + LEFT_JOIN + TABLE_HOTRO + " sp " + ON + TABLE_DISABILITYPEOPLE + STOP + NKT_ID + EQUAL + "sp" + STOP + HOTRO_ID_NKT

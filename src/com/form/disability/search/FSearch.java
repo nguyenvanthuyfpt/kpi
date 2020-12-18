@@ -45,6 +45,7 @@ public class FSearch extends FSeed {
     private int qhuyenId;
     private int pxaId;
     private String tinhName;
+    private String huyenName;
     private String chuanDoan;
     private String searchHTVaDT;
 
@@ -168,7 +169,9 @@ public class FSearch extends FSeed {
     // PHCN
     private String phcnCanThiep;
     private String phcnDungCu;
+    private String phcnDungCuKhac;
     private String htNhaO;
+    private String htCTVS;
     private String htNgay;
 
     private String dt_dangTatIds;
@@ -2288,5 +2291,29 @@ public class FSearch extends FSeed {
 
     public String getCommCreateDate() {
         return commCreateDate;
+    }
+
+    public void setPhcnDungCuKhac(String phcnDungCuKhac) {
+        this.phcnDungCuKhac = phcnDungCuKhac;
+    }
+
+    public String getPhcnDungCuKhac() {
+        return phcnDungCuKhac;
+    }
+
+    public void setHtCTVS(String htCTVS) {
+        this.htCTVS = htCTVS;
+    }
+
+    public String getHtCTVS() {
+        return htCTVS;
+    }
+
+    public void setHuyenName(String huyenName) {
+        this.huyenName = huyenName;
+    }
+
+    public String getHuyenName() {
+        return huyenName;
     }
 }

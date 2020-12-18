@@ -841,7 +841,7 @@ public class DSearch extends DSqlDisability {
                                         "	rpt.htro_dkien as P8\n" + 
                                         "from\n" + 
                                         "	dr_report_param krt\n" + 
-                                        "left join kpi_dis_report rpt on\n" + 
+                                        "left join kpi_v_report_comm rpt on\n" + 
                                         "	krt.nkt_id = rpt.nkt_id ";
         
         String SQL_PERSON_HOURS = "select a.per_id, p.name, case when p.sex=0 then 1 end male, case when p.sex=1 then 1 end female, \n" + 
@@ -877,10 +877,10 @@ public class DSearch extends DSqlDisability {
                 
                 if (mapParam.get("locationId")!=null) {
                     int locationId = Integer.parseInt(mapParam.get("locationId"));
-                    SQL_REPORT_DIS += " AND krt.location_id='"+locationId+"'"; 
+                    SQL_REPORT_DIS_COMMUNE += " AND krt.location_id='"+locationId+"'"; 
                 }                    
                 
-                SQL_REPORT_DIS_COMMUNE += " order by krt.location_id, krt.nkt_id, rpt.create_date desc";
+                SQL_REPORT_DIS_COMMUNE += " order by krt.location_id, krt.qhu_id, krt.nkt_id, rpt.create_date desc";
                 prstm = prepareStatement(cnn, SQL_REPORT_DIS_COMMUNE, null);
             } else {
                 if (dataType==Constant.KPI_DATA_LIST_PERSON_HOURS) {
@@ -1122,6 +1122,7 @@ public class DSearch extends DSqlDisability {
             // Location
             bean.setTinhId(rs.getInt("location_id"));
             bean.setTinhName(rs.getString("location_name"));
+            bean.setHuyenName(rs.getString("qhu_name"));
             
             // NKT
             bean.setLastupdate(rs.getString("create_date"));
@@ -1155,6 +1156,7 @@ public class DSearch extends DSqlDisability {
             bean.setDTatName(rs.getString("dtat_ten"));
             bean.setDTatNgayTaiKham(rs.getString("dtat_ngay_kham"));
             bean.setDTatDiaDiemKham(rs.getString("dtat_ddiem_kham"));
+            bean.setDTatTinhTrang(rs.getString("dtat_ttrang_ktat"));
             bean.setDTatTDiemKT(rs.getString("dtat_tdiem_ktat"));
             bean.setDTatNguyenNhan(rs.getString("dtat_nnhan_ktat"));
             bean.setDTatMucDo(rs.getString("dtat_mdo_ktat"));            
@@ -1183,7 +1185,9 @@ public class DSearch extends DSqlDisability {
             
             bean.setPhcnCanThiep(rs.getString("htro_phcn_canthiep"));
             bean.setPhcnDungCu(rs.getString("htro_phcn_dungcu"));
-            bean.setHtNhaO(rs.getString("htro_tcan_nhao"));
+            bean.setPhcnDungCuKhac(rs.getString("htro_dungcu_khac"));
+            bean.setHtNhaO(rs.getString("htro_nhao"));
+            bean.setHtCTVS(rs.getString("htro_ctvs"));
             bean.setHtNgay(rs.getString("htro_phcn_ngay"));
             
             // Commune

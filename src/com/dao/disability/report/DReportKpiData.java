@@ -202,10 +202,12 @@ public class DReportKpiData extends FExportExcel {
                 createCell(row, cot++, beanC.getNkt(), wb, csLeft);
                 createCell(row, cot++, beanC.getMaSo(), wb, csLeft);
                 createCell(row, cot++, beanC.getSoNha(), wb, csLeft);
+                createCell(row, cot++, beanC.getHuyenName(), wb, csLeft);
                 createCell(row, cot++, beanC.getNamSinh(), wb, csLeft);
                 createCell(row, cot++, beanC.getGioiTinh(), wb, csLeft);
                 createCell(row, cot++, beanC.getPhoneNumber(), wb, csLeft);
                 createCell(row, cot++, beanC.getDTatName(), wb, csLeft);
+                createCell(row, cot++, beanC.getDTatTinhTrang(), wb, csLeft);
                 createCell(row, cot++, beanC.getDTatMucDo(), wb, csLeft);
                 
                 createCell(row, cot++, (beanC.getCommCreateDate()!=null) ? beanC.getCommCreateDate() : "", wb, csCenter);
@@ -232,11 +234,14 @@ public class DReportKpiData extends FExportExcel {
                 createCell(row, cot++, beanC.getLastupdate(), wb, csLeft);
                 createCell(row, cot++, beanC.getPhcnCanThiep(), wb, csLeft);
                 createCell(row, cot++, beanC.getPhcnDungCu(), wb, csLeft);
+                createCell(row, cot++, beanC.getPhcnDungCuKhac(), wb, csLeft);
                 createCell(row, cot++, beanC.getHtNhaO(), wb, csLeft);
+                createCell(row, cot++, beanC.getHtCTVS(), wb, csLeft);
                 createCell(row, cot++, beanC.getHtNgay(), wb, csLeft);
                 createCell(row, cot++, beanC.getTrangthai(), wb, csLeft);
                 createCell(row, cot++, beanC.getNgayDongHS(), wb, csLeft);
                 createCell(row, cot++, beanC.getLydoDongHS(), wb, csLeft);
+                createCell(row, cot++, "", wb, csLeft);
                 createCell(row, cot++, beanC.getNguoiDongHS(), wb, csLeft);
             }
         } else {
