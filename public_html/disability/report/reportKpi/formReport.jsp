@@ -232,6 +232,7 @@
                                   <html:option value="2018">2018</html:option>
                                   <html:option value="2019">2019</html:option>
                                   <html:option value="2020">2020</html:option>
+                                  <html:option value="2021">2021</html:option>
                               </html:select>
                         </td>
                     </tr>
@@ -254,6 +255,7 @@
                                   <html:option value="2018">2018</html:option>
                                   <html:option value="2019">2019</html:option>
                                   <html:option value="2020">2020</html:option>
+                                  <html:option value="2021">2021</html:option>
                               </html:select>
                         </td>
                     </tr>
@@ -269,6 +271,7 @@
                                   <html:option value="2018">2018</html:option>
                                   <html:option value="2019">2019</html:option>
                                   <html:option value="2020">2020</html:option>
+                                  <html:option value="2021">2021</html:option>
                               </html:select>
                         </td>
                     </tr>
@@ -317,6 +320,7 @@
                                   <html:option value="2018">2018</html:option>
                                   <html:option value="2019">2019</html:option>
                                   <html:option value="2020">2020</html:option>
+                                  <html:option value="2021">2021</html:option>
                             </html:select>
                             <bean:message key="common.label.to" bundle="<%=interfaces%>"/>
                             <html:select styleClass="inputbox" name="reportkpi" property="toMonth">
@@ -339,6 +343,7 @@
                                   <html:option value="2018">2018</html:option>
                                   <html:option value="2019">2019</html:option>
                                   <html:option value="2020">2020</html:option>
+                                  <html:option value="2021">2021</html:option>
                               </html:select>
                         </td>
                     </tr>

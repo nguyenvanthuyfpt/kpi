@@ -216,7 +216,7 @@ public class DReportKpiData extends FExportExcel {
                     createCell(row, cot++, (beanC.getCommP2()!=null && beanC.getCommP2().equals("1")) ? beanC.ncrToString("C&#243;") : beanC.ncrToString("Kh&#244;ng"), wb, csCenter);
                     createCell(row, cot++, (beanC.getCommP3()!=null && beanC.getCommP3().equals("1")) ? beanC.ncrToString("C&#243;") : beanC.ncrToString("Kh&#244;ng"), wb, csCenter);
                     createCell(row, cot++, (beanC.getCommP4()!=null && beanC.getCommP4().equals("1")) ? beanC.ncrToString("C&#243;") : beanC.ncrToString("Kh&#244;ng"), wb, csCenter);
-                    createCell(row, cot++, (beanC.getCommP5()!=null && beanC.getCommP5().equals("1")) ? beanC.ncrToString("C&#243;") : beanC.ncrToString("Kh&#244;ng"), wb, csCenter);
+//                    createCell(row, cot++, (beanC.getCommP5()!=null && beanC.getCommP5().equals("1")) ? beanC.ncrToString("C&#243;") : beanC.ncrToString("Kh&#244;ng"), wb, csCenter);
                     createCell(row, cot++, (beanC.getCommP6()!=null && beanC.getCommP6().equals("1")) ? beanC.ncrToString("C&#243;") : beanC.ncrToString("Kh&#244;ng"), wb, csCenter);
                     createCell(row, cot++, (beanC.getCommP7()!=null && beanC.getCommP7().equals("1")) ? beanC.ncrToString("C&#243;") : beanC.ncrToString("Kh&#244;ng"), wb, csCenter);
                     createCell(row, cot++, (beanC.getCommP8()!=null) ? beanC.getCommP8() : "", wb, csCenter);    

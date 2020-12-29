@@ -934,7 +934,7 @@ public class DSearch extends DSqlDisability {
                         SQL_PERSON_HOURS += " AND a.create_date <= '"+bean.stringToSqlDate(createTo)+"'";
                     }
                 
-                    SQL_PERSON_HOURS += " AND a.hours <> 0 ORDER BY p.location_id, p.name, e.start_date DESC";
+                    SQL_PERSON_HOURS += " AND (a.hours <> 0 OR 1=1) ORDER BY p.location_id, p.name, e.start_date DESC";
                     prstm = prepareStatement(cnn, SQL_PERSON_HOURS, null);
                 } else {
                     prstm = prepareStatement(cnn, SQL_REPORT, params);        

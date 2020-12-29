@@ -65,6 +65,7 @@
                         <html:option value="2018">2018</html:option>
                         <html:option value="2019">2019</html:option>
                         <html:option value="2020">2020</html:option>
+                        <html:option value="2021">2021</html:option>
                     </html:select><br/><br/>
                     
                     <b><bean:write name="kpi" property="objCode" /></b> :
