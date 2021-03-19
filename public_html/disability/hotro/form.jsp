@@ -246,6 +246,20 @@
         </tr>
         
         <tr>
+            <td width="35%"><bean:message key="hotro.list.label.ctr.gddb" bundle="<%=interfaces%>"/>:</td>
+            <td colspan="3">
+                  <html:textarea name="support" property="ctGddb" rows="3" cols="55"/>
+            </td>
+        </tr>
+        
+        <tr>
+            <td width="35%"><bean:message key="hotro.list.label.ctr.csgn" bundle="<%=interfaces%>"/>:</td>
+            <td colspan="3">
+                  <html:textarea name="support" property="ctCsgn" rows="3" cols="55"/>
+            </td>
+        </tr>
+        
+        <tr>
             <td width="35%">
                 <!--<logic:equal name="support" property="statusId" value="1">
                     D&#7909;ng cu tr&#7907; gi&#250;p

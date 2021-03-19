@@ -34,3 +34,14 @@ CREATE TABLE kpi_job_log
 	job_id INT, 
 	msg_exec VARCHAR(100)
 )
+
+/* Add Giao duc dac biet + Cham soc giam nhe */
+alter table dr_support add column ct_gddb text;
+alter table dr_support add column ct_csgn text;
+
+/* Add Danh muc */
+INSERT INTO dr_hotro (hotro_id, name,code,parent_id,order_by,name_htro) 
+values (303,'Chăm sóc giảm nhẹ','CSGN',6,303,'Chăm sóc giảm nhẹ');
+
+INSERT INTO dr_hotro (hotro_id, name,code,parent_id,order_by,name_htro) 
+values (304,'Giáo dục đặc biệt','GDDB',302,302,'Giáo dục đặc biệt');

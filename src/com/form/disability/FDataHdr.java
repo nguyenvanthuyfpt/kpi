@@ -223,6 +223,8 @@ public class FDataHdr extends FSeed {
     public String ctVltl;
     public String ctHdtl;
     public String ctAntl;
+    public String ctGddb;
+    public String ctCsgn;
     public String mdoPtdl;
     public String mdoHlong;
     public String dungcuKhac;
@@ -2066,5 +2068,21 @@ public class FDataHdr extends FSeed {
 
     public int getCurResult() {
         return curResult;
+    }
+
+    public void setCtGddb(String ctGddb) {
+        this.ctGddb = ctGddb;
+    }
+
+    public String getCtGddb() {
+        return ctGddb;
+    }
+
+    public void setCtCsgn(String ctCsgn) {
+        this.ctCsgn = ctCsgn;
+    }
+
+    public String getCtCsgn() {
+        return ctCsgn;
     }
 }

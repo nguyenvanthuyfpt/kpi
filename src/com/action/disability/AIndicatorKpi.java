@@ -3072,6 +3072,9 @@ public class AIndicatorKpi extends  ACore {
         support.setDiaDiemKham(fdataHdr.getDisDiaDiem());
         support.setBaoQuanDC(fdataHdr.getDisDungCu());
         support.setDoiTuong(fdataHdr.getDisDoiTuong());
+        
+        support.setCtGddb(fdataHdr.getCtGddb());
+        support.setCtCsgn(fdataHdr.getCtCsgn());
     }
     
     private void getListDtl(FPerson fPerson, HttpServletRequest request, HttpSession session) {

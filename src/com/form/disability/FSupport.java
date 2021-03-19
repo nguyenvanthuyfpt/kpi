@@ -11,19 +11,19 @@ public class FSupport extends FSeed {
     private int statusId;
     private String mode;
     private String createDate = Formater.date2str(getCurrentDate());
-    
+
     private String supportSel;
     private int idNkt;
     private int userId;
     private String fullName;
-    private String dateCreate = Formater.date2str(getCurrentDate()); 
+    private String dateCreate = Formater.date2str(getCurrentDate());
     private String reson;
     private String nguonhotro;
     private String hotroIds;
     private int[] supportIds;
     private String dateForm = Formater.date2str(getCurrentDate());
     private String dateTo = Formater.date2str(getCurrentDate());
-    
+
     private String nCauHtro;
     private int nguonhotroId;
 
@@ -49,35 +49,39 @@ public class FSupport extends FSeed {
     private String tochucXaHoiKhac;
     private String nhucauDoiSongKhac;
     private String nhucauGiaoDucKhac;
-    
+
     private String thoiDiemTK = "";
     private int diaDiemKham;
     private int baoQuanDC;
-    private int doiTuong;    
+    private int doiTuong;
 
     // Add for KPI
-    public int knChiTra;
-    public int theBhyte;
-    public int sdThe;
-    public int sdThePhcn;
-    public String mtieuGdinh;
-    public String mtieuDtri;
-    public String ctVltl;
-    public String ctHdtl;
-    public String ctAntl;
-    public String mdoPtdl;
-    public String mdoHlong;
-    
-    public int spVnah;
-    public int spTtp;
-    public int spQhu;
-    public int spPxa;
-    
-    public String sp1;
-    public String sp2;
-    public String sp3;
-    public String sp4;
-    public String sp5;
+    private int knChiTra;
+    private int theBhyte;
+    private int sdThe;
+    private int sdThePhcn;
+    private String mtieuGdinh;
+    private String mtieuDtri;
+    private String ctVltl;
+    private String ctHdtl;
+    private String ctAntl;
+
+    private String ctGddb;
+    private String ctCsgn;
+
+    private String mdoPtdl;
+    private String mdoHlong;
+
+    private int spVnah;
+    private int spTtp;
+    private int spQhu;
+    private int spPxa;
+
+    private String sp1;
+    private String sp2;
+    private String sp3;
+    private String sp4;
+    private String sp5;
 
     public void reset() {
         this.id = 0;
@@ -98,14 +102,14 @@ public class FSupport extends FSeed {
         this.sotienvayKhac = "";
         this.mucdichvayKhac = "";
         this.nhucauDoiSongKhac = "";
-        this.nhucauGiaoDucKhac = "";    
+        this.nhucauGiaoDucKhac = "";
         this.nguonhotroId = 0;
         this.nguonhotro = "";
-        
+
         this.knChiTra = 0;
         this.theBhyte = 0;
         this.sdThe = 0;
-        this.sdThePhcn = 0;        
+        this.sdThePhcn = 0;
         this.mtieuGdinh = "";
         this.mtieuDtri = "";
         this.ctVltl = "";
@@ -623,5 +627,22 @@ public class FSupport extends FSeed {
 
     public String getSp5() {
         return sp5;
+    }
+
+
+    public void setCtGddb(String ctGddb) {
+        this.ctGddb = ctGddb;
+    }
+
+    public String getCtGddb() {
+        return ctGddb;
+    }
+
+    public void setCtCsgn(String ctCsgn) {
+        this.ctCsgn = ctCsgn;
+    }
+
+    public String getCtCsgn() {
+        return ctCsgn;
     }
 }

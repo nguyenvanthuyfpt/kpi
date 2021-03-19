@@ -106,7 +106,7 @@ public class DSupport extends DSqlDisability {
                 "case when kn_chitra is null then -1 else kn_chitra end, the_bhyt, \n" +
                 "case when sd_the is null then -1 else sd_the end, \n" +
                 "case when sd_the_phcn is null then -1 else sd_the_phcn end, mtieu_gdinh, mtieu_dtri, ct_vltl, ct_hdtl, ct_antl, mdo_ptdl, mdo_hlong, dungcu_khac, \n" +
-                "diadiem_kham, thoidiem_taikham, doi_tuong " + 
+                "diadiem_kham, thoidiem_taikham, doi_tuong, ct_gddb, ct_csgn " + 
                 "from dr_support where 1=1 and id_nkt=? and status_id=? and datecreate=?";
             prstm = prepareStatement(cnn, SQL, params);
             rs = prstm.executeQuery();
@@ -561,6 +561,8 @@ public class DSupport extends DSqlDisability {
   
             bean.setDiaDiemKham(rs.getInt(HOTRO_DIADIEM));
             bean.setDoiTuong(rs.getInt(HOTRO_DOITUONG));
+            bean.setCtGddb(rs.getString(HOTRO_CT_GDDB));
+            bean.setCtCsgn(rs.getString(HOTRO_CT_CSGN));
         } catch (SQLException sqle) {
             if (AppConfigs.APP_DEBUG)
                 throw new EException(LOCATION, sqle);
@@ -654,6 +656,10 @@ public class DSupport extends DSqlDisability {
             params.add(bean.stringToSqlDate("01/"+bean.getThoiDiemTK()));
             params.add(bean.getDiaDiemKham());
             params.add(bean.getDoiTuong());
+            
+            params.add(bean.getCtGddb());
+            params.add(bean.getCtCsgn());
+            
         } catch (Exception exp) {
             if (AppConfigs.APP_DEBUG)
                 throw new EException(LOCATION, exp);
