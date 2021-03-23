@@ -300,7 +300,7 @@ public class DReportKpiChart extends FExportExcel{
             
             JFreeChart lineChartObject  = ChartFactory.createLineChart(
                      beanTemp.ncrToString("K&#7871;t qu&#7843; can thi&#7879;p PHCN"),                    
-                     beanTemp.ncrToString("T&#225;i &#273;&#225;nh gi&#225; 3 l&#7847;n g&#7847;n nh&#7845;t"),    // X
+                     beanTemp.ncrToString("T&#225;i &#273;&#225;nh gi&#225; g&#7847;n nh&#7845;t"),    // X
                      beanTemp.ncrToString("% thay &#273;&#7893;i so v&#7899;i &#273;/gi&#225; ban &#273;&#7847;u"), // Y
                      createDataset(nktId, beanTemp.ncrToString("% thay &#273;&#7893;i so v&#7899;i &#273;/gi&#225; ban &#273;&#7847;u ng&#224;y :")),
                      PlotOrientation.VERTICAL,
@@ -369,7 +369,7 @@ public class DReportKpiChart extends FExportExcel{
     
     private DefaultCategoryDataset createDataset(int nktId, String label) throws EException {
          DefaultCategoryDataset dataset = new DefaultCategoryDataset( );         
-         List<Date> listDate = new BDataRank().getTimeSupport(nktId, 4, 0);         
+         List<Date> listDate = new BDataRank().getTimeSupport(nktId, 100, 0);         
          if (listDate!=null && listDate.size()>0) {
               String createDate = Formater.date2str(listDate.get(0));
               for (int i=1; i<listDate.size(); i++) {
